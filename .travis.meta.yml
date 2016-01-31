@@ -1,0 +1,11 @@
+language: haskell-multi-ghc
+
+env:
+  - GHCVER=7.10.3 CABALVER=1.22 PEDANTIC=YES
+
+matrix:
+  fast_finish: true
+
+branches:
+  only:
+    - master
