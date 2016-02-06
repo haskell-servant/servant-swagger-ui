@@ -41,26 +41,14 @@ newtype CatName = CatName Text
     deriving (Eq, Show, Generic, FromText)
 
 instance ToJSON CatName where
-    toJSON (CatName name) = toJSON name
+    toJSON (CatName n) = toJSON n
 
 instance IsString CatName where
     fromString = CatName . fromString
 
 instance ToParamSchema CatName
-
-instance ToSchema Cat where
-  declareNamedSchema proxy = do
-    (name, schema) <- genericDeclareNamedSchema defaultSchemaOptions proxy
-    return (name, schema
-      & schemaDescription ?~ "This is some cat"
-      & schemaExample ?~ toJSON (Cat "Felix" True))
-
-instance ToSchema CatName where
-  declareNamedSchema proxy = do
-    (name, schema) <- genericDeclareNamedSchema defaultSchemaOptions proxy
-    return (name, schema
-      & schemaDescription ?~ "This is some cat name"
-      & schemaExample ?~ toJSON (CatName "Felix"))
+instance ToSchema Cat
+instance ToSchema CatName
 
 ---
 
@@ -87,15 +75,15 @@ server =
     :<|> pure swaggerDoc
     :<|> swaggerUIServer
   where
-    catEndpoint name = pure $ Cat name False
+    catEndpoint n = pure $ Cat n False
 
 -- Boilerplate
 
 swaggerDoc :: Swagger
 swaggerDoc = toSwagger (Proxy :: Proxy BasicAPI)
-    & info.infoTitle   .~ "Cats API"
-    & info.infoVersion .~ "2016.1.31"
-    & info.infoDescription ?~ "This is an API that tests servant-swagger support "
+    & info.title       .~ "Cats API"
+    & info.version     .~ "2016.2.6"
+    & info.description ?~ "This is an API that tests servant-swagger support "
 
 api :: Proxy API
 api = Proxy
@@ -108,6 +96,6 @@ main = do
     args <- getArgs
     case args of
         ("run":_) -> do
-            port <- fromMaybe 8000 . (>>= readMaybe) <$> lookupEnv "PORT"
-            Warp.run port app
+            p <- fromMaybe 8000 . (>>= readMaybe) <$> lookupEnv "PORT"
+            Warp.run p app
         _ -> putStrLn "To run, pass 'run' argument"
