@@ -53,5 +53,5 @@ makeEmbeddedEntry (path, bs) = [| (path, $(bytestringE $ BL.toStrict bs)) |]
 -- > staticApp $ defaultFileServerSettings "static"
 mkRecursiveEmbedded :: FilePath -> Q Exp
 mkRecursiveEmbedded topdir = do
-  pairs <- runIO $ makeAllRelative topdir <$> getRecursiveContents topdir
+  pairs <- runIO $ fmap (makeAllRelative topdir) $ getRecursiveContents topdir
   listE $ map makeEmbeddedEntry pairs

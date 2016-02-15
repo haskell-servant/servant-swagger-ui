@@ -2,6 +2,6 @@ resolver: lts-5.1
 packages:
 - '.'
 extra-deps:
+- servant-swagger-1.0.3
 - swagger2-2.0.1
-- servant-swagger-1.0.1
 flags: {}
