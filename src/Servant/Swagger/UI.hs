@@ -1,3 +1,4 @@
+{-# LANGUAGE ConstraintKinds            #-}
 {-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE DeriveGeneric              #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
@@ -103,7 +104,7 @@ instance (IsElem endpoint api, HasLink endpoint, MkLink endpoint ~ URI)
         url = T.pack $ "/" <> uriPath uri -- TODO: do we need more?
 
 swaggerUIServer :: Server (SwaggerUI dir endpoint api)
-swaggerUIServer = pure SwaggerUiHtml :<|> pure SwaggerUiHtml :<|> rest
+swaggerUIServer = return SwaggerUiHtml :<|> return SwaggerUiHtml :<|> rest
   where rest = staticApp $ embeddedSettings swaggerUiFiles
 
 swaggerUiIndexTemplate :: T.Text

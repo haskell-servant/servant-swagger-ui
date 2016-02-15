@@ -71,11 +71,11 @@ type instance IsElem' e API = IsElem e API'
 -- Implementation
 server :: Server API
 server =
-    (pure "Hello World" :<|> catEndpoint)
-    :<|> pure swaggerDoc
+    (return "Hello World" :<|> catEndpoint)
+    :<|> return swaggerDoc
     :<|> swaggerUIServer
   where
-    catEndpoint n = pure $ Cat n False
+    catEndpoint n = return $ Cat n False
 
 -- Boilerplate
 
@@ -96,6 +96,6 @@ main = do
     args <- getArgs
     case args of
         ("run":_) -> do
-            p <- fromMaybe 8000 . (>>= readMaybe) <$> lookupEnv "PORT"
+            p <- fmap (fromMaybe 8000 . (>>= readMaybe)) $ lookupEnv "PORT"
             Warp.run p app
         _ -> putStrLn "To run, pass 'run' argument"
