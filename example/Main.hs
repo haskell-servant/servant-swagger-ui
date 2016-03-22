@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP                        #-}
 {-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE DeriveGeneric              #-}
 {-# LANGUAGE FlexibleInstances          #-}
@@ -38,7 +39,13 @@ instance ToJSON Cat where
     toJSON (Cat n g) = object [ "catName" .= n , "catIsMale" .= g]
 
 newtype CatName = CatName Text
-    deriving (Eq, Show, Generic, FromText)
+    deriving ( Eq, Show, Generic
+#if MIN_VERSION_servant(0,5,0)
+             , FromHttpApiData
+#else
+             , FromText
+#endif
+             )
 
 instance ToJSON CatName where
     toJSON (CatName n) = toJSON n
@@ -62,7 +69,11 @@ type API' = BasicAPI
     :<|> SwaggerSchemaEndpoint
     :<|> SwaggerUI "ui" SwaggerSchemaEndpoint API
 
-instance HasServer API where
+instance HasServer API
+#if MIN_VERSION_servant(0,5,0)
+                   context
+#endif
+  where
   type ServerT API m = ServerT API' m
   route _ = route (Proxy :: Proxy API')
 
