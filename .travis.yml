@@ -45,7 +45,7 @@ script:
 matrix:
   fast_finish: true
   include:
-  - env: GHCVER=7.8.4 CABALVER=1.18
+  - env: GHCVER=7.8.4  CABALVER=1.18 CABALCONFIG=servant-0.4-cabal.config
     addons:
       apt:
         sources:
@@ -54,8 +54,8 @@ matrix:
         - cabal-install-1.18
         - ghc-7.8.4
         - libgmp-dev
-    compiler: ! ': # ghc-7.8.4 cabal-1.18'
-  - env: GHCVER=7.10.3 CABALVER=1.22 PEDANTIC=YES
+    compiler: ! ': # ghc-7.8.4 cabal-1.18  servant-0.4-cabal.config'
+  - env: GHCVER=7.10.3 CABALVER=1.22 CABALCONFIG=servant-0.4-cabal.config PEDANTIC=YES
     addons:
       apt:
         sources:
@@ -64,7 +64,27 @@ matrix:
         - cabal-install-1.22
         - ghc-7.10.3
         - libgmp-dev
-    compiler: ! ': # ghc-7.10.3 cabal-1.22'
+    compiler: ! ': # ghc-7.10.3 cabal-1.22  servant-0.4-cabal.config'
+  - env: GHCVER=7.8.4  CABALVER=1.18 CABALCONFIG=servant-0.5-cabal.config
+    addons:
+      apt:
+        sources:
+        - hvr-ghc
+        packages:
+        - cabal-install-1.18
+        - ghc-7.8.4
+        - libgmp-dev
+    compiler: ! ': # ghc-7.8.4 cabal-1.18  servant-0.5-cabal.config'
+  - env: GHCVER=7.10.3 CABALVER=1.22 CABALCONFIG=servant-0.5-cabal.config PEDANTIC=YES
+    addons:
+      apt:
+        sources:
+        - hvr-ghc
+        packages:
+        - cabal-install-1.22
+        - ghc-7.10.3
+        - libgmp-dev
+    compiler: ! ': # ghc-7.10.3 cabal-1.22  servant-0.5-cabal.config'
 branches:
   only:
   - master
