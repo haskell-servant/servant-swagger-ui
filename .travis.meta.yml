@@ -5,6 +5,8 @@ env:
   - GHCVER=7.10.3 CABALVER=1.22 CABALCONFIG=servant-0.4-cabal.config PEDANTIC=YES
   - GHCVER=7.8.4  CABALVER=1.18 CABALCONFIG=servant-0.5-cabal.config
   - GHCVER=7.10.3 CABALVER=1.22 CABALCONFIG=servant-0.5-cabal.config PEDANTIC=YES
+  - GHCVER=7.8.4  CABALVER=1.18 CABALCONFIG=servant-0.6-cabal.config
+  - GHCVER=7.10.3 CABALVER=1.22 CABALCONFIG=servant-0.6-cabal.config PEDANTIC=YES
 
 matrix:
   fast_finish: true
