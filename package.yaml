@@ -26,8 +26,8 @@ dependencies:
   - servant           >=0.4.4.5  && <0.8
   - servant-blaze     >=0.4.4.5  && <0.8
   - servant-server    >=0.4.4.5  && <0.8
-  - servant-swagger   >=1.0.3    && <1.1
-  - swagger2          >=2.0.1    && <2.1
+  - servant-swagger   >=1.0.3    && <1.2
+  - swagger2          >=2.0.1    && <2.2
   - template-haskell  >=2.9      && <2.12
   - text              >=1.2.0.6  && <1.3
   - wai-app-static   >=3.0.1.1   && <3.2
