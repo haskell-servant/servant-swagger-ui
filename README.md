@@ -9,4 +9,6 @@
 
 ## Example
 
+![example screenshot](https://raw.githubusercontent.com/phadej/servant-swagger-ui/master/screenshot.png)
+
 Check [`example/Main.hs`](https://github.com/phadej/servant-swagger-ui/blob/master/example/Main.hs) for an example.

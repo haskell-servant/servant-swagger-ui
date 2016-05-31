@@ -1,1 +1,10 @@
-stack-lts-5.yaml
+resolver: nightly-2016-05-29
+packages:
+- '.'
+- location:
+    git: https://github.com/phadej/servant-swagger.git
+    commit: 16d428ee320b1afba5146da3e30276d2da760d09
+  extra-dep: true
+extra-deps:
+- swagger2-2.1
+flags: {}

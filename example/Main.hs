@@ -61,6 +61,8 @@ instance ToSchema CatName
 
 type BasicAPI = Get '[PlainText, JSON] Text
     :<|> "cat" :> Capture ":name" CatName :> Get '[JSON] Cat
+    :<|> "cat2" :> Capture ":name" CatName :> Get '[JSON] Cat
+    :<|> "cat3" :> Capture ":name" CatName :> Get '[JSON] Cat
 
 type SwaggerSchemaEndpoint = "swagger.js" :> Get '[JSON] Swagger
 
@@ -82,7 +84,7 @@ type instance IsElem' e API = IsElem e API'
 -- Implementation
 server :: Server API
 server =
-    (return "Hello World" :<|> catEndpoint)
+    (return "Hello World" :<|> catEndpoint :<|> catEndpoint :<|> catEndpoint)
     :<|> return swaggerDoc
     :<|> swaggerUIServer
   where

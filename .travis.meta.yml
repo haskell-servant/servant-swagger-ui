@@ -1,14 +1,20 @@
 language: haskell-multi-ghc
 
 env:
-  - GHCVER=7.8.4  CABALVER=1.18 CABALCONFIG=servant-0.4-cabal.config
+  - GHCVER=8.0.1 CABALVER=1.24 CABALCONFIG=swagger2-2.1-cabal.config PEDANTIC=YES
+  - GHCVER=8.0.1 CABALVER=1.24 CABALCONFIG=servant-0.7-cabal.config PEDANTIC=YES
+
+  - GHCVER=7.10.3 CABALVER=1.22 CABALCONFIG=swagger2-2.1-cabal.config PEDANTIC=YES
+  - GHCVER=7.10.3 CABALVER=1.22 CABALCONFIG=swagger2-2.0-cabal.config PEDANTIC=YES
   - GHCVER=7.10.3 CABALVER=1.22 CABALCONFIG=servant-0.4-cabal.config PEDANTIC=YES
-  - GHCVER=7.8.4  CABALVER=1.18 CABALCONFIG=servant-0.5-cabal.config
   - GHCVER=7.10.3 CABALVER=1.22 CABALCONFIG=servant-0.5-cabal.config PEDANTIC=YES
-  - GHCVER=7.8.4  CABALVER=1.18 CABALCONFIG=servant-0.6-cabal.config
   - GHCVER=7.10.3 CABALVER=1.22 CABALCONFIG=servant-0.6-cabal.config PEDANTIC=YES
-  - GHCVER=7.8.4  CABALVER=1.18 CABALCONFIG=servant-0.7-cabal.config
   - GHCVER=7.10.3 CABALVER=1.22 CABALCONFIG=servant-0.7-cabal.config PEDANTIC=YES
+
+  - GHCVER=7.8.4  CABALVER=1.18 CABALCONFIG=servant-0.4-cabal.config
+  - GHCVER=7.8.4  CABALVER=1.18 CABALCONFIG=servant-0.5-cabal.config
+  - GHCVER=7.8.4  CABALVER=1.18 CABALCONFIG=servant-0.6-cabal.config
+  - GHCVER=7.8.4  CABALVER=1.18 CABALCONFIG=servant-0.7-cabal.config
 
 matrix:
   fast_finish: true
