@@ -88,7 +88,7 @@ library
     , swagger2          >=2.0.1    && <2.2
     , template-haskell  >=2.9      && <2.12
     , text              >=1.2.0.6  && <1.3
-    , wai-app-static    >=3.0.1.1   && <3.2
+    , wai-app-static    >=3.0.1.1  && <3.2
   exposed-modules:
       Servant.Swagger.UI
       Servant.Swagger.UI.Internal
@@ -115,7 +115,7 @@ test-suite example
     , swagger2          >=2.0.1    && <2.2
     , template-haskell  >=2.9      && <2.12
     , text              >=1.2.0.6  && <1.3
-    , wai-app-static    >=3.0.1.1   && <3.2
+    , wai-app-static    >=3.0.1.1  && <3.2
     , servant-swagger-ui
     , servant-server >=0.4.4.5  && <0.8
     , aeson          >=0.8.0.2  && <0.12
