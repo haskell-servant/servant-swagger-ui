@@ -24,42 +24,44 @@
 -- /An example:/
 --
 -- @
--- -- | Actual API
+-- -- | Actual API.
 -- type BasicAPI = Get '[PlainText, JSON] Text
 --     :\<|> "cat" :> Capture ":name" CatName :> Get '[JSON] Cat
 --
--- -- | Swagger schema endpoint
+-- -- | Swagger schema endpoint.
 -- type SwaggerSchemaEndpoint = "swagger.js" :> Get '[JSON] Swagger
 --
 -- -- | Unhabitated new data type, to be able to refer to API type from the API type.
 -- data API
 --
--- -- | Underlying API type
--- type API' = BasicAPI
---     :\<|> SwaggerSchemaEndpoint
+-- -- | Underlying API type.
+-- --
+-- -- NOTE: place BasicAPI last for it not to override SwaggerSchemaEndpoing and SwaggerUI.
+-- -- If you place BasicAPI first and it has Raw endpoint at root Swagger schema and UI won't work.
+-- type API' = SwaggerSchemaEndpoint
 --     :\<|> 'SwaggerUI' "ui" SwaggerSchemaEndpoint API
---
--- -- Unfortunately we have to write those trivial instances.
+--     :\<|> BasicAPI
 --
 -- -- Optionally we can do:
--- -- data API'= BasicAPI
--- --     :\<|> SwaggerSchemaEndpoint
 -- --
--- -- | Underlying API type
--- -- type API = API'
--- --     :\<|> SwaggerUI "ui" SwaggerSchemaEndpoint API'
+-- -- type API' = SwaggerSchemaEndpoint
+-- --     :\<|> BasicAPI
+-- --
+-- -- type API = SwaggerUI "ui" SwaggerSchemaEndpoint API'
+-- --     :\<|> API'
 --
--- instance HasServer API where
+-- -- Unfortunately we have to write these trivial instances.
+--
+-- instance HasServer API context where
 --   type ServerT API m = ServerT API' m
 --   route _ = route (Proxy :: Proxy API')
 --
 -- type instance IsElem' e API = IsElem e API'
 --
 -- server :: Server API
--- server =
---     (pure "Hello World" :\<|> catEndpoint)
---     :\<|> pure swaggerDoc
+-- server = pure swaggerDoc
 --     :\<|> 'swaggerUIServer'
+--     :\<|> (pure "Hello World" :\<|> catEndpoint)
 --   where
 --     catEndpoint name = pure $ Cat name False
 -- @
@@ -103,6 +105,7 @@ instance (IsElem endpoint api, HasLink endpoint, MkLink endpoint ~ URI)
         uri = safeLink (Proxy :: Proxy api) (Proxy :: Proxy endpoint) :: URI
         url = T.pack $ "/" <> uriPath uri -- TODO: do we need more?
 
+-- | Serve Swagger UI on @/<dir>@ using @endpoint@ as Swagger spec source for @api@.
 swaggerUIServer :: Server (SwaggerUI dir endpoint api)
 swaggerUIServer = return SwaggerUiHtml :<|> return SwaggerUiHtml :<|> rest
   where rest = staticApp $ embeddedSettings swaggerUiFiles
