@@ -67,9 +67,9 @@ type BasicAPI = Get '[PlainText, JSON] Text
 type SwaggerSchemaEndpoint = "swagger.js" :> Get '[JSON] Swagger
 
 data API
-type API' = BasicAPI
-    :<|> SwaggerSchemaEndpoint
+type API' = SwaggerSchemaEndpoint
     :<|> SwaggerUI "ui" SwaggerSchemaEndpoint API
+    :<|> BasicAPI
 
 instance HasServer API
 #if MIN_VERSION_servant(0,5,0)
@@ -83,10 +83,9 @@ type instance IsElem' e API = IsElem e API'
 
 -- Implementation
 server :: Server API
-server =
-    (return "Hello World" :<|> catEndpoint :<|> catEndpoint :<|> catEndpoint)
-    :<|> return swaggerDoc
+server = return swaggerDoc
     :<|> swaggerUIServer
+    :<|> (return "Hello World" :<|> catEndpoint :<|> catEndpoint :<|> catEndpoint)
   where
     catEndpoint n = return $ Cat n False
 
