@@ -114,4 +114,4 @@ swaggerUiIndexTemplate :: T.Text
 swaggerUiIndexTemplate = $(embedStringFile "index.html.tmpl")
 
 swaggerUiFiles :: [(FilePath, ByteString)]
-swaggerUiFiles = $(mkRecursiveEmbedded "swagger-dist-2.1.4")
+swaggerUiFiles = $(mkRecursiveEmbedded "swagger-dist-2.1.5")

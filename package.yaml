@@ -1,5 +1,5 @@
 name: servant-swagger-ui
-version: 0.1.1.2.1.4
+version: 0.1.1.2.1.5
 synopsis: Servant swagger ui
 description: Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
 author: Oleg Grenrus <oleg.grenrus@iki.fi>
@@ -12,7 +12,7 @@ extra-source-files:
 - README.md
 - CHANGELOG.md
 - index.html.tmpl
-- swagger-dist-2.1.4/**/*
+- swagger-dist-2.1.5/**/*
 
 ghc-options: -Wall
 
