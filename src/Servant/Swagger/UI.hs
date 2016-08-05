@@ -71,7 +71,8 @@ module Servant.Swagger.UI (
     SwaggerUI,
     swaggerUIServer,
     -- * Internals
-    SwaggerUiHtml(..),
+    SwaggerUiHtml,
+    SwaggerUiHtml',
     ) where
 
 import Data.ByteString                (ByteString)
@@ -88,27 +89,29 @@ import qualified Data.Text as T
 
 -- | Swagger API ui.
 type SwaggerUI (dir :: Symbol) endpoint api = dir :>
-    ( Get '[HTML] (SwaggerUiHtml dir endpoint api) :<|>
-     "index.html" :> Get '[HTML] (SwaggerUiHtml dir endpoint api) :<|>
+    ( Get '[HTML] (SwaggerUiHtml' dir endpoint api) :<|>
+     "index.html" :> Get '[HTML] (SwaggerUiHtml' dir endpoint api) :<|>
      Raw)
 
 -- | Index file for swagger ui.
 --
 -- It's configured by the location of swagger schema.
-data SwaggerUiHtml (dir :: Symbol) endpoint api = SwaggerUiHtml
+type SwaggerUiHtml = SwaggerUiHtml' ""
+
+data SwaggerUiHtml' (dir :: Symbol) endpoint api = SwaggerUiHtml'
 
 instance (KnownSymbol dir, IsElem endpoint api, HasLink endpoint, MkLink endpoint ~ URI)
-    => ToMarkup (SwaggerUiHtml dir endpoint api) where
+    => ToMarkup (SwaggerUiHtml' dir endpoint api) where
     toMarkup _ = preEscapedToMarkup $
         T.replace "\"SWAGGER_URL_PLACEHOLDER\"" replaceJS swaggerUiIndexTemplate
       where
-        replaceJS = T.pack $ "window.location.pathname.replace(/[\\\\\\/]" <> (symbolVal (Proxy :: Proxy dir)) <> "([\\\\\\/](index.html)?)?$/, " <> show url <> ")"
+        replaceJS = T.pack $ "window.location.pathname.replace(/[\\\\\\/]?" <> (symbolVal (Proxy :: Proxy dir)) <> "([\\\\\\/](index.html)?)?$/, " <> show url <> ")"
         uri = safeLink (Proxy :: Proxy api) (Proxy :: Proxy endpoint) :: URI
         url = "/" <> uriPath uri -- TODO: do we need more?
 
 -- | Serve Swagger UI on @/<dir>@ using @endpoint@ as Swagger spec source for @api@.
 swaggerUIServer :: Server (SwaggerUI dir endpoint api)
-swaggerUIServer = return SwaggerUiHtml :<|> return SwaggerUiHtml :<|> rest
+swaggerUIServer = return SwaggerUiHtml' :<|> return SwaggerUiHtml' :<|> rest
   where rest = staticApp $ embeddedSettings swaggerUiFiles
 
 swaggerUiIndexTemplate :: T.Text
