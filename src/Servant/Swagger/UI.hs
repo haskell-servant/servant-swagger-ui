@@ -98,6 +98,10 @@ type SwaggerUI (dir :: Symbol) endpoint api = dir :>
 -- It's configured by the location of swagger schema.
 type SwaggerUiHtml = SwaggerUiHtml' ""
 
+-- | Index file for swagger UI that can be nested.
+--
+-- It forms URI for swagger.json dropping the end of the location path.
+-- E.g "localhost:8000/nested/<dir>/index.html" is replaced with "localhost:8000/nested/swagger.json".
 data SwaggerUiHtml' (dir :: Symbol) endpoint api = SwaggerUiHtml'
 
 instance (KnownSymbol dir, IsElem endpoint api, HasLink endpoint, MkLink endpoint ~ URI)
