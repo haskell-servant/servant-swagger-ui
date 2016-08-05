@@ -32,6 +32,14 @@
   <!-- <script src='lang/en.js' type='text/javascript'></script> -->
 
   <script type="text/javascript">
+    // servant-swagger-ui: redirect to location with a trailing slash
+    // we need this because assets are served from relative paths
+    if (window.location.href[window.location.href.length - 1] !== '/') {
+      window.location.href = window.location.href + '/';
+    }
+  </script>
+
+  <script type="text/javascript">
     $(function () {
       var url = window.location.search.match(/url=([^&]+)/);
       if (url && url.length > 1) {
