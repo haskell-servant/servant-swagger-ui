@@ -71,13 +71,14 @@ module Servant.Swagger.UI (
     SwaggerUI,
     swaggerUIServer,
     -- * Internals
-    SwaggerUiHtml(..),
+    SwaggerUiHtml,
+    SwaggerUiHtml',
     ) where
 
 import Data.ByteString                (ByteString)
 import Data.FileEmbed                 (embedStringFile)
 import Data.Monoid                    ((<>))
-import GHC.TypeLits                   (Symbol)
+import GHC.TypeLits                   (Symbol, KnownSymbol, symbolVal)
 import Network.Wai.Application.Static (embeddedSettings, staticApp)
 import Servant
 import Servant.HTML.Blaze             (HTML)
@@ -88,26 +89,33 @@ import qualified Data.Text as T
 
 -- | Swagger API ui.
 type SwaggerUI (dir :: Symbol) endpoint api = dir :>
-    ( Get '[HTML] (SwaggerUiHtml endpoint api) :<|>
-     "index.html" :> Get '[HTML] (SwaggerUiHtml endpoint api) :<|>
+    ( Get '[HTML] (SwaggerUiHtml' dir endpoint api) :<|>
+     "index.html" :> Get '[HTML] (SwaggerUiHtml' dir endpoint api) :<|>
      Raw)
 
 -- | Index file for swagger ui.
 --
 -- It's configured by the location of swagger schema.
-data SwaggerUiHtml endpoint api = SwaggerUiHtml
+type SwaggerUiHtml = SwaggerUiHtml' ""
 
-instance (IsElem endpoint api, HasLink endpoint, MkLink endpoint ~ URI)
-    => ToMarkup (SwaggerUiHtml endpoint api) where
+-- | Index file for swagger UI that can be nested.
+--
+-- It forms URI for swagger.json dropping the end of the location path.
+-- E.g "localhost:8000/nested/<dir>/index.html" is replaced with "localhost:8000/nested/swagger.json".
+data SwaggerUiHtml' (dir :: Symbol) endpoint api = SwaggerUiHtml'
+
+instance (KnownSymbol dir, IsElem endpoint api, HasLink endpoint, MkLink endpoint ~ URI)
+    => ToMarkup (SwaggerUiHtml' dir endpoint api) where
     toMarkup _ = preEscapedToMarkup $
-        T.replace "SWAGGER_URL_PLACEHOLDER" url swaggerUiIndexTemplate
+        T.replace "\"SWAGGER_URL_PLACEHOLDER\"" replaceJS swaggerUiIndexTemplate
       where
+        replaceJS = T.pack $ "window.location.pathname.replace(/[\\\\\\/]?" <> (symbolVal (Proxy :: Proxy dir)) <> "([\\\\\\/](index.html)?)?$/, " <> show url <> ")"
         uri = safeLink (Proxy :: Proxy api) (Proxy :: Proxy endpoint) :: URI
-        url = T.pack $ "/" <> uriPath uri -- TODO: do we need more?
+        url = "/" <> uriPath uri -- TODO: do we need more?
 
 -- | Serve Swagger UI on @/<dir>@ using @endpoint@ as Swagger spec source for @api@.
 swaggerUIServer :: Server (SwaggerUI dir endpoint api)
-swaggerUIServer = return SwaggerUiHtml :<|> return SwaggerUiHtml :<|> rest
+swaggerUIServer = return SwaggerUiHtml' :<|> return SwaggerUiHtml' :<|> rest
   where rest = staticApp $ embeddedSettings swaggerUiFiles
 
 swaggerUiIndexTemplate :: T.Text
