@@ -3,7 +3,7 @@
 -- see: https://github.com/sol/hpack
 
 name:           servant-swagger-ui
-version:        0.1.0.2.1.4
+version:        0.1.1.2.1.5
 synopsis:       Servant swagger ui
 description:    Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
 category:       Web
@@ -18,52 +18,57 @@ build-type:     Simple
 cabal-version:  >= 1.10
 
 extra-source-files:
+    CHANGELOG.md
     index.html.tmpl
     README.md
-    swagger-dist-2.1.4/css/print.css
-    swagger-dist-2.1.4/css/reset.css
-    swagger-dist-2.1.4/css/screen.css
-    swagger-dist-2.1.4/css/style.css
-    swagger-dist-2.1.4/css/typography.css
-    swagger-dist-2.1.4/fonts/DroidSans-Bold.ttf
-    swagger-dist-2.1.4/fonts/DroidSans.ttf
-    swagger-dist-2.1.4/images/collapse.gif
-    swagger-dist-2.1.4/images/expand.gif
-    swagger-dist-2.1.4/images/explorer_icons.png
-    swagger-dist-2.1.4/images/favicon-16x16.png
-    swagger-dist-2.1.4/images/favicon-32x32.png
-    swagger-dist-2.1.4/images/favicon.ico
-    swagger-dist-2.1.4/images/logo_small.png
-    swagger-dist-2.1.4/images/pet_store_api.png
-    swagger-dist-2.1.4/images/throbber.gif
-    swagger-dist-2.1.4/images/wordnik_api.png
-    swagger-dist-2.1.4/index.html.orig/index.html
-    swagger-dist-2.1.4/lang/en.js
-    swagger-dist-2.1.4/lang/es.js
-    swagger-dist-2.1.4/lang/fr.js
-    swagger-dist-2.1.4/lang/it.js
-    swagger-dist-2.1.4/lang/ja.js
-    swagger-dist-2.1.4/lang/pl.js
-    swagger-dist-2.1.4/lang/pt.js
-    swagger-dist-2.1.4/lang/ru.js
-    swagger-dist-2.1.4/lang/tr.js
-    swagger-dist-2.1.4/lang/translator.js
-    swagger-dist-2.1.4/lang/zh-cn.js
-    swagger-dist-2.1.4/lib/backbone-min.js
-    swagger-dist-2.1.4/lib/handlebars-2.0.0.js
-    swagger-dist-2.1.4/lib/highlight.7.3.pack.js
-    swagger-dist-2.1.4/lib/jquery-1.8.0.min.js
-    swagger-dist-2.1.4/lib/jquery.ba-bbq.min.js
-    swagger-dist-2.1.4/lib/jquery.slideto.min.js
-    swagger-dist-2.1.4/lib/jquery.wiggle.min.js
-    swagger-dist-2.1.4/lib/jsoneditor.min.js
-    swagger-dist-2.1.4/lib/marked.js
-    swagger-dist-2.1.4/lib/swagger-oauth.js
-    swagger-dist-2.1.4/lib/underscore-min.js
-    swagger-dist-2.1.4/lib/underscore-min.map
-    swagger-dist-2.1.4/o2c.html
-    swagger-dist-2.1.4/swagger-ui.js
-    swagger-dist-2.1.4/swagger-ui.min.js
+    swagger-dist-2.1.5/css/print.css
+    swagger-dist-2.1.5/css/reset.css
+    swagger-dist-2.1.5/css/screen.css
+    swagger-dist-2.1.5/css/style.css
+    swagger-dist-2.1.5/css/typography.css
+    swagger-dist-2.1.5/fonts/DroidSans-Bold.ttf
+    swagger-dist-2.1.5/fonts/DroidSans.ttf
+    swagger-dist-2.1.5/images/collapse.gif
+    swagger-dist-2.1.5/images/expand.gif
+    swagger-dist-2.1.5/images/explorer_icons.png
+    swagger-dist-2.1.5/images/favicon-16x16.png
+    swagger-dist-2.1.5/images/favicon-32x32.png
+    swagger-dist-2.1.5/images/favicon.ico
+    swagger-dist-2.1.5/images/logo_small.png
+    swagger-dist-2.1.5/images/pet_store_api.png
+    swagger-dist-2.1.5/images/throbber.gif
+    swagger-dist-2.1.5/images/wordnik_api.png
+    swagger-dist-2.1.5/lang/en.js
+    swagger-dist-2.1.5/lang/es.js
+    swagger-dist-2.1.5/lang/fr.js
+    swagger-dist-2.1.5/lang/geo.js
+    swagger-dist-2.1.5/lang/it.js
+    swagger-dist-2.1.5/lang/ja.js
+    swagger-dist-2.1.5/lang/ko-kr.js
+    swagger-dist-2.1.5/lang/pl.js
+    swagger-dist-2.1.5/lang/pt.js
+    swagger-dist-2.1.5/lang/ru.js
+    swagger-dist-2.1.5/lang/tr.js
+    swagger-dist-2.1.5/lang/translator.js
+    swagger-dist-2.1.5/lang/zh-cn.js
+    swagger-dist-2.1.5/lib/backbone-min.js
+    swagger-dist-2.1.5/lib/es5-shim.js
+    swagger-dist-2.1.5/lib/handlebars-2.0.0.js
+    swagger-dist-2.1.5/lib/highlight.9.1.0.pack.js
+    swagger-dist-2.1.5/lib/highlight.9.1.0.pack_extended.js
+    swagger-dist-2.1.5/lib/jquery-1.8.0.min.js
+    swagger-dist-2.1.5/lib/jquery.ba-bbq.min.js
+    swagger-dist-2.1.5/lib/jquery.slideto.min.js
+    swagger-dist-2.1.5/lib/jquery.wiggle.min.js
+    swagger-dist-2.1.5/lib/js-yaml.min.js
+    swagger-dist-2.1.5/lib/jsoneditor.min.js
+    swagger-dist-2.1.5/lib/lodash.min.js
+    swagger-dist-2.1.5/lib/marked.js
+    swagger-dist-2.1.5/lib/object-assign-pollyfill.js
+    swagger-dist-2.1.5/lib/swagger-oauth.js
+    swagger-dist-2.1.5/o2c.html
+    swagger-dist-2.1.5/swagger-ui.js
+    swagger-dist-2.1.5/swagger-ui.min.js
 
 source-repository head
   type: git

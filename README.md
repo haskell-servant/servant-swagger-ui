@@ -12,3 +12,12 @@
 ![example screenshot](https://raw.githubusercontent.com/phadej/servant-swagger-ui/master/screenshot.png)
 
 Check [`example/Main.hs`](https://github.com/phadej/servant-swagger-ui/blob/master/example/Main.hs) for an example.
+
+## Development
+
+### Updating of bundled swagger-ui version:
+
+- Extract `dist` directory of `swagger-ui` into `swagger-dist-&lt;version&gt;`
+- move `index.html` into `index.html.tmpl`, do the diff, port the changes
+- search replace the embbeded directory (in `Servant/Swagger/UI.hs`)
+- test it works
