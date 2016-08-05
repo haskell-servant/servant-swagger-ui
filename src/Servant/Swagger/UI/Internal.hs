@@ -19,8 +19,8 @@ import qualified Data.ByteString       as B
 import qualified Data.ByteString.Char8 as B8
 import qualified Data.ByteString.Lazy  as BL
 import           Language.Haskell.TH
-import           System.Directory      (doesDirectoryExist,
-                                        getDirectoryContents)
+import           System.Directory
+                 (doesDirectoryExist, getDirectoryContents)
 import           System.FilePath       (makeRelative, (</>))
 
 getRecursiveContents :: FilePath -> IO [(FilePath, BL.ByteString)]
