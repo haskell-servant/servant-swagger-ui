@@ -60,13 +60,13 @@ type BasicAPI = Get '[PlainText, JSON] Text
 
 type API =
     -- this serves both: swagger.json and swagger-ui
-    SwaggerSchemaUI "swagger.json" "swagger-ui"
+    SwaggerSchemaUI "swagger-ui" "swagger.json"
     :<|> BasicAPI
 
 -- To test nested case
 type API' = API
     :<|> "nested" :> API
-    :<|> SwaggerSchemaUI' ("foo" :> "swagger.json" :> Get '[JSON] Swagger) "foo-ui"
+    :<|> SwaggerSchemaUI' "foo-ui" ("foo" :> "swagger.json" :> Get '[JSON] Swagger)
 
 -- Implementation
 

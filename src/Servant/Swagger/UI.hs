@@ -71,7 +71,7 @@ import Control.Monad.Trans.Either (EitherT)
 
 -- | Swagger schema + ui api.
 --
--- @SwaggerSchemaUI "swagger.json" "swagger-ui"@ will result into following hierarchy:
+-- @SwaggerSchemaUI "swagger-ui" "swagger.json"@ will result into following hierarchy:
 --
 -- @
 -- \/swagger.json
@@ -80,12 +80,12 @@ import Control.Monad.Trans.Either (EitherT)
 -- \/swagger-ui\/...
 -- @
 --
-type SwaggerSchemaUI (schema :: Symbol) (dir :: Symbol) =
-    SwaggerSchemaUI' (schema :> Get '[JSON] Swagger) dir
+type SwaggerSchemaUI (dir :: Symbol) (schema :: Symbol) =
+    SwaggerSchemaUI' dir (schema :> Get '[JSON] Swagger)
 
 -- | Use 'SwaggerSchemaUI'' when you need even more control over
 -- where @swagger.json@ is served (e.g. subdirectory).
-type SwaggerSchemaUI' (api :: *) (dir :: Symbol) =
+type SwaggerSchemaUI' (dir :: Symbol) (api :: *) =
     api
     :<|> dir :>
         ( Get '[HTML] (SwaggerUiHtml dir api)
@@ -120,7 +120,7 @@ instance (KnownSymbol dir, HasLink api, URI ~ MkLink api, IsElem api api)
 -- @
 swaggerSchemaUIServer
     :: (Server api ~ ExceptT ServantErr IO Swagger)
-    => Swagger -> Server (SwaggerSchemaUI' api dir)
+    => Swagger -> Server (SwaggerSchemaUI' dir api)
 swaggerSchemaUIServer swagger = return swagger
     :<|> return SwaggerUiHtml
     :<|> return SwaggerUiHtml
