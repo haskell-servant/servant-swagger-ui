@@ -32,9 +32,12 @@
   <!-- <script src='lang/en.js' type='text/javascript'></script> -->
 
   <script type="text/javascript">
-    // servant-swagger-ui: redirect to location with a trailing slash
-    // we need this because assets are served from relative paths
-    if (window.location.href[window.location.href.length - 1] !== '/') {
+    if (window.location.href.match(/\/index.html\/$/)) {
+      // drop trailing slash in "index.html/"
+      window.location.href = window.location.href.replace(/.$/, "");
+    } else if (!window.location.href.match(/\/(?:index.html)?$/)) {
+      // servant-swagger-ui: redirect to location with a trailing slash
+      // we need this because assets are served from relative paths
       window.location.href = window.location.href + '/';
     }
   </script>
@@ -46,7 +49,13 @@
         url = decodeURIComponent(url[1]);
       } else {
         // servant-swagger-ui addition
-        url = "SWAGGER_URL_PLACEHOLDER";
+        var ssuDir = "SERVANT_SWAGGER_UI_DIR";
+        var ssuSchema = "SERVANT_SWAGGER_UI_SCHEMA";
+        // more concretely:
+        // replace /swagger-ui/ or /swagger-ui/index.html with /swagger.json
+        // we always have trailing slash!
+        var re = new RegExp("\/" + ssuDir + "/(?:index\\.html)?$","g");
+        url = window.location.pathname.replace(re, "/" + ssuSchema);
       }
 
       hljs.configure({
