@@ -118,4 +118,4 @@ main = do
         ("run":_) -> do
             p <- fmap (fromMaybe 8000 . (>>= readMaybe)) $ lookupEnv "PORT"
             Warp.run p app
-        _ -> putStrLn "To run, pass 'run' argument"
+        _ -> putStrLn "To run the example server, pass 'run' argument"
