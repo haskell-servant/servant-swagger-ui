@@ -116,6 +116,9 @@ main = do
     args <- getArgs
     case args of
         ("run":_) -> do
-            p <- fmap (fromMaybe 8000 . (>>= readMaybe)) $ lookupEnv "PORT"
-            Warp.run p app
-        _ -> putStrLn "To run the example server, pass 'run' argument"
+            port <- fromMaybe 8000 . (>>= readMaybe) <$> lookupEnv "PORT"
+            putStrLn $ "http://localhost:" ++ show port ++ "/"
+            Warp.run port app
+        _ -> do
+            putStrLn "Example application, used as a compilation check"
+            putStrLn "To run, pass run argument: --test-arguments run"
