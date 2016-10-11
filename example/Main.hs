@@ -12,6 +12,9 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 module Main (main, catIsMale, catName) where
 
+import Prelude        ()
+import Prelude.Compat
+
 import Control.Lens       hiding ((.=))
 import Data.Aeson         (ToJSON)
 import Data.Maybe         (fromMaybe)
