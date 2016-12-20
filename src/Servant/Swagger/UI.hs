@@ -46,8 +46,20 @@ module Servant.Swagger.UI (
     SwaggerSchemaUI,
     SwaggerSchemaUI',
     swaggerSchemaUIServer,
+    jensolegSwaggerSchemaUIServer,
     -- * Internals
+    --
+    -- /Note:/ in next major version, these will be moved to separate module.
     SwaggerUiHtml(..),
+    swaggerSchemaUIServerImpl,
+    -- ** Official swagger ui
+    swaggerUiIndexTemplate,
+    swaggerUiFiles,
+    -- ** jensoleg theme
+    --
+    -- Current version: @79f3bba07b070cfab1d8c245c4f9229052e20a1a@
+    jensolegIndexTemplate,
+    jensolegFiles,
     ) where
 
 import Data.ByteString                (ByteString)
@@ -99,15 +111,15 @@ type SwaggerSchemaUI' (dir :: Symbol) (api :: *) =
 --
 -- Implementation detail: the @index.html@ is prepopulated with parameters
 -- to find schema file automatically.
-data SwaggerUiHtml (dir :: Symbol) (api :: *) = SwaggerUiHtml
+data SwaggerUiHtml (dir :: Symbol) (api :: *) = SwaggerUiHtml T.Text
 
 instance (KnownSymbol dir, HasLink api, URI ~ MkLink api, IsElem api api)
     => ToMarkup (SwaggerUiHtml dir api)
   where
-    toMarkup _ = preEscapedToMarkup
+    toMarkup (SwaggerUiHtml template) = preEscapedToMarkup
         $ T.replace "SERVANT_SWAGGER_UI_SCHEMA" schema
         $ T.replace "SERVANT_SWAGGER_UI_DIR" dir
-        $ swaggerUiIndexTemplate
+        $ template
       where
         schema = T.pack $ uriPath $ safeLink proxyApi proxyApi
         dir    = T.pack $ symbolVal (Proxy :: Proxy dir)
@@ -121,15 +133,37 @@ instance (KnownSymbol dir, HasLink api, URI ~ MkLink api, IsElem api api)
 swaggerSchemaUIServer
     :: (Server api ~ ExceptT ServantErr IO Swagger)
     => Swagger -> Server (SwaggerSchemaUI' dir api)
-swaggerSchemaUIServer swagger = return swagger
-    :<|> return SwaggerUiHtml
-    :<|> return SwaggerUiHtml
+swaggerSchemaUIServer =
+    swaggerSchemaUIServerImpl swaggerUiIndexTemplate swaggerUiFiles
+
+-- | Serve alternative Swagger UI.
+--
+-- See <https://github.com/jensoleg/swagger-ui>
+jensolegSwaggerSchemaUIServer
+    :: (Server api ~ ExceptT ServantErr IO Swagger)
+    => Swagger -> Server (SwaggerSchemaUI' dir api)
+jensolegSwaggerSchemaUIServer =
+    swaggerSchemaUIServerImpl jensolegIndexTemplate jensolegFiles
+
+swaggerSchemaUIServerImpl
+    :: (Server api ~ ExceptT ServantErr IO Swagger)
+    => T.Text -> [(FilePath, ByteString)]
+    -> Swagger -> Server (SwaggerSchemaUI' dir api)
+swaggerSchemaUIServerImpl indexTemplate files swagger = return swagger
+    :<|> return (SwaggerUiHtml indexTemplate)
+    :<|> return (SwaggerUiHtml indexTemplate)
     :<|> rest
   where
-    rest = staticApp $ embeddedSettings swaggerUiFiles
+    rest = staticApp $ embeddedSettings files
 
 swaggerUiIndexTemplate :: T.Text
 swaggerUiIndexTemplate = $(embedStringFile "index.html.tmpl")
 
 swaggerUiFiles :: [(FilePath, ByteString)]
-swaggerUiFiles = $(mkRecursiveEmbedded "swagger-dist-2.1.5")
+swaggerUiFiles = $(mkRecursiveEmbedded "swagger-dist-2.2.8")
+
+jensolegIndexTemplate :: T.Text
+jensolegIndexTemplate = $(embedStringFile "jensoleg.index.html.tmpl")
+
+jensolegFiles :: [(FilePath, ByteString)]
+jensolegFiles = $(mkRecursiveEmbedded "jensoleg-dist")

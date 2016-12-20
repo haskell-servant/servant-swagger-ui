@@ -32,6 +32,13 @@ import Servant.Swagger.UI
 
 import qualified Network.Wai.Handler.Warp as Warp
 
+#if MIN_VERSION_servant(0,5,0)
+import Control.Monad.Trans.Except (ExceptT)
+#else
+import Control.Monad.Trans.Either (EitherT)
+#define ExceptT EitherT
+#endif
+
 -- data types
 data Cat = Cat { catName :: CatName, catIsMale :: Bool }
     deriving (Generic, Show)
@@ -80,18 +87,30 @@ data Variant
     | SpecDown
     deriving (Eq)
 
-server' :: Server API'
-server' = server Normal
+data UIFlavour
+    = Original
+    | JensOleG
+    deriving (Eq)
+
+server' :: UIFlavour -> Server API'
+server' uiFlavour = server Normal
     :<|> server Nested
-    :<|> swaggerSchemaUIServer (swaggerDoc' SpecDown)
+    :<|> schemaUiServer (swaggerDoc' SpecDown)
   where
     server :: Variant -> Server API
     server variant =
-        swaggerSchemaUIServer (swaggerDoc' variant)
+        schemaUiServer (swaggerDoc' variant)
         :<|> (return "Hello World" :<|> catEndpoint :<|> catEndpoint :<|> catEndpoint)
       where
         catEndpoint n = return $ Cat n (variant == Normal)
         -- Unfortunately we have to specify the basePath manually atm.
+
+    schemaUiServer
+        :: (Server api ~ ExceptT ServantErr IO Swagger)
+        => Swagger -> Server (SwaggerSchemaUI' dir api)
+    schemaUiServer = case uiFlavour of
+        Original -> swaggerSchemaUIServer
+        JensOleG -> jensolegSwaggerSchemaUIServer
 
     swaggerDoc' Normal    = swaggerDoc
     swaggerDoc' Nested    = swaggerDoc
@@ -111,17 +130,18 @@ swaggerDoc = toSwagger (Proxy :: Proxy BasicAPI)
 api :: Proxy API'
 api = Proxy
 
-app :: Application
-app = serve api server'
+app :: UIFlavour -> Application
+app = serve api . server'
 
 main :: IO ()
 main = do
     args <- getArgs
+    let uiFlavour = if "jensoleg" `elem` args then JensOleG else Original
     case args of
         ("run":_) -> do
-            port <- fromMaybe 8000 . (>>= readMaybe) <$> lookupEnv "PORT"
-            putStrLn $ "http://localhost:" ++ show port ++ "/"
-            Warp.run port app
+            p <- fromMaybe 8000 . (>>= readMaybe) <$> lookupEnv "PORT"
+            putStrLn $ "http://localhost:" ++ show p ++ "/"
+            Warp.run p (app uiFlavour)
         _ -> do
             putStrLn "Example application, used as a compilation check"
             putStrLn "To run, pass run argument: --test-arguments run"
