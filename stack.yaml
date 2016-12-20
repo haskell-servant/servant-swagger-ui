@@ -1,9 +1,5 @@
-resolver: nightly-2016-09-22
+resolver: nightly-2016-12-07
 packages:
 - '.'
-extra-deps:
-- http-api-data-0.3
-- servant-0.9
-- servant-server-0.9
-- uri-bytestring-0.2.2.0
+extra-deps: []
 flags: {}
