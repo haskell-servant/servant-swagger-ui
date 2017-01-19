@@ -1,6 +1,11 @@
 language: haskell-multi-ghc
 
 env:
+  - GHCVER=8.0.2 CABALVER=1.24 CABALCONFIG=swagger2-2.1-cabal.config
+  - GHCVER=8.0.2 CABALVER=1.24 CABALCONFIG=servant-0.9-cabal.config
+  - GHCVER=8.0.2 CABALVER=1.24 CABALCONFIG=servant-0.8-cabal.config
+  - GHCVER=8.0.2 CABALVER=1.24 CABALCONFIG=servant-0.7-cabal.config
+
   - GHCVER=8.0.1 CABALVER=1.24 CABALCONFIG=swagger2-2.1-cabal.config
   - GHCVER=8.0.1 CABALVER=1.24 CABALCONFIG=servant-0.9-cabal.config
   - GHCVER=8.0.1 CABALVER=1.24 CABALCONFIG=servant-0.8-cabal.config
