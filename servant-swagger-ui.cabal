@@ -134,7 +134,7 @@ library
   ghc-options: -Wall
   build-depends:
       base              >=4.7      && <4.10
-    , blaze-markup      >=0.7.0.2  && <0.8
+    , blaze-markup      >=0.7.0.2  && <0.9
     , bytestring        >=0.10.4.0 && <0.11
     , directory         >=1.2.1.0  && <1.4
     , file-embed        >=0.0.9    && <0.1
