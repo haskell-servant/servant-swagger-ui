@@ -32,12 +32,18 @@ import Servant.Swagger.UI
 
 import qualified Network.Wai.Handler.Warp as Warp
 
+#if MIN_VERSION_servant(0,7,0)
+-- do nothing
+#else
 #if MIN_VERSION_servant(0,5,0)
 import Control.Monad.Trans.Except (ExceptT)
+#define Handler ExceptT ServantErr IO
 #else
 import Control.Monad.Trans.Either (EitherT)
-#define ExceptT EitherT
+#define Handler EitherT ServantErr IO
 #endif
+#endif
+
 
 -- data types
 data Cat = Cat { catName :: CatName, catIsMale :: Bool }
@@ -106,7 +112,7 @@ server' uiFlavour = server Normal
         -- Unfortunately we have to specify the basePath manually atm.
 
     schemaUiServer
-        :: (Server api ~ ExceptT ServantErr IO Swagger)
+        :: (Server api ~ Handler Swagger)
         => Swagger -> Server (SwaggerSchemaUI' dir api)
     schemaUiServer = case uiFlavour of
         Original -> swaggerSchemaUIServer

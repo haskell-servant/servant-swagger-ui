@@ -1,3 +1,6 @@
+- 0.2.2.2.2.8
+    - Support `servant-0.10`
+
 - 0.2.1.2.2.8
     - Update to `swagger-ui-2.2.8`
     - Add support for [jensoleg](https://github.com/jensoleg/swagger-ui>) theme

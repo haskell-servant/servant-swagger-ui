@@ -74,11 +74,16 @@ import Text.Blaze                     (ToMarkup (..))
 
 import qualified Data.Text as T
 
+#if MIN_VERSION_servant(0,7,0)
+-- do nothing
+#else
 #if MIN_VERSION_servant(0,5,0)
 import Control.Monad.Trans.Except (ExceptT)
+#define Handler ExceptT ServantErr IO
 #else
 import Control.Monad.Trans.Either (EitherT)
-#define ExceptT EitherT
+#define Handler EitherT ServantErr IO
+#endif
 #endif
 
 -- | Swagger schema + ui api.
@@ -113,7 +118,15 @@ type SwaggerSchemaUI' (dir :: Symbol) (api :: *) =
 -- to find schema file automatically.
 data SwaggerUiHtml (dir :: Symbol) (api :: *) = SwaggerUiHtml T.Text
 
-instance (KnownSymbol dir, HasLink api, URI ~ MkLink api, IsElem api api)
+#if MIN_VERSION_servant(0,10,0)
+#define LINK Link
+#define LINKPATH uriPath . linkURI
+#else
+#define LINK URI
+#define LINKPATH uriPath
+#endif
+
+instance (KnownSymbol dir, HasLink api, LINK ~ MkLink api, IsElem api api)
     => ToMarkup (SwaggerUiHtml dir api)
   where
     toMarkup (SwaggerUiHtml template) = preEscapedToMarkup
@@ -121,7 +134,7 @@ instance (KnownSymbol dir, HasLink api, URI ~ MkLink api, IsElem api api)
         $ T.replace "SERVANT_SWAGGER_UI_DIR" dir
         $ template
       where
-        schema = T.pack $ uriPath $ safeLink proxyApi proxyApi
+        schema = T.pack $ LINKPATH $ safeLink proxyApi proxyApi
         dir    = T.pack $ symbolVal (Proxy :: Proxy dir)
         proxyApi = Proxy :: Proxy api
 
@@ -131,7 +144,7 @@ instance (KnownSymbol dir, HasLink api, URI ~ MkLink api, IsElem api api)
 -- swaggerSchemaUIServer :: Swagger -> Server (SwaggerSchemaUI schema dir)
 -- @
 swaggerSchemaUIServer
-    :: (Server api ~ ExceptT ServantErr IO Swagger)
+    :: (Server api ~ Handler Swagger)
     => Swagger -> Server (SwaggerSchemaUI' dir api)
 swaggerSchemaUIServer =
     swaggerSchemaUIServerImpl swaggerUiIndexTemplate swaggerUiFiles
@@ -140,13 +153,13 @@ swaggerSchemaUIServer =
 --
 -- See <https://github.com/jensoleg/swagger-ui>
 jensolegSwaggerSchemaUIServer
-    :: (Server api ~ ExceptT ServantErr IO Swagger)
+    :: (Server api ~ Handler Swagger)
     => Swagger -> Server (SwaggerSchemaUI' dir api)
 jensolegSwaggerSchemaUIServer =
     swaggerSchemaUIServerImpl jensolegIndexTemplate jensolegFiles
 
 swaggerSchemaUIServerImpl
-    :: (Server api ~ ExceptT ServantErr IO Swagger)
+    :: (Server api ~ Handler Swagger)
     => T.Text -> [(FilePath, ByteString)]
     -> Swagger -> Server (SwaggerSchemaUI' dir api)
 swaggerSchemaUIServerImpl indexTemplate files swagger = return swagger
