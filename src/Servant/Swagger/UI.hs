@@ -30,7 +30,7 @@
 --     :\<|> "cat" :> Capture ":name" CatName :> Get '[JSON] Cat
 --
 -- -- | API type with bells and whistles, i.e. schema file and swagger-ui.
--- type API = 'SwaggerSchemaUI' "swagger.json" "swagger-ui"
+-- type API = 'SwaggerSchemaUI' "swagger-ui" "swagger.json"
 --     :\<|> BasicAPI
 --
 -- -- | Servant server for an API
