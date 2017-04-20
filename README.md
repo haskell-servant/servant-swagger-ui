@@ -1,6 +1,8 @@
 # servant-swagger-ui
 
-> Servant support for yaml
+*Provide a Swagger UI for your Servant API*
+
+"[Swagger UI](http://swagger.io/swagger-ui/) allows anyone — be it your development team or your end consumers — to visualize and interact with the API’s resources without having any of the implementation logic in place."
 
 [![Build Status](https://travis-ci.org/phadej/servant-swagger-ui.svg?branch=master)](https://travis-ci.org/phadej/servant-swagger-ui)
 [![Hackage](https://img.shields.io/hackage/v/servant-swagger-ui.svg)](http://hackage.haskell.org/package/servant-swagger-ui)
