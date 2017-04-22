@@ -1,5 +1,7 @@
-resolver: nightly-2016-12-07
+resolver: lts-7.16
 packages:
 - '.'
 extra-deps: []
 flags: {}
+nix:
+    packages: [zlib]
