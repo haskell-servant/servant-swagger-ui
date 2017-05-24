@@ -1,3 +1,6 @@
+- 0.2.3.2.2.8
+    - Support `servant-0.11`
+
 - 0.2.2.2.2.8
     - Support `servant-0.10`
 
