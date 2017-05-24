@@ -167,7 +167,11 @@ swaggerSchemaUIServerImpl indexTemplate files swagger = return swagger
     :<|> return (SwaggerUiHtml indexTemplate)
     :<|> rest
   where
-    rest = staticApp $ embeddedSettings files
+    rest =
+#if MIN_VERSION_servant_server(0,11,0)
+        Tagged $
+#endif
+        staticApp $ embeddedSettings files
 
 swaggerUiIndexTemplate :: T.Text
 swaggerUiIndexTemplate = $(embedStringFile "index.html.tmpl")
