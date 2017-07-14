@@ -1,15 +1,16 @@
 name:           servant-swagger-ui
 version:        0.2.3.2.2.8
+x-revision:     1
 synopsis:       Servant swagger ui
 description:    Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
-category:       Web
+category:       Web, Servant, Swagger
 homepage:       https://github.com/phadej/servant-swagger-ui#readme
 bug-reports:    https://github.com/phadej/servant-swagger-ui/issues
 author:         Oleg Grenrus <oleg.grenrus@iki.fi>
 maintainer:     Oleg Grenrus <oleg.grenrus@iki.fi>
 license:        BSD3
 license-file:   LICENSE
-tested-with:    GHC==7.8.4, GHC==7.10.3, GHC==8.0.2
+tested-with:    GHC==7.8.4, GHC==7.10.3, GHC==8.0.2, GHC==8.2.1
 build-type:     Simple
 cabal-version:  >= 1.10
 
@@ -133,7 +134,7 @@ library
       src
   ghc-options: -Wall
   build-depends:
-      base              >=4.7      && <4.10
+      base              >=4.7      && <4.11
     , blaze-markup      >=0.7.0.2  && <0.9
     , bytestring        >=0.10.4.0 && <0.11
     , directory         >=1.2.1.0  && <1.4
@@ -145,7 +146,7 @@ library
     , servant-server    >=0.4.4.5  && <0.12
     , servant-swagger   >=1.0.3    && <1.2
     , swagger2          >=2.0.1    && <2.2
-    , template-haskell  >=2.9      && <2.12
+    , template-haskell  >=2.9      && <2.13
     , text              >=1.2.0.6  && <1.3
     , wai-app-static    >=3.0.1.1  && <3.2
   if flag(servant-0-5)
