@@ -1,6 +1,5 @@
 name:           servant-swagger-ui
-version:        0.2.3.2.2.8
-x-revision:     1
+version:        0.2.4.3.0.20
 synopsis:       Servant swagger ui
 description:    Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
 category:       Web, Servant, Swagger
@@ -16,7 +15,9 @@ cabal-version:  >= 1.10
 
 extra-source-files:
     CHANGELOG.md
-    index.html.tmpl
+    README.md
+
+    jensoleg.index.html.tmpl
     jensoleg-dist/css/api-explorer.css
     jensoleg-dist/css/index.css
     jensoleg-dist/css/print.css
@@ -66,59 +67,18 @@ extra-source-files:
     jensoleg-dist/swagger-ui.js
     jensoleg-dist/swagger-ui.min.js
     jensoleg-dist/swagger.json
-    jensoleg.index.html.tmpl
-    README.md
-    swagger-dist-2.2.8/css/print.css
-    swagger-dist-2.2.8/css/reset.css
-    swagger-dist-2.2.8/css/screen.css
-    swagger-dist-2.2.8/css/style.css
-    swagger-dist-2.2.8/css/typography.css
-    swagger-dist-2.2.8/fonts/DroidSans-Bold.ttf
-    swagger-dist-2.2.8/fonts/DroidSans.ttf
-    swagger-dist-2.2.8/images/collapse.gif
-    swagger-dist-2.2.8/images/expand.gif
-    swagger-dist-2.2.8/images/explorer_icons.png
-    swagger-dist-2.2.8/images/favicon-16x16.png
-    swagger-dist-2.2.8/images/favicon-32x32.png
-    swagger-dist-2.2.8/images/favicon.ico
-    swagger-dist-2.2.8/images/logo_small.png
-    swagger-dist-2.2.8/images/pet_store_api.png
-    swagger-dist-2.2.8/images/throbber.gif
-    swagger-dist-2.2.8/images/wordnik_api.png
-    swagger-dist-2.2.8/lang/ca.js
-    swagger-dist-2.2.8/lang/el.js
-    swagger-dist-2.2.8/lang/en.js
-    swagger-dist-2.2.8/lang/es.js
-    swagger-dist-2.2.8/lang/fr.js
-    swagger-dist-2.2.8/lang/geo.js
-    swagger-dist-2.2.8/lang/it.js
-    swagger-dist-2.2.8/lang/ja.js
-    swagger-dist-2.2.8/lang/ko-kr.js
-    swagger-dist-2.2.8/lang/pl.js
-    swagger-dist-2.2.8/lang/pt.js
-    swagger-dist-2.2.8/lang/ru.js
-    swagger-dist-2.2.8/lang/tr.js
-    swagger-dist-2.2.8/lang/translator.js
-    swagger-dist-2.2.8/lang/zh-cn.js
-    swagger-dist-2.2.8/lib/backbone-min.js
-    swagger-dist-2.2.8/lib/es5-shim.js
-    swagger-dist-2.2.8/lib/handlebars-4.0.5.js
-    swagger-dist-2.2.8/lib/highlight.9.1.0.pack.js
-    swagger-dist-2.2.8/lib/highlight.9.1.0.pack_extended.js
-    swagger-dist-2.2.8/lib/jquery-1.8.0.min.js
-    swagger-dist-2.2.8/lib/jquery.ba-bbq.min.js
-    swagger-dist-2.2.8/lib/jquery.slideto.min.js
-    swagger-dist-2.2.8/lib/jquery.wiggle.min.js
-    swagger-dist-2.2.8/lib/js-yaml.min.js
-    swagger-dist-2.2.8/lib/jsoneditor.min.js
-    swagger-dist-2.2.8/lib/lodash.min.js
-    swagger-dist-2.2.8/lib/marked.js
-    swagger-dist-2.2.8/lib/object-assign-pollyfill.js
-    swagger-dist-2.2.8/lib/sanitize-html.min.js
-    swagger-dist-2.2.8/lib/swagger-oauth.js
-    swagger-dist-2.2.8/o2c.html
-    swagger-dist-2.2.8/swagger-ui.js
-    swagger-dist-2.2.8/swagger-ui.min.js
+
+    index.html.tmpl
+    swagger-ui-dist-3.0.20/swagger-ui-bundle.js
+    swagger-ui-dist-3.0.20/swagger-ui-bundle.js.map
+    swagger-ui-dist-3.0.20/swagger-ui-standalone-preset.js.map
+    swagger-ui-dist-3.0.20/swagger-ui-standalone-preset.js
+    swagger-ui-dist-3.0.20/swagger-ui.css
+    swagger-ui-dist-3.0.20/favicon-16x16.png
+    swagger-ui-dist-3.0.20/swagger-ui.js.map
+    swagger-ui-dist-3.0.20/favicon-32x32.png
+    swagger-ui-dist-3.0.20/swagger-ui.js
+    swagger-ui-dist-3.0.20/swagger-ui.css.map
 
 source-repository head
   type: git
