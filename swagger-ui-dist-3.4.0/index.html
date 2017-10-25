@@ -8,17 +8,6 @@
   <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
   <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />
-  <!-- Script to reload .../swagger-ui to .../swagger-ui/ -->
-  <script type="text/javascript">
-    if (window.location.href.match(/\/index.html\/$/)) {
-      // drop trailing slash in "index.html/"
-      window.location.href = window.location.href.replace(/.$/, "");
-    } else if (!window.location.href.match(/\/(?:index.html)?$/)) {
-      // servant-swagger-ui: redirect to location with a trailing slash
-      // we need this because assets are served from relative paths
-      window.location.href = window.location.href + '/';
-    }
-  </script>
   <style>
     html
     {
@@ -82,18 +71,10 @@
 <script src="./swagger-ui-standalone-preset.js"> </script>
 <script>
 window.onload = function() {
-   // servant-swagger-ui addition
-  var ssuDir = "SERVANT_SWAGGER_UI_DIR";
-  var ssuSchema = "SERVANT_SWAGGER_UI_SCHEMA";
-  // more concretely:
-  // replace /swagger-ui/ or /swagger-ui/index.html with /swagger.json
-  // we always have trailing slash!
-  var re = new RegExp("\/" + ssuDir + "/(?:index\\.html)?$","g");
-  var url = window.location.pathname.replace(re, "/" + ssuSchema); 
-
+  
   // Build a system
   const ui = SwaggerUIBundle({
-    url: url,
+    url: "http://petstore.swagger.io/v2/swagger.json",
     dom_id: '#swagger-ui',
     deepLinking: true,
     presets: [
