@@ -16,7 +16,7 @@ import Prelude        ()
 import Prelude.Compat
 
 import Control.Lens       hiding ((.=))
-import Data.Aeson         (ToJSON)
+import Data.Aeson         (ToJSON, FromJSON)
 import Data.Maybe         (fromMaybe)
 import Data.String        (IsString (..))
 import Data.Text          (Text)
@@ -64,6 +64,8 @@ instance IsString CatName where
 -- swagger instances
 instance ToJSON Cat
 instance ToJSON CatName
+instance FromJSON Cat
+instance FromJSON CatName
 instance ToParamSchema CatName
 instance ToSchema Cat
 instance ToSchema CatName
@@ -73,6 +75,7 @@ type BasicAPI = Get '[PlainText, JSON] Text
     :<|> "cat" :> Capture ":name" CatName :> Get '[JSON] Cat
     :<|> "cat2" :> Capture ":name" CatName :> Get '[JSON] Cat
     :<|> "cat3" :> Capture ":name" CatName :> Get '[JSON] Cat
+    :<|> "post-cat" :> ReqBody '[JSON] Cat :> Get '[JSON] Cat
 
 type API =
     -- this serves both: swagger.json and swagger-ui
@@ -106,7 +109,7 @@ server' uiFlavour = server Normal
     server :: Variant -> Server API
     server variant =
         schemaUiServer (swaggerDoc' variant)
-        :<|> (return "Hello World" :<|> catEndpoint :<|> catEndpoint :<|> catEndpoint)
+        :<|> (return "Hello World" :<|> catEndpoint :<|> catEndpoint :<|> catEndpoint :<|> return)
       where
         catEndpoint n = return $ Cat n (variant == Normal)
         -- Unfortunately we have to specify the basePath manually atm.
