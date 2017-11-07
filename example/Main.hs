@@ -44,6 +44,11 @@ import Control.Monad.Trans.Either (EitherT)
 #endif
 #endif
 
+#if MIN_VERSION_servant(0,12,0)
+#define SUMMARY(d) Summary d :>
+#else
+#define SUMMARY(d)
+#endif
 
 -- data types
 data Cat = Cat { catName :: CatName, catIsMale :: Bool }
@@ -72,10 +77,10 @@ instance ToSchema CatName
 
 -- api
 type BasicAPI = Get '[PlainText, JSON] Text
-    :<|> "cat" :> Capture ":name" CatName :> Get '[JSON] Cat
-    :<|> "cat2" :> Capture ":name" CatName :> Get '[JSON] Cat
-    :<|> "cat3" :> Capture ":name" CatName :> Get '[JSON] Cat
-    :<|> "post-cat" :> ReqBody '[JSON] Cat :> Get '[JSON] Cat
+    :<|> SUMMARY("First cat") "cat" :> Capture ":name" CatName :> Get '[JSON] Cat
+    :<|> SUMMARY("Second cat") "cat2" :> Capture ":name" CatName :> Get '[JSON] Cat
+    :<|> SUMMARY("Third cat") "cat3" :> Capture ":name" CatName :> Get '[JSON] Cat
+    :<|> SUMMARY("Post endpoint") "post-cat" :> ReqBody '[JSON] Cat :> Get '[JSON] Cat
 
 type API =
     -- this serves both: swagger.json and swagger-ui
