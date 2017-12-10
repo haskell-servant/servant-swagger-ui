@@ -10,7 +10,7 @@ author:         Oleg Grenrus <oleg.grenrus@iki.fi>
 maintainer:     Oleg Grenrus <oleg.grenrus@iki.fi>
 license:        BSD3
 license-file:   LICENSE
-tested-with:    GHC==7.8.4, GHC==7.10.3, GHC==8.0.2, GHC==8.2.1
+tested-with:    GHC==7.8.4, GHC==7.10.3, GHC==8.0.2, GHC==8.2.2
 build-type:     Simple
 cabal-version:  >= 1.10
 
