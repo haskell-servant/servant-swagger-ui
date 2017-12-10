@@ -80,7 +80,7 @@ type BasicAPI = Get '[PlainText, JSON] Text
     :<|> SUMMARY("First cat") "cat" :> Capture ":name" CatName :> Get '[JSON] Cat
     :<|> SUMMARY("Second cat") "cat2" :> Capture ":name" CatName :> Get '[JSON] Cat
     :<|> SUMMARY("Third cat") "cat3" :> Capture ":name" CatName :> Get '[JSON] Cat
-    :<|> SUMMARY("Post endpoint") "post-cat" :> ReqBody '[JSON] Cat :> Get '[JSON] Cat
+    :<|> SUMMARY("Post endpoint") "post-cat" :> ReqBody '[JSON] Cat :> Post '[JSON] Cat
 
 type API =
     -- this serves both: swagger.json and swagger-ui
