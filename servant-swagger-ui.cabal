@@ -1,5 +1,5 @@
 name:           servant-swagger-ui
-version:        0.2.4.3.4.0
+version:        0.2.4.3.9.1
 x-revision:     1
 synopsis:       Servant swagger ui
 description:    Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
