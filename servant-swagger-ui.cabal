@@ -1,6 +1,5 @@
 name:           servant-swagger-ui
-version:        0.2.4.3.4.0
-x-revision:     1
+version:        0.2.4.3.9.1
 synopsis:       Servant swagger ui
 description:    Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
 category:       Web, Servant, Swagger
@@ -69,12 +68,18 @@ extra-source-files:
     jensoleg-dist/swagger.json
 
     index.html.tmpl
-    swagger-ui-dist-3.4.0/favicon-16x16.png
-    swagger-ui-dist-3.4.0/favicon-32x32.png
-    swagger-ui-dist-3.4.0/swagger-ui-bundle.js
-    swagger-ui-dist-3.4.0/swagger-ui-standalone-preset.js
-    swagger-ui-dist-3.4.0/swagger-ui.css
-    swagger-ui-dist-3.4.0/swagger-ui.js
+    swagger-ui-dist-3.9.1/favicon-16x16.png
+    swagger-ui-dist-3.9.1/favicon-32x32.png
+    swagger-ui-dist-3.9.1/index.html
+    swagger-ui-dist-3.9.1/oauth2-redirect.html
+    swagger-ui-dist-3.9.1/swagger-ui-bundle.js
+    swagger-ui-dist-3.9.1/swagger-ui-bundle.js.map
+    swagger-ui-dist-3.9.1/swagger-ui-standalone-preset.js
+    swagger-ui-dist-3.9.1/swagger-ui-standalone-preset.js.map
+    swagger-ui-dist-3.9.1/swagger-ui.css
+    swagger-ui-dist-3.9.1/swagger-ui.css.map
+    swagger-ui-dist-3.9.1/swagger-ui.js
+    swagger-ui-dist-3.9.1/swagger-ui.js.map
 
 source-repository head
   type: git
@@ -88,7 +93,8 @@ flag servant-0-5
 library
   hs-source-dirs:
       src
-  ghc-options: -Wall
+  ghc-options: -Wall +RTS -K2G -RTS
+
   build-depends:
       base              >=4.7      && <4.11
     , blaze-markup      >=0.7.0.2  && <0.9
