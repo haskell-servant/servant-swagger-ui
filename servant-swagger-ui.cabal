@@ -73,13 +73,9 @@ extra-source-files:
     swagger-ui-dist-3.9.1/index.html
     swagger-ui-dist-3.9.1/oauth2-redirect.html
     swagger-ui-dist-3.9.1/swagger-ui-bundle.js
-    swagger-ui-dist-3.9.1/swagger-ui-bundle.js.map
     swagger-ui-dist-3.9.1/swagger-ui-standalone-preset.js
-    swagger-ui-dist-3.9.1/swagger-ui-standalone-preset.js.map
     swagger-ui-dist-3.9.1/swagger-ui.css
-    swagger-ui-dist-3.9.1/swagger-ui.css.map
     swagger-ui-dist-3.9.1/swagger-ui.js
-    swagger-ui-dist-3.9.1/swagger-ui.js.map
 
 source-repository head
   type: git
@@ -93,7 +89,7 @@ flag servant-0-5
 library
   hs-source-dirs:
       src
-  ghc-options: -Wall +RTS -K2G -RTS
+  ghc-options: -Wall
 
   build-depends:
       base              >=4.7      && <4.11

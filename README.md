@@ -19,7 +19,7 @@ Check [`example/Main.hs`](https://github.com/phadej/servant-swagger-ui/blob/mast
 
 ### Updating of bundled swagger-ui version:
 
-- Extract `dist` directory of `swagger-ui` into `swagger-dist-&lt;version&gt;`
+- Extract `dist` directory of `swagger-ui` into `swagger-dist-&lt;version&gt;`. Remove the `*.map` files.
 - update `extra-source-files` in the `.cabal`
 - move `index.html` into `index.html.tmpl`, do the diff, port the changes
 - search replace the embbeded directory (in `Servant/Swagger/UI.hs`)
