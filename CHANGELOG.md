@@ -1,3 +1,7 @@
+- 0.2.4.3.9.1
+    - Support `servant-0.13`
+    - Update to `swagger-ui-3.9.1`
+
 - 0.2.3.2.2.8
     - Support `servant-0.11`
 

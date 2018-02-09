@@ -1,0 +1,27 @@
+constraint-set servant-0.7
+  ghc: >= 7.8 && <8.0
+  constraints: servant ==0.7.*
+
+constraint-set servant-0.8
+  ghc: >= 7.8 && <8.2
+  constraints: servant ==0.8.*
+
+constraint-set servant-0.9
+  ghc: >= 7.8 && <8.2
+  constraints: servant ==0.9.*
+
+constraint-set servant-0.10
+  ghc: >= 7.8 && <8.2
+  constraints: servant ==0.10.*
+
+constraint-set servant-0.11
+  ghc: >= 7.8 && <8.4
+  constraints: servant ==0.11.*
+
+constraint-set servant-0.12
+  ghc: >= 7.8 && <8.4
+  constraints: servant ==0.12.*
+
+constraint-set servant-0.13
+  ghc: >= 7.8 && <8.4
+  constraints: servant ==0.13.*
