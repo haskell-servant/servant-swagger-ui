@@ -76,8 +76,22 @@ instance ToSchema Cat
 instance ToSchema CatName
 
 -- api
+
+type FirstCatEndpoint =
+#if MIN_VERSION_servant(0,13,0)
+    "cat"
+        :> Summary "First cat endpoint"
+        :> Capture' '[Description "Cat's name"] ":name" CatName
+        :> QueryParam' '[Required, Description "Random number"] "num" Int
+        :> QueryParam' '[Optional, Description "Random text"] "text" Text
+        :> Get '[JSON] Cat
+#else
+    "cat" :> Capture ":name" CatName
+        :> QueryParam "num" Int :> QueryParam "text" Text :> Get '[JSON] Cat
+#endif
+
 type BasicAPI = Get '[PlainText, JSON] Text
-    :<|> SUMMARY("First cat") "cat" :> Capture ":name" CatName :> Get '[JSON] Cat
+    :<|> FirstCatEndpoint
     :<|> SUMMARY("Second cat") "cat2" :> Capture ":name" CatName :> Get '[JSON] Cat
     :<|> SUMMARY("Third cat") "cat3" :> Capture ":name" CatName :> Get '[JSON] Cat
     :<|> SUMMARY("Post endpoint") "post-cat" :> ReqBody '[JSON] Cat :> Post '[JSON] Cat
@@ -114,9 +128,10 @@ server' uiFlavour = server Normal
     server :: Variant -> Server API
     server variant =
         schemaUiServer (swaggerDoc' variant)
-        :<|> (return "Hello World" :<|> catEndpoint :<|> catEndpoint :<|> catEndpoint :<|> return)
+        :<|> (return "Hello World" :<|> catEndpoint' :<|> catEndpoint :<|> catEndpoint :<|> return)
       where
-        catEndpoint n = return $ Cat n (variant == Normal)
+        catEndpoint' n _ _ = return $ Cat n (variant == Normal)
+        catEndpoint  n     = return $ Cat n (variant == Normal)
         -- Unfortunately we have to specify the basePath manually atm.
 
     schemaUiServer
