@@ -50,6 +50,13 @@ import Control.Monad.Trans.Either (EitherT)
 #define SUMMARY(d)
 #endif
 
+#if MIN_VERSION_servant(0,13,0)
+#if __GLASGOW_HASKELL__ >= 802 && MIN_VERSION_base(4,10,0)
+import GHC.Generics (D1, Meta (..), Rep)
+import GHC.TypeLits (AppendSymbol, Symbol)
+#endif
+#endif
+
 -- data types
 data Cat = Cat { catName :: CatName, catIsMale :: Bool }
     deriving (Generic, Show)
@@ -77,13 +84,53 @@ instance ToSchema CatName
 
 -- api
 
+#if MIN_VERSION_servant(0,13,0)
+#if __GLASGOW_HASKELL__ >= 802 && MIN_VERSION_base(4,10,0)
+-- | Get a typename as type-level 'Symbol'.
+--
+-- Few non-Generic things are hard-coded, for else we fallback to 'Generic'
+--
+-- >>> :kind! TypeName Int
+-- TypeName Int :: Symbol
+-- = "Int"
+--
+-- >>> :kind! TypeName CatName
+-- TypeName CatName :: Symbol
+-- = "CatName"
+--
+-- Unfortunately we cannot use 'TypeError' for other cases,
+-- as 'Rep' isn't reduced so 'GenericTypeName' cannot fall past first
+-- equation. So you will get somewhat obscure errors saying
+-- "no instance for (KnownSymbol ... (GenericTypeName YourNonGenericType ..."
+--
+-- >>> :kind! TypeName Float
+-- TypeName Float :: Symbol
+-- = GenericTypeName Float (Rep Float ())
+--
+-- It would be nice if there were such type family for 'Typeable', i.e. all
+-- types :)
+--
+type family TypeName (x :: *) :: Symbol where
+    TypeName Int  = "Int"
+    TypeName Text = "Text"
+    TypeName x    = GenericTypeName x (Rep x ())
+
+type family GenericTypeName t (r :: *) :: Symbol where
+    GenericTypeName t (D1 ('MetaData name mod pkg nt) f x) = name
+
+type Desc t n = Description (AppendSymbol (TypeName t) (AppendSymbol " | " n))
+#else
+type Desc t n = Description n
+#endif
+#endif
+
 type FirstCatEndpoint =
 #if MIN_VERSION_servant(0,13,0)
     "cat"
         :> Summary "First cat endpoint"
-        :> Capture' '[Description "Cat's name"] ":name" CatName
-        :> QueryParam' '[Required, Description "Random number"] "num" Int
-        :> QueryParam' '[Optional, Description "Random text"] "text" Text
+        :> Capture' '[Desc CatName "Cat's name"] ":name" CatName
+        :> QueryParam' '[Required, Desc Int "Random number"] "num" Int
+        :> QueryParam' '[Optional, Desc Text "Random text"] "text" Text
         :> Get '[JSON] Cat
 #else
     "cat" :> Capture ":name" CatName
