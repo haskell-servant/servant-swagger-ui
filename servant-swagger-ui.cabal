@@ -1,5 +1,6 @@
 name:           servant-swagger-ui
 version:        0.2.5.3.9.1
+x-revision:     1
 synopsis:       Servant swagger ui
 description:    Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
 category:       Web, Servant, Swagger
@@ -9,7 +10,7 @@ author:         Oleg Grenrus <oleg.grenrus@iki.fi>
 maintainer:     Oleg Grenrus <oleg.grenrus@iki.fi>
 license:        BSD3
 license-file:   LICENSE
-tested-with:    GHC==7.8.4, GHC==7.10.3, GHC==8.0.2, GHC==8.2.2
+tested-with:    GHC==7.8.4, GHC==7.10.3, GHC==8.0.2, GHC==8.2.2, GHC==8.4.1
 build-type:     Simple
 cabal-version:  >= 1.10
 
@@ -92,7 +93,7 @@ library
   ghc-options: -Wall
 
   build-depends:
-      base              >=4.7      && <4.11
+      base              >=4.7      && <4.12
     , blaze-markup      >=0.7.0.2  && <0.9
     , bytestring        >=0.10.4.0 && <0.11
     , directory         >=1.2.1.0  && <1.4
@@ -104,7 +105,7 @@ library
     , servant-server    >=0.4.4.5  && <0.14
     , servant-swagger   >=1.0.3    && <1.2
     , swagger2          >=2.0.1    && <2.3
-    , template-haskell  >=2.9      && <2.13
+    , template-haskell  >=2.9      && <2.14
     , text              >=1.2.0.6  && <1.3
     , wai-app-static    >=3.0.1.1  && <3.2
   if flag(servant-0-5)
@@ -135,7 +136,7 @@ test-suite example
     , servant-swagger-ui
     , swagger2
     , text
-    , aeson          >=0.8.0.2  && <1.3
+    , aeson          >=0.8.0.2  && <1.4
     , base-compat    >=0.6.0    && <0.10
     , lens           >=4.7.0.1  && <4.17
     , wai            >=3.0.3.0  && <3.3
