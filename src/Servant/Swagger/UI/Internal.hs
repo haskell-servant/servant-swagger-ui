@@ -13,17 +13,19 @@
 ----------------------------------------------------------------------------
 module Servant.Swagger.UI.Internal (mkRecursiveEmbedded) where
 
-import           Control.Arrow         (first)
-import           Control.Monad         (forM)
-import qualified Data.ByteString       as B
-import qualified Data.ByteString.Char8 as B8
-import qualified Data.ByteString.Lazy  as BL
+import qualified Codec.Compression.Lzma as LZMA
+import           Control.Arrow          (first)
+import           Control.Monad          (forM)
+import qualified Data.ByteString        as BS
+import qualified Data.ByteString.Lazy   as BSL
+import qualified Data.ByteString.Unsafe as BS.Unsafe
 import           Language.Haskell.TH
 import           System.Directory
                  (doesDirectoryExist, getDirectoryContents)
-import           System.FilePath       (makeRelative, (</>))
+import           System.FilePath        (makeRelative, (</>))
+import           System.IO.Unsafe       (unsafePerformIO)
 
-getRecursiveContents :: FilePath -> IO [(FilePath, BL.ByteString)]
+getRecursiveContents :: FilePath -> IO [(FilePath, BSL.ByteString)]
 getRecursiveContents topdir = do
   names <- getDirectoryContents topdir
   let properNames = Prelude.filter (`notElem` [".", ".."]) names
@@ -32,21 +34,31 @@ getRecursiveContents topdir = do
     isDirectory <- doesDirectoryExist path
     if isDirectory
       then getRecursiveContents path
-      else do contents <- BL.readFile path
+      else do contents <- BSL.readFile path
               return [(path, contents)]
   return (concat paths)
 
 makeAllRelative :: FilePath -> [(FilePath, a)] -> [(FilePath, a)]
 makeAllRelative topdir = map (first (("/" ++) . makeRelative topdir))
 
-bytestringE :: B.ByteString -> Q Exp
-bytestringE b = [| B8.pack $s |]
-  where s = litE $ stringL $ B8.unpack b
+-- | Makes lazy 'BSL.ByteString' expression.
+-- Embedded value is compressed with LZMA.
+lazyBytestringE :: BSL.ByteString -> Q Exp
+lazyBytestringE lbs =
+    [| LZMA.decompress
+    $ BSL.fromStrict
+    $ unsafePerformIO
+    $ BS.Unsafe.unsafePackAddressLen $l $s
+    |]
+  where
+    bs = BSL.toStrict $ LZMA.compress lbs
+    s = litE $ stringPrimL $ BS.unpack bs
+    l = litE $ integerL $ fromIntegral $ BS.length bs
 
-makeEmbeddedEntry :: (FilePath, BL.ByteString) -> Q Exp
-makeEmbeddedEntry (path, bs) = [| (path, $(bytestringE $ BL.toStrict bs)) |]
+makeEmbeddedEntry :: (FilePath, BSL.ByteString) -> Q Exp
+makeEmbeddedEntry (path, bs) = [| (path, BSL.toStrict $(lazyBytestringE bs)) |]
 
--- | Create a @[('FilePath', 'BL.ByteString')]@ list, recursively traversing given directory path.
+-- | Create a @[('FilePath', 'BSL.ByteString')]@ list, recursively traversing given directory path.
 --
 -- > staticApp $ embeddedSettings $(mkRecursiveEmbedded "static")
 -- > -- is an in-memory equivalent of
