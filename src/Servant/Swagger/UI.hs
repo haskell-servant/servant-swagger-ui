@@ -47,6 +47,8 @@ module Servant.Swagger.UI (
     SwaggerSchemaUI',
     swaggerSchemaUIServer,
     jensolegSwaggerSchemaUIServer,
+    redocSchemaUIServer,
+
     -- * Internals
     --
     -- /Note:/ in next major version, these will be moved to separate module.
@@ -60,6 +62,11 @@ module Servant.Swagger.UI (
     -- Current version: @79f3bba07b070cfab1d8c245c4f9229052e20a1a@
     jensolegIndexTemplate,
     jensolegFiles,
+    -- ** ReDoc theme
+    --
+    -- Current Version: v1.21.2 https://rebilly.github.io/ReDoc/releases/v1.21.2/redoc.min.js
+    redocIndexTemplate,
+    redocFiles
     ) where
 
 import Data.ByteString                (ByteString)
@@ -158,6 +165,15 @@ jensolegSwaggerSchemaUIServer
 jensolegSwaggerSchemaUIServer =
     swaggerSchemaUIServerImpl jensolegIndexTemplate jensolegFiles
 
+-- | Serve alternative Swagger UI.
+--
+-- See <https://github.com/Rebilly/ReDoc/tree/v1.x>
+redocSchemaUIServer
+    :: (Server api ~ Handler Swagger)
+    => Swagger -> Server (SwaggerSchemaUI' dir api)
+redocSchemaUIServer =
+    swaggerSchemaUIServerImpl redocIndexTemplate redocFiles
+
 swaggerSchemaUIServerImpl
     :: (Server api ~ Handler Swagger)
     => T.Text -> [(FilePath, ByteString)]
@@ -184,3 +200,9 @@ jensolegIndexTemplate = $(embedStringFile "jensoleg.index.html.tmpl")
 
 jensolegFiles :: [(FilePath, ByteString)]
 jensolegFiles = $(mkRecursiveEmbedded "jensoleg-dist")
+
+redocIndexTemplate :: T.Text
+redocIndexTemplate = $(embedStringFile "redoc.index.html.tmpl")
+
+redocFiles :: [(FilePath, ByteString)]
+redocFiles = $(mkRecursiveEmbedded "redoc-dist")
