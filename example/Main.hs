@@ -165,6 +165,7 @@ data Variant
 data UIFlavour
     = Original
     | JensOleG
+    | ReDoc
     deriving (Eq)
 
 server' :: UIFlavour -> Server API'
@@ -187,6 +188,7 @@ server' uiFlavour = server Normal
     schemaUiServer = case uiFlavour of
         Original -> swaggerSchemaUIServer
         JensOleG -> jensolegSwaggerSchemaUIServer
+        ReDoc    -> redocSchemaUIServer
 
     swaggerDoc' Normal    = swaggerDoc
     swaggerDoc' Nested    = swaggerDoc
@@ -212,7 +214,9 @@ app = serve api . server'
 main :: IO ()
 main = do
     args <- getArgs
-    let uiFlavour = if "jensoleg" `elem` args then JensOleG else Original
+    let uiFlavour | "jensoleg" `elem` args = JensOleG
+                  | "redoc"    `elem` args = ReDoc
+                  | otherwise              = Original
     case args of
         ("run":_) -> do
             p <- fromMaybe 8000 . (>>= readMaybe) <$> lookupEnv "PORT"
