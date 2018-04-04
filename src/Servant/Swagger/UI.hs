@@ -70,7 +70,6 @@ module Servant.Swagger.UI (
     ) where
 
 import Data.ByteString                (ByteString)
-import Data.FileEmbed                 (embedStringFile)
 import Data.Swagger                   (Swagger)
 import GHC.TypeLits                   (KnownSymbol, Symbol, symbolVal)
 import Network.Wai.Application.Static (embeddedSettings, staticApp)
@@ -190,13 +189,13 @@ swaggerSchemaUIServerImpl indexTemplate files swagger = return swagger
         staticApp $ embeddedSettings files
 
 swaggerUiIndexTemplate :: T.Text
-swaggerUiIndexTemplate = $(embedStringFile "index.html.tmpl")
+swaggerUiIndexTemplate = $(embedText "index.html.tmpl")
 
 swaggerUiFiles :: [(FilePath, ByteString)]
 swaggerUiFiles = $(mkRecursiveEmbedded "swagger-ui-dist-3.9.1")
 
 jensolegIndexTemplate :: T.Text
-jensolegIndexTemplate = $(embedStringFile "jensoleg.index.html.tmpl")
+jensolegIndexTemplate = $(embedText "jensoleg.index.html.tmpl")
 
 jensolegFiles :: [(FilePath, ByteString)]
 jensolegFiles = $(mkRecursiveEmbedded "jensoleg-dist")
