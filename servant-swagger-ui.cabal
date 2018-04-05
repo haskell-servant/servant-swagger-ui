@@ -68,6 +68,9 @@ extra-source-files:
     jensoleg-dist/swagger-ui.min.js
     jensoleg-dist/swagger.json
 
+    redoc-dist/redoc.min.js
+    redoc.index.html.tmpl
+
     index.html.tmpl
     swagger-ui-dist-3.9.1/favicon-16x16.png
     swagger-ui-dist-3.9.1/favicon-32x32.png
