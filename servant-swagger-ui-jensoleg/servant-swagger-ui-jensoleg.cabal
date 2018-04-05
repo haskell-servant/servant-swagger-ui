@@ -1,7 +1,8 @@
-name:           servant-swagger-ui
-version:        0.2.5.3.9.1
-x-revision:     1
-synopsis:       Servant swagger ui
+cabal-version:  1.12
+name:           servant-swagger-ui-jensoleg
+version:        0.3
+
+synopsis:       Servant swagger ui: Jens-Ole Graulund theme
 description:    Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
 category:       Web, Servant, Swagger
 homepage:       https://github.com/phadej/servant-swagger-ui#readme
@@ -12,12 +13,8 @@ license:        BSD3
 license-file:   LICENSE
 tested-with:    GHC==7.8.4, GHC==7.10.3, GHC==8.0.2, GHC==8.2.2, GHC==8.4.1
 build-type:     Simple
-cabal-version:  >= 1.10
 
 extra-source-files:
-    CHANGELOG.md
-    README.md
-
     jensoleg.index.html.tmpl
     jensoleg-dist/css/api-explorer.css
     jensoleg-dist/css/index.css
@@ -68,27 +65,9 @@ extra-source-files:
     jensoleg-dist/swagger-ui.min.js
     jensoleg-dist/swagger.json
 
-    redoc-dist/redoc.min.js
-    redoc.index.html.tmpl
-
-    index.html.tmpl
-    swagger-ui-dist-3.9.1/favicon-16x16.png
-    swagger-ui-dist-3.9.1/favicon-32x32.png
-    swagger-ui-dist-3.9.1/index.html
-    swagger-ui-dist-3.9.1/oauth2-redirect.html
-    swagger-ui-dist-3.9.1/swagger-ui-bundle.js
-    swagger-ui-dist-3.9.1/swagger-ui-standalone-preset.js
-    swagger-ui-dist-3.9.1/swagger-ui.css
-    swagger-ui-dist-3.9.1/swagger-ui.js
-
 source-repository head
   type: git
   location: https://github.com/phadej/servant-swagger-ui
-
-flag servant-0-5
-  description: Whether use servant >= 0.5
-  manual: False
-  default: True
 
 library
   hs-source-dirs:
@@ -96,52 +75,16 @@ library
   ghc-options: -Wall
 
   build-depends:
+    servant-swagger-ui-core >=0.3 && <0.4
+
+  build-depends:
       base              >=4.7      && <4.12
-    , blaze-markup      >=0.7.0.2  && <0.9
     , bytestring        >=0.10.4.0 && <0.11
     , file-embed-lzma   >=0        && <0.1
-    , http-media        >=0.6.2    && <0.8
     , servant           >=0.4.4.5  && <0.14
-    , servant-blaze     >=0.4.4.5  && <0.9
     , servant-server    >=0.4.4.5  && <0.14
-    , servant-swagger   >=1.0.3    && <1.2
     , swagger2          >=2.0.1    && <2.3
     , text              >=1.2.0.6  && <1.3
-    , wai-app-static    >=3.0.1.1  && <3.2
-  if flag(servant-0-5)
-    build-depends:
-        servant              >=0.5
-      , transformers         >=0.3 && <0.6
-      , transformers-compat  >=0.3 && <0.6
-  else
-    build-depends:
-        servant                       <0.5
-      , either
   exposed-modules:
-      Servant.Swagger.UI
-  default-language: Haskell2010
-
-test-suite example
-  type: exitcode-stdio-1.0
-  main-is: Main.hs
-  hs-source-dirs:
-      example
-  ghc-options: -Wall
-  build-depends:
-      base
-    , servant
-    , servant-server
-    , servant-swagger
-    , servant-swagger-ui
-    , swagger2
-    , text
-    , aeson          >=0.8.0.2  && <1.4
-    , base-compat    >=0.6.0    && <0.10
-    , lens           >=4.7.0.1  && <4.17
-    , wai            >=3.0.3.0  && <3.3
-    , warp           >=3.0.13.1 && <3.3
-  if flag(servant-0-5)
-    build-depends: transformers, transformers-compat
-  else
-    build-depends: either
+      Servant.Swagger.UI.JensOleG
   default-language: Haskell2010

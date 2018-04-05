@@ -1,3 +1,9 @@
+- 0.3.0.x.x.x
+    - Split package into multiple packages:
+        - [`servant-swagger-ui-core`](http://hackage.haskell.org/package/servant-swagger-ui-core)
+        - [`servant-swagger-ui-redoc`](http://hackage.haskell.org/package/servant-swagger-ui-redoc)
+        - [`servant-swagger-ui-jensoleg`](http://hackage.haskell.org/package/servant-swagger-ui-jensoleg)
+
 - 0.2.5.3.9.1
     - Support `servant-0.13`
     - Update to `swagger-ui-3.9.1`

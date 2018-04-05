@@ -12,11 +12,11 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 module Main (main, catIsMale, catName) where
 
-import Prelude        ()
+import Prelude ()
 import Prelude.Compat
 
 import Control.Lens       hiding ((.=))
-import Data.Aeson         (ToJSON, FromJSON)
+import Data.Aeson         (FromJSON, ToJSON)
 import Data.Maybe         (fromMaybe)
 import Data.String        (IsString (..))
 import Data.Text          (Text)
@@ -29,20 +29,11 @@ import Data.Swagger
 import Servant
 import Servant.Swagger
 import Servant.Swagger.UI
+import Servant.Swagger.UI.Core
+import Servant.Swagger.UI.JensOleG
+import Servant.Swagger.UI.ReDoc
 
 import qualified Network.Wai.Handler.Warp as Warp
-
-#if MIN_VERSION_servant(0,7,0)
--- do nothing
-#else
-#if MIN_VERSION_servant(0,5,0)
-import Control.Monad.Trans.Except (ExceptT)
-#define Handler ExceptT ServantErr IO
-#else
-import Control.Monad.Trans.Either (EitherT)
-#define Handler EitherT ServantErr IO
-#endif
-#endif
 
 #if MIN_VERSION_servant(0,12,0)
 #define SUMMARY(d) Summary d :>
@@ -217,11 +208,6 @@ main = do
     let uiFlavour | "jensoleg" `elem` args = JensOleG
                   | "redoc"    `elem` args = ReDoc
                   | otherwise              = Original
-    case args of
-        ("run":_) -> do
-            p <- fromMaybe 8000 . (>>= readMaybe) <$> lookupEnv "PORT"
-            putStrLn $ "http://localhost:" ++ show p ++ "/"
-            Warp.run p (app uiFlavour)
-        _ -> do
-            putStrLn "Example application, used as a compilation check"
-            putStrLn "To run, pass run argument: --test-arguments run"
+    p <- fromMaybe 8000 . (>>= readMaybe) <$> lookupEnv "PORT"
+    putStrLn $ "http://localhost:" ++ show p ++ "/"
+    Warp.run p (app uiFlavour)
