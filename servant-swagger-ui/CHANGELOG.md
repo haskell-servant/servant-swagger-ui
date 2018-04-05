@@ -1,4 +1,5 @@
-- 0.3.0.x.x.x
+- 0.3.0.3.13.2
+    - Update to `swagger-ui-3.13.2`
     - Split package into multiple packages:
         - [`servant-swagger-ui-core`](http://hackage.haskell.org/package/servant-swagger-ui-core)
         - [`servant-swagger-ui-redoc`](http://hackage.haskell.org/package/servant-swagger-ui-redoc)
