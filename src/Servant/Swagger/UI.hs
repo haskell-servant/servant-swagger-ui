@@ -70,13 +70,12 @@ module Servant.Swagger.UI (
     ) where
 
 import Data.ByteString                (ByteString)
-import Data.FileEmbed                 (embedStringFile)
 import Data.Swagger                   (Swagger)
+import FileEmbedLzma
 import GHC.TypeLits                   (KnownSymbol, Symbol, symbolVal)
 import Network.Wai.Application.Static (embeddedSettings, staticApp)
 import Servant
 import Servant.HTML.Blaze             (HTML)
-import Servant.Swagger.UI.Internal
 import Text.Blaze                     (ToMarkup (..))
 
 import qualified Data.Text as T
@@ -190,19 +189,19 @@ swaggerSchemaUIServerImpl indexTemplate files swagger = return swagger
         staticApp $ embeddedSettings files
 
 swaggerUiIndexTemplate :: T.Text
-swaggerUiIndexTemplate = $(embedStringFile "index.html.tmpl")
+swaggerUiIndexTemplate = $(embedText "index.html.tmpl")
 
 swaggerUiFiles :: [(FilePath, ByteString)]
-swaggerUiFiles = $(mkRecursiveEmbedded "swagger-ui-dist-3.9.1")
+swaggerUiFiles = $(embedRecursiveDir "swagger-ui-dist-3.9.1")
 
 jensolegIndexTemplate :: T.Text
-jensolegIndexTemplate = $(embedStringFile "jensoleg.index.html.tmpl")
+jensolegIndexTemplate = $(embedText "jensoleg.index.html.tmpl")
 
 jensolegFiles :: [(FilePath, ByteString)]
-jensolegFiles = $(mkRecursiveEmbedded "jensoleg-dist")
+jensolegFiles = $(embedRecursiveDir "jensoleg-dist")
 
 redocIndexTemplate :: T.Text
-redocIndexTemplate = $(embedStringFile "redoc.index.html.tmpl")
+redocIndexTemplate = $(embedText "redoc.index.html.tmpl")
 
 redocFiles :: [(FilePath, ByteString)]
-redocFiles = $(mkRecursiveEmbedded "redoc-dist")
+redocFiles = $(embedRecursiveDir "redoc-dist")
