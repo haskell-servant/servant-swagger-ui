@@ -3,20 +3,21 @@ name:           servant-swagger-ui-core
 version:        0.3
 
 synopsis:       Servant swagger ui core components
+category:       Web, Servant, Swagger
 description:
    Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
    .
    See servant-swagger-ui, servant-swagger-ui-jensoleg or
-   servant-swagger-ui-redoc for "concrete" concrete implementations.
-category:       Web, Servant, Swagger
-homepage:       https://github.com/phadej/servant-swagger-ui#readme
+   servant-swagger-ui-redoc for "concrete" implementations.
+
+homepage:       https://github.com/phadej/servant-swagger-ui
 bug-reports:    https://github.com/phadej/servant-swagger-ui/issues
 author:         Oleg Grenrus <oleg.grenrus@iki.fi>
 maintainer:     Oleg Grenrus <oleg.grenrus@iki.fi>
 license:        BSD3
 license-file:   LICENSE
-tested-with:    GHC==7.8.4, GHC==7.10.3, GHC==8.0.2, GHC==8.2.2, GHC==8.4.1
 build-type:     Simple
+tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.2
 
 source-repository head
   type: git

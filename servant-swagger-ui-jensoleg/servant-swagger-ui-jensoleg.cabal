@@ -3,16 +3,20 @@ name:           servant-swagger-ui-jensoleg
 version:        0.3
 
 synopsis:       Servant swagger ui: Jens-Ole Graulund theme
-description:    Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
 category:       Web, Servant, Swagger
-homepage:       https://github.com/phadej/servant-swagger-ui#readme
+description:
+  Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
+  .
+  Jsn-Ole Graulund theme https://github.com/jensoleg/swagger-org
+
+homepage:       https://github.com/phadej/servant-swagger-ui
 bug-reports:    https://github.com/phadej/servant-swagger-ui/issues
 author:         Oleg Grenrus <oleg.grenrus@iki.fi>
 maintainer:     Oleg Grenrus <oleg.grenrus@iki.fi>
 license:        BSD3
 license-file:   LICENSE
-tested-with:    GHC==7.8.4, GHC==7.10.3, GHC==8.0.2, GHC==8.2.2, GHC==8.4.1
 build-type:     Simple
+tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.2
 
 extra-source-files:
     jensoleg.index.html.tmpl

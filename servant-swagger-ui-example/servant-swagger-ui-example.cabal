@@ -3,16 +3,22 @@ name:           servant-swagger-ui-example
 version:        0
 
 synopsis:       servant-swagger-ui example
+category:       Web, Servant, Swagger
 description:
   A kind of test-suite of servant-swagger-ui
-category:       Web, Servant, Swagger
 
-license:        BSD3
-license-file:   LICENSE
+homepage:       https://github.com/phadej/servant-swagger-ui
+bug-reports:    https://github.com/phadej/servant-swagger-ui/issues
 author:         Oleg Grenrus <oleg.grenrus@iki.fi>
 maintainer:     Oleg Grenrus <oleg.grenrus@iki.fi>
-tested-with:    GHC==7.8.4, GHC==7.10.3, GHC==8.0.2, GHC==8.2.2, GHC==8.4.1
+license:        BSD3
+license-file:   LICENSE
 build-type:     Simple
+tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.2
+
+source-repository head
+  type: git
+  location: https://github.com/phadej/servant-swagger-ui
 
 executable servant-swagger-ui-example
   main-is:             Main.hs
