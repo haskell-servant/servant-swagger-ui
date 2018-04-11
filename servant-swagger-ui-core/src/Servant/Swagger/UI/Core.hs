@@ -6,16 +6,10 @@
 {-# LANGUAGE MultiParamTypeClasses      #-}
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE ScopedTypeVariables        #-}
-{-# LANGUAGE TemplateHaskell            #-}
 {-# LANGUAGE TypeFamilies               #-}
 {-# LANGUAGE TypeOperators              #-}
 {-# LANGUAGE UndecidableInstances       #-}
 -----------------------------------------------------------------------------
--- |
--- Module      :  Servant.Swagger.UI
--- Copyright   :  (C) 2016 Oleg Grenrus
--- License     :  BSD3
--- Maintainer  :  Oleg Grenrus <oleg.grenrus@iki.fi>
 --
 -- Provides 'SwaggerUI' and corresponding 'swaggerUIServer' to embed
 -- <http://swagger.io/swagger-ui/ swagger ui> into the application.
@@ -41,37 +35,19 @@
 --     catEndpoint name = pure $ Cat name False
 -- @
 
-module Servant.Swagger.UI (
+module Servant.Swagger.UI.Core (
     -- * Swagger UI API
     SwaggerSchemaUI,
     SwaggerSchemaUI',
-    swaggerSchemaUIServer,
-    jensolegSwaggerSchemaUIServer,
-    redocSchemaUIServer,
 
-    -- * Internals
-    --
-    -- /Note:/ in next major version, these will be moved to separate module.
+    -- * Implementation details
     SwaggerUiHtml(..),
     swaggerSchemaUIServerImpl,
-    -- ** Official swagger ui
-    swaggerUiIndexTemplate,
-    swaggerUiFiles,
-    -- ** jensoleg theme
-    --
-    -- Current version: @79f3bba07b070cfab1d8c245c4f9229052e20a1a@
-    jensolegIndexTemplate,
-    jensolegFiles,
-    -- ** ReDoc theme
-    --
-    -- Current Version: v1.21.2 https://rebilly.github.io/ReDoc/releases/v1.21.2/redoc.min.js
-    redocIndexTemplate,
-    redocFiles
+    Handler,
     ) where
 
 import Data.ByteString                (ByteString)
 import Data.Swagger                   (Swagger)
-import FileEmbedLzma
 import GHC.TypeLits                   (KnownSymbol, Symbol, symbolVal)
 import Network.Wai.Application.Static (embeddedSettings, staticApp)
 import Servant
@@ -85,10 +61,10 @@ import qualified Data.Text as T
 #else
 #if MIN_VERSION_servant(0,5,0)
 import Control.Monad.Trans.Except (ExceptT)
-#define Handler ExceptT ServantErr IO
+type Handler = ExceptT ServantErr IO
 #else
 import Control.Monad.Trans.Either (EitherT)
-#define Handler EitherT ServantErr IO
+type Handler = EitherT ServantErr IO
 #endif
 #endif
 
@@ -144,35 +120,6 @@ instance (KnownSymbol dir, HasLink api, LINK ~ MkLink api, IsElem api api)
         dir    = T.pack $ symbolVal (Proxy :: Proxy dir)
         proxyApi = Proxy :: Proxy api
 
--- | Serve Swagger UI on @/dir@ using @api@ as a Swagger spec source.
---
--- @
--- swaggerSchemaUIServer :: Swagger -> Server (SwaggerSchemaUI schema dir)
--- @
-swaggerSchemaUIServer
-    :: (Server api ~ Handler Swagger)
-    => Swagger -> Server (SwaggerSchemaUI' dir api)
-swaggerSchemaUIServer =
-    swaggerSchemaUIServerImpl swaggerUiIndexTemplate swaggerUiFiles
-
--- | Serve alternative Swagger UI.
---
--- See <https://github.com/jensoleg/swagger-ui>
-jensolegSwaggerSchemaUIServer
-    :: (Server api ~ Handler Swagger)
-    => Swagger -> Server (SwaggerSchemaUI' dir api)
-jensolegSwaggerSchemaUIServer =
-    swaggerSchemaUIServerImpl jensolegIndexTemplate jensolegFiles
-
--- | Serve alternative Swagger UI.
---
--- See <https://github.com/Rebilly/ReDoc/tree/v1.x>
-redocSchemaUIServer
-    :: (Server api ~ Handler Swagger)
-    => Swagger -> Server (SwaggerSchemaUI' dir api)
-redocSchemaUIServer =
-    swaggerSchemaUIServerImpl redocIndexTemplate redocFiles
-
 swaggerSchemaUIServerImpl
     :: (Server api ~ Handler Swagger)
     => T.Text -> [(FilePath, ByteString)]
@@ -187,21 +134,3 @@ swaggerSchemaUIServerImpl indexTemplate files swagger = return swagger
         Tagged $
 #endif
         staticApp $ embeddedSettings files
-
-swaggerUiIndexTemplate :: T.Text
-swaggerUiIndexTemplate = $(embedText "index.html.tmpl")
-
-swaggerUiFiles :: [(FilePath, ByteString)]
-swaggerUiFiles = $(embedRecursiveDir "swagger-ui-dist-3.9.1")
-
-jensolegIndexTemplate :: T.Text
-jensolegIndexTemplate = $(embedText "jensoleg.index.html.tmpl")
-
-jensolegFiles :: [(FilePath, ByteString)]
-jensolegFiles = $(embedRecursiveDir "jensoleg-dist")
-
-redocIndexTemplate :: T.Text
-redocIndexTemplate = $(embedText "redoc.index.html.tmpl")
-
-redocFiles :: [(FilePath, ByteString)]
-redocFiles = $(embedRecursiveDir "redoc-dist")

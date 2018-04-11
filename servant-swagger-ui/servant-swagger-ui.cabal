@@ -1,0 +1,51 @@
+cabal-version:  1.12
+name:           servant-swagger-ui
+version:        0.3.0.3.9.1
+
+synopsis:       Servant swagger ui
+category:       Web, Servant, Swagger
+description:    Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
+
+homepage:       https://github.com/phadej/servant-swagger-ui
+bug-reports:    https://github.com/phadej/servant-swagger-ui/issues
+author:         Oleg Grenrus <oleg.grenrus@iki.fi>
+maintainer:     Oleg Grenrus <oleg.grenrus@iki.fi>
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.2
+
+extra-source-files:
+    CHANGELOG.md
+
+    index.html.tmpl
+    swagger-ui-dist-3.9.1/favicon-16x16.png
+    swagger-ui-dist-3.9.1/favicon-32x32.png
+    swagger-ui-dist-3.9.1/swagger-ui-bundle.js
+    swagger-ui-dist-3.9.1/swagger-ui-standalone-preset.js
+    swagger-ui-dist-3.9.1/swagger-ui.css
+    swagger-ui-dist-3.9.1/swagger-ui.js
+
+source-repository head
+  type: git
+  location: https://github.com/phadej/servant-swagger-ui
+
+library
+  hs-source-dirs:
+      src
+  ghc-options: -Wall
+
+  build-depends:
+    servant-swagger-ui-core >=0.3 && <0.4
+
+  build-depends:
+      base              >=4.7      && <4.12
+    , bytestring        >=0.10.4.0 && <0.11
+    , file-embed-lzma   >=0        && <0.1
+    , servant           >=0.4.4.5  && <0.14
+    , servant-server    >=0.4.4.5  && <0.14
+    , swagger2          >=2.0.1    && <2.3
+    , text              >=1.2.0.6  && <1.3
+  exposed-modules:
+      Servant.Swagger.UI
+  default-language: Haskell2010
