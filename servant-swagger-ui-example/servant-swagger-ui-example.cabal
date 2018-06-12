@@ -14,7 +14,7 @@ maintainer:     Oleg Grenrus <oleg.grenrus@iki.fi>
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
-tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.2
+tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.3
 
 source-repository head
   type: git
@@ -33,7 +33,7 @@ executable servant-swagger-ui-example
     , servant-swagger-ui-redoc
     , swagger2
     , text
-    , aeson               >=0.8.0.2  && <1.4
+    , aeson               >=0.8.0.2  && <1.5
     , base-compat         >=0.9.3    && <0.11
     , lens                >=4.7.0.1  && <4.17
     , wai                 >=3.0.3.0  && <3.3

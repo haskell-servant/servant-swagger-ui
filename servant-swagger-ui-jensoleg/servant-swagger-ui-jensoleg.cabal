@@ -16,7 +16,7 @@ maintainer:     Oleg Grenrus <oleg.grenrus@iki.fi>
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
-tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.2
+tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.3
 
 extra-source-files:
     jensoleg.index.html.tmpl
