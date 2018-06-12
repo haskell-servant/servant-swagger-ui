@@ -32,21 +32,21 @@ before_cache:
 
 matrix:
   include:
-    - compiler: "ghc-7.8.4"
+    - compiler: "ghc-8.4.3"
     # env: TEST=--disable-tests BENCH=--disable-benchmarks
-      addons: {apt: {packages: [ghc-ppa-tools,cabal-install-head,ghc-7.8.4], sources: [hvr-ghc]}}
-    - compiler: "ghc-7.10.3"
-    # env: TEST=--disable-tests BENCH=--disable-benchmarks
-      addons: {apt: {packages: [ghc-ppa-tools,cabal-install-head,ghc-7.10.3], sources: [hvr-ghc]}}
-    - compiler: "ghc-8.0.2"
-    # env: TEST=--disable-tests BENCH=--disable-benchmarks
-      addons: {apt: {packages: [ghc-ppa-tools,cabal-install-head,ghc-8.0.2], sources: [hvr-ghc]}}
+      addons: {apt: {packages: [ghc-ppa-tools,cabal-install-2.2,ghc-8.4.3], sources: [hvr-ghc]}}
     - compiler: "ghc-8.2.2"
     # env: TEST=--disable-tests BENCH=--disable-benchmarks
-      addons: {apt: {packages: [ghc-ppa-tools,cabal-install-head,ghc-8.2.2], sources: [hvr-ghc]}}
-    - compiler: "ghc-8.4.2"
+      addons: {apt: {packages: [ghc-ppa-tools,cabal-install-2.2,ghc-8.2.2], sources: [hvr-ghc]}}
+    - compiler: "ghc-8.0.2"
     # env: TEST=--disable-tests BENCH=--disable-benchmarks
-      addons: {apt: {packages: [ghc-ppa-tools,cabal-install-head,ghc-8.4.2], sources: [hvr-ghc]}}
+      addons: {apt: {packages: [ghc-ppa-tools,cabal-install-2.2,ghc-8.0.2], sources: [hvr-ghc]}}
+    - compiler: "ghc-7.10.3"
+    # env: TEST=--disable-tests BENCH=--disable-benchmarks
+      addons: {apt: {packages: [ghc-ppa-tools,cabal-install-2.2,ghc-7.10.3], sources: [hvr-ghc]}}
+    - compiler: "ghc-7.8.4"
+    # env: TEST=--disable-tests BENCH=--disable-benchmarks
+      addons: {apt: {packages: [ghc-ppa-tools,cabal-install-2.2,ghc-7.8.4], sources: [hvr-ghc]}}
 
 before_install:
   - HC=${CC}
@@ -127,18 +127,25 @@ script:
   - rm -rf ./dist-newstyle
   - if $HADDOCK; then cabal new-haddock -w ${HC} ${TEST} ${BENCH} all; else echo "Skipping haddock generation";fi
 
+  # Constraint set servant-0.7
   - if [ $HCNUMVER -ge 70800 ] && [ $HCNUMVER -lt 80000 ]; then cabal new-build -w ${HC} --disable-tests --disable-benchmarks --constraint='servant ==0.7.*' all; else echo skipping...; fi
 
+  # Constraint set servant-0.8
   - if [ $HCNUMVER -ge 70800 ] && [ $HCNUMVER -lt 80200 ]; then cabal new-build -w ${HC} --disable-tests --disable-benchmarks --constraint='servant ==0.8.*' all; else echo skipping...; fi
 
+  # Constraint set servant-0.9
   - if [ $HCNUMVER -ge 70800 ] && [ $HCNUMVER -lt 80200 ]; then cabal new-build -w ${HC} --disable-tests --disable-benchmarks --constraint='servant ==0.9.*' all; else echo skipping...; fi
 
+  # Constraint set servant-0.10
   - if [ $HCNUMVER -ge 70800 ] && [ $HCNUMVER -lt 80200 ]; then cabal new-build -w ${HC} --disable-tests --disable-benchmarks --constraint='servant ==0.10.*' all; else echo skipping...; fi
 
+  # Constraint set servant-0.11
   - if [ $HCNUMVER -ge 70800 ] && [ $HCNUMVER -lt 80400 ]; then cabal new-build -w ${HC} --disable-tests --disable-benchmarks --constraint='servant ==0.11.*' all; else echo skipping...; fi
 
+  # Constraint set servant-0.12
   - if [ $HCNUMVER -ge 70800 ] && [ $HCNUMVER -lt 80400 ]; then cabal new-build -w ${HC} --disable-tests --disable-benchmarks --constraint='servant ==0.12.*' all; else echo skipping...; fi
 
+  # Constraint set servant-0.13
   - if [ $HCNUMVER -ge 70800 ] && [ $HCNUMVER -lt 80600 ]; then cabal new-build -w ${HC} --disable-tests --disable-benchmarks --constraint='servant ==0.13.*' all; else echo skipping...; fi
 
 # REGENDATA ["--branch","master","--output",".travis.yml","--config","cabal.project"]
