@@ -1,6 +1,7 @@
 cabal-version:  1.12
 name:           servant-swagger-ui-jensoleg
 version:        0.3
+x-revision:     1
 
 synopsis:       Servant swagger ui: Jens-Ole Graulund theme
 category:       Web, Servant, Swagger
@@ -9,10 +10,10 @@ description:
   .
   Jsn-Ole Graulund theme https://github.com/jensoleg/swagger-org
 
-homepage:       https://github.com/phadej/servant-swagger-ui
-bug-reports:    https://github.com/phadej/servant-swagger-ui/issues
+homepage:       https://github.com/haskell-servant/servant-swagger-ui
+bug-reports:    https://github.com/haskell-servant/servant-swagger-ui/issues
 author:         Oleg Grenrus <oleg.grenrus@iki.fi>
-maintainer:     Oleg Grenrus <oleg.grenrus@iki.fi>
+maintainer:     haskell-servant-maintainers@googlegroups.com
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
@@ -71,7 +72,7 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/phadej/servant-swagger-ui
+  location: https://github.com/haskell-servant/servant-swagger-ui
 
 library
   hs-source-dirs:
@@ -85,8 +86,8 @@ library
       base              >=4.7      && <4.12
     , bytestring        >=0.10.4.0 && <0.11
     , file-embed-lzma   >=0        && <0.1
-    , servant           >=0.4.4.5  && <0.14
-    , servant-server    >=0.4.4.5  && <0.14
+    , servant           >=0.4.4.5  && <0.15
+    , servant-server    >=0.4.4.5  && <0.15
     , swagger2          >=2.0.1    && <2.3
     , text              >=1.2.0.6  && <1.3
   exposed-modules:

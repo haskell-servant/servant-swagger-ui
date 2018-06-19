@@ -100,15 +100,18 @@ type SwaggerSchemaUI' (dir :: Symbol) (api :: *) =
 -- to find schema file automatically.
 data SwaggerUiHtml (dir :: Symbol) (api :: *) = SwaggerUiHtml T.Text
 
-#if MIN_VERSION_servant(0,10,0)
-#define LINK Link
+#if MIN_VERSION_servant(0,14,0)
+#define LINK Link ~ MkLink api Link
+#define LINKPATH uriPath . linkURI
+#elif MIN_VERSION_servant(0,10,0)
+#define LINK Link ~ MkLink api
 #define LINKPATH uriPath . linkURI
 #else
-#define LINK URI
+#define LINK URI ~ MkLink api
 #define LINKPATH uriPath
 #endif
 
-instance (KnownSymbol dir, HasLink api, LINK ~ MkLink api, IsElem api api)
+instance (KnownSymbol dir, HasLink api, LINK, IsElem api api)
     => ToMarkup (SwaggerUiHtml dir api)
   where
     toMarkup (SwaggerUiHtml template) = preEscapedToMarkup

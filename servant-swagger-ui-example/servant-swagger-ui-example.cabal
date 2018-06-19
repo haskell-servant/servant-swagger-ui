@@ -7,10 +7,10 @@ category:       Web, Servant, Swagger
 description:
   A kind of test-suite of servant-swagger-ui
 
-homepage:       https://github.com/phadej/servant-swagger-ui
-bug-reports:    https://github.com/phadej/servant-swagger-ui/issues
+homepage:       https://github.com/haskell-servant/servant-swagger-ui
+bug-reports:    https://github.com/haskell-servant/servant-swagger-ui/issues
 author:         Oleg Grenrus <oleg.grenrus@iki.fi>
-maintainer:     Oleg Grenrus <oleg.grenrus@iki.fi>
+maintainer:     haskell-servant-maintainers@googlegroups.com
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
@@ -18,7 +18,7 @@ tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.3
 
 source-repository head
   type: git
-  location: https://github.com/phadej/servant-swagger-ui
+  location: https://github.com/haskell-servant/servant-swagger-ui
 
 executable servant-swagger-ui-example
   main-is:             Main.hs
