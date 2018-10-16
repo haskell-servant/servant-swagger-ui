@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP                        #-}
 {-# LANGUAGE ConstraintKinds            #-}
 {-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE DeriveGeneric              #-}
@@ -56,18 +55,6 @@ import Text.Blaze                     (ToMarkup (..))
 
 import qualified Data.Text as T
 
-#if MIN_VERSION_servant(0,7,0)
--- do nothing
-#else
-#if MIN_VERSION_servant(0,5,0)
-import Control.Monad.Trans.Except (ExceptT)
-type Handler = ExceptT ServantErr IO
-#else
-import Control.Monad.Trans.Either (EitherT)
-type Handler = EitherT ServantErr IO
-#endif
-#endif
-
 -- | Swagger schema + ui api.
 --
 -- @SwaggerSchemaUI "swagger-ui" "swagger.json"@ will result into following hierarchy:
@@ -100,18 +87,7 @@ type SwaggerSchemaUI' (dir :: Symbol) (api :: *) =
 -- to find schema file automatically.
 data SwaggerUiHtml (dir :: Symbol) (api :: *) = SwaggerUiHtml T.Text
 
-#if MIN_VERSION_servant(0,14,0)
-#define LINK Link ~ MkLink api Link
-#define LINKPATH uriPath . linkURI
-#elif MIN_VERSION_servant(0,10,0)
-#define LINK Link ~ MkLink api
-#define LINKPATH uriPath . linkURI
-#else
-#define LINK URI ~ MkLink api
-#define LINKPATH uriPath
-#endif
-
-instance (KnownSymbol dir, HasLink api, LINK, IsElem api api)
+instance (KnownSymbol dir, HasLink api, Link ~ MkLink api Link, IsElem api api)
     => ToMarkup (SwaggerUiHtml dir api)
   where
     toMarkup (SwaggerUiHtml template) = preEscapedToMarkup
@@ -119,7 +95,7 @@ instance (KnownSymbol dir, HasLink api, LINK, IsElem api api)
         $ T.replace "SERVANT_SWAGGER_UI_DIR" dir
         $ template
       where
-        schema = T.pack $ LINKPATH $ safeLink proxyApi proxyApi
+        schema = T.pack $ uriPath . linkURI $ safeLink proxyApi proxyApi
         dir    = T.pack $ symbolVal (Proxy :: Proxy dir)
         proxyApi = Proxy :: Proxy api
 
@@ -132,8 +108,4 @@ swaggerSchemaUIServerImpl indexTemplate files swagger = return swagger
     :<|> return (SwaggerUiHtml indexTemplate)
     :<|> rest
   where
-    rest =
-#if MIN_VERSION_servant_server(0,11,0)
-        Tagged $
-#endif
-        staticApp $ embeddedSettings files
+    rest = Tagged $ staticApp $ embeddedSettings files

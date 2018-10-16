@@ -1,3 +1,8 @@
+- 0.3.2.3.19.3
+    - Update to `swagger-ui-3.19.3`
+    - Add GHC-8.6 support
+    - Drop `servant<0.14` support
+
 - 0.3.0.3.13.2
     - Update to `swagger-ui-3.13.2`
     - Split package into multiple packages:

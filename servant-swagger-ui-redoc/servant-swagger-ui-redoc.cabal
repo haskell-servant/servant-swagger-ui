@@ -1,7 +1,6 @@
 cabal-version:  1.12
 name:           servant-swagger-ui-redoc
-version:        0.3.0.1.21.2
-x-revision:     2
+version:        0.3.2.1.22.2
 
 synopsis:       Servant swagger ui: ReDoc theme
 category:       Web, Servant, Swagger
@@ -17,11 +16,12 @@ maintainer:     haskell-servant-maintainers@googlegroups.com
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
-tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.3
+tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.4 || ==8.6.1
 
 extra-source-files:
-    redoc-dist-1.21.2/redoc.min.js
+    redoc-dist-1.22.2/redoc.min.js
     redoc.index.html.tmpl
+    CHANGELOG.md
 
 source-repository head
   type: git
@@ -33,16 +33,16 @@ library
   ghc-options: -Wall
 
   build-depends:
-    servant-swagger-ui-core >=0.3 && <0.4
+    servant-swagger-ui-core >=0.3.2 && <0.4
 
   build-depends:
-      base              >=4.7      && <4.12
+      base              >=4.7      && <4.13
     , bytestring        >=0.10.4.0 && <0.11
     , file-embed-lzma   >=0        && <0.1
-    , servant           >=0.4.4.5  && <0.15
-    , servant-server    >=0.4.4.5  && <0.15
-    , swagger2          >=2.0.1    && <2.4
-    , text              >=1.2.0.6  && <1.3
+    , servant           >=0.14     && <0.15
+    , servant-server    >=0.14     && <0.15
+    , swagger2          >=2.3.0.1  && <2.4
+    , text              >=1.2.3.0  && <1.3
   exposed-modules:
       Servant.Swagger.UI.ReDoc
   default-language: Haskell2010
