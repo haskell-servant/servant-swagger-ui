@@ -73,4 +73,4 @@ redocIndexTemplate :: Text
 redocIndexTemplate = $(embedText "redoc.index.html.tmpl")
 
 redocFiles :: [(FilePath, ByteString)]
-redocFiles = $(embedRecursiveDir "redoc-dist-1.21.2")
+redocFiles = $(embedRecursiveDir "redoc-dist-1.22.2")

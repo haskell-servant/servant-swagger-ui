@@ -1,7 +1,6 @@
 cabal-version:  1.12
 name:           servant-swagger-ui-core
-version:        0.3.1
-x-revision:     1
+version:        0.3.2
 
 synopsis:       Servant swagger ui core components
 category:       Web, Servant, Swagger
@@ -18,7 +17,7 @@ maintainer:     haskell-servant-maintainers@googlegroups.com
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
-tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.3
+tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.4 || ==8.6.1
 extra-source-files:
   Changelog.md
 
@@ -26,36 +25,24 @@ source-repository head
   type: git
   location: https://github.com/haskell-servant/servant-swagger-ui
 
-flag servant-0-5
-  description: Whether use servant >= 0.5
-  manual: False
-  default: True
-
 library
   hs-source-dirs:
       src
   ghc-options: -Wall
 
   build-depends:
-      base              >=4.7      && <4.12
-    , blaze-markup      >=0.7.0.2  && <0.9
-    , bytestring        >=0.10.4.0 && <0.11
-    , http-media        >=0.6.2    && <0.8
-    , servant           >=0.4.4.5  && <0.15
-    , servant-blaze     >=0.4.4.5  && <0.9
-    , servant-server    >=0.4.4.5  && <0.15
-    , swagger2          >=2.0.1    && <2.4
-    , text              >=1.2.0.6  && <1.3
-    , wai-app-static    >=3.0.1.1  && <3.2
-  if flag(servant-0-5)
-    build-depends:
-        servant              >=0.5
-      , transformers         >=0.3 && <0.6
-      , transformers-compat  >=0.3 && <0.7
-  else
-    build-depends:
-        servant                       <0.5
-      , either
+      base                 >=4.7      && <4.13
+    , blaze-markup         >=0.7.0.2  && <0.9
+    , bytestring           >=0.10.4.0 && <0.11
+    , http-media           >=0.7.1.3  && <0.8
+    , servant              >=0.14     && <0.15
+    , servant-blaze        >=0.8      && <0.9
+    , servant-server       >=0.14     && <0.15
+    , swagger2             >=2.3.0.1  && <2.4
+    , text                 >=1.2.3.0  && <1.3
+    , transformers         >=0.3      && <0.6
+    , transformers-compat  >=0.3      && <0.7
+    , wai-app-static       >=3.0.1.1  && <3.2
   exposed-modules:
       Servant.Swagger.UI.Core
   default-language: Haskell2010
