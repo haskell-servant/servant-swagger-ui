@@ -11,9 +11,9 @@
 
 ## Example
 
-![example screenshot](https://raw.githubusercontent.com/phadej/servant-swagger-ui/master/screenshot.png)
+![example screenshot](https://raw.githubusercontent.com/haskell-servant/servant-swagger-ui/master/screenshot.png)
 
-Check [`example/Main.hs`](https://github.com/phadej/servant-swagger-ui/blob/master/example/Main.hs) for an example.
+Check [`servant-swagger-ui-example/src/Main.hs`](https://github.com/haskell-servant/servant-swagger-ui/blob/master/servant-swagger-ui-example/src/Main.hs) for an example.
 
 ## Development
 
