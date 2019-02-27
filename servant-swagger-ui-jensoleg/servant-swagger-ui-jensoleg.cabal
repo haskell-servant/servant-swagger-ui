@@ -1,7 +1,7 @@
 cabal-version:  1.12
 name:           servant-swagger-ui-jensoleg
 version:        0.3.2
-x-revision:     1
+x-revision:     2
 
 synopsis:       Servant swagger ui: Jens-Ole Graulund theme
 category:       Web, Servant, Swagger
@@ -17,7 +17,7 @@ maintainer:     haskell-servant-maintainers@googlegroups.com
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
-tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.4 || ==8.6.1
+tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.4 || ==8.6.3
 
 extra-source-files:
     jensoleg.index.html.tmpl
@@ -86,8 +86,8 @@ library
       base              >=4.7      && <4.13
     , bytestring        >=0.10.4.0 && <0.11
     , file-embed-lzma   >=0        && <0.1
-    , servant           >=0.14     && <0.16
-    , servant-server    >=0.14     && <0.16
+    , servant           >=0.14     && <0.17
+    , servant-server    >=0.14     && <0.17
     , swagger2          >=2.3.0.1  && <2.4
     , text              >=1.2.3.0  && <1.3
   exposed-modules:
