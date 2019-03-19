@@ -46,6 +46,7 @@ module Servant.Swagger.UI (
     SwaggerSchemaUI,
     SwaggerSchemaUI',
     swaggerSchemaUIServer,
+    swaggerSchemaUIServer',
 
     -- ** Official swagger ui
     swaggerUiIndexTemplate,
@@ -70,6 +71,17 @@ swaggerSchemaUIServer
     => Swagger -> Server (SwaggerSchemaUI' dir api)
 swaggerSchemaUIServer =
     swaggerSchemaUIServerImpl swaggerUiIndexTemplate swaggerUiFiles
+
+-- | Use a custom server to serve the Swagger spec source.
+--
+-- This allows even more control over how the spec source is served.
+-- It allows, for instance, serving the spec source with authentication,
+-- customizing the response based on the client or serving a swagger.yaml
+-- instead.
+swaggerSchemaUIServer'
+    :: Server api -> Server (SwaggerSchemaUI' dir api)
+swaggerSchemaUIServer' =
+    swaggerSchemaUIServerImpl' swaggerUiIndexTemplate swaggerUiFiles
 
 swaggerUiIndexTemplate :: Text
 swaggerUiIndexTemplate = $(embedText "index.html.tmpl")

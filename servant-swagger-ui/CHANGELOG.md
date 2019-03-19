@@ -1,3 +1,7 @@
+- 0.3.3.3.22.2
+    - Update to `swagger-ui-3.22.2`
+    - Add `swaggerSchemaUIServer'`
+
 - 0.3.2.3.19.3
     - Update to `swagger-ui-3.19.3`
     - Add GHC-8.6 support
