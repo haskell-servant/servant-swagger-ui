@@ -42,6 +42,7 @@ module Servant.Swagger.UI.Core (
     -- * Implementation details
     SwaggerUiHtml(..),
     swaggerSchemaUIServerImpl,
+    swaggerSchemaUIServerImpl',
     Handler,
     ) where
 
@@ -103,7 +104,14 @@ swaggerSchemaUIServerImpl
     :: (Server api ~ Handler Swagger)
     => T.Text -> [(FilePath, ByteString)]
     -> Swagger -> Server (SwaggerSchemaUI' dir api)
-swaggerSchemaUIServerImpl indexTemplate files swagger = return swagger
+swaggerSchemaUIServerImpl indexTemplate files swagger
+  = swaggerSchemaUIServerImpl' indexTemplate files $ return swagger
+
+swaggerSchemaUIServerImpl'
+    :: T.Text -> [(FilePath, ByteString)]
+    -> Server api -> Server (SwaggerSchemaUI' dir api)
+swaggerSchemaUIServerImpl' indexTemplate files server
+       = server
     :<|> return (SwaggerUiHtml indexTemplate)
     :<|> return (SwaggerUiHtml indexTemplate)
     :<|> rest
