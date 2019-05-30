@@ -46,6 +46,7 @@ module Servant.Swagger.UI.JensOleG (
     SwaggerSchemaUI,
     SwaggerSchemaUI',
     jensolegSwaggerSchemaUIServer,
+    jensolegSwaggerSchemaUIServer',
 
     -- ** ReDoc theme
     jensolegIndexTemplate,
@@ -70,6 +71,12 @@ jensolegSwaggerSchemaUIServer
     => Swagger -> Server (SwaggerSchemaUI' dir api)
 jensolegSwaggerSchemaUIServer =
     swaggerSchemaUIServerImpl jensolegIndexTemplate jensolegFiles
+
+-- | Use a custom server to serve the Swagger spec source.
+jensolegSwaggerSchemaUIServer'
+    :: Server api -> Server (SwaggerSchemaUI' dir api)
+jensolegSwaggerSchemaUIServer' =
+    swaggerSchemaUIServerImpl' jensolegIndexTemplate jensolegFiles
 
 jensolegIndexTemplate :: Text
 jensolegIndexTemplate = $(embedText "jensoleg.index.html.tmpl")

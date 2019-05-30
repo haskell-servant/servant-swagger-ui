@@ -1,95 +1,92 @@
-cabal-version:  1.12
-name:           servant-swagger-ui-jensoleg
-version:        0.3.2
-x-revision:     2
-
-synopsis:       Servant swagger ui: Jens-Ole Graulund theme
-category:       Web, Servant, Swagger
+cabal-version:      1.12
+name:               servant-swagger-ui-jensoleg
+version:            0.3.3
+synopsis:           Servant swagger ui: Jens-Ole Graulund theme
+category:           Web, Servant, Swagger
 description:
   Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
   .
   Jsn-Ole Graulund theme https://github.com/jensoleg/swagger-org
 
-homepage:       https://github.com/haskell-servant/servant-swagger-ui
-bug-reports:    https://github.com/haskell-servant/servant-swagger-ui/issues
-author:         Oleg Grenrus <oleg.grenrus@iki.fi>
-maintainer:     haskell-servant-maintainers@googlegroups.com
-license:        BSD3
-license-file:   LICENSE
-build-type:     Simple
-tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.4 || ==8.6.3
+homepage:           https://github.com/haskell-servant/servant-swagger-ui
+bug-reports:
+  https://github.com/haskell-servant/servant-swagger-ui/issues
+
+author:             Oleg Grenrus <oleg.grenrus@iki.fi>
+maintainer:         haskell-servant-maintainers@googlegroups.com
+license:            BSD3
+license-file:       LICENSE
+build-type:         Simple
+tested-with:
+  GHC ==7.8.4 || ==7.10.3 || ==8.0.2 || ==8.2.2 || ==8.4.4 || ==8.6.5
 
 extra-source-files:
-    jensoleg.index.html.tmpl
-    jensoleg-dist/css/api-explorer.css
-    jensoleg-dist/css/index.css
-    jensoleg-dist/css/print.css
-    jensoleg-dist/css/reset.css
-    jensoleg-dist/css/screen.css
-    jensoleg-dist/css/standalone.css
-    jensoleg-dist/css/typography.css
-    jensoleg-dist/fonts/droid-sans-v6-latin-700.eot
-    jensoleg-dist/fonts/droid-sans-v6-latin-700.svg
-    jensoleg-dist/fonts/droid-sans-v6-latin-700.ttf
-    jensoleg-dist/fonts/droid-sans-v6-latin-700.woff
-    jensoleg-dist/fonts/droid-sans-v6-latin-700.woff2
-    jensoleg-dist/fonts/droid-sans-v6-latin-regular.eot
-    jensoleg-dist/fonts/droid-sans-v6-latin-regular.svg
-    jensoleg-dist/fonts/droid-sans-v6-latin-regular.ttf
-    jensoleg-dist/fonts/droid-sans-v6-latin-regular.woff
-    jensoleg-dist/fonts/droid-sans-v6-latin-regular.woff2
-    jensoleg-dist/images/explorer_icons.png
-    jensoleg-dist/images/favicon-16x16.png
-    jensoleg-dist/images/favicon-32x32.png
-    jensoleg-dist/images/favicon.ico
-    jensoleg-dist/images/json_editor_integration.png
-    jensoleg-dist/images/logo_small.png
-    jensoleg-dist/images/pet_store_api.png
-    jensoleg-dist/images/senodio.png
-    jensoleg-dist/images/Swagger_explorer.png
-    jensoleg-dist/images/Swagger_explorer_min.png
-    jensoleg-dist/images/throbber.gif
-    jensoleg-dist/images/wordnik_api.png
-    jensoleg-dist/index.html
-    jensoleg-dist/lib/backbone-min.js
-    jensoleg-dist/lib/bootstrap.min.js
-    jensoleg-dist/lib/handlebars-2.0.0.js
-    jensoleg-dist/lib/highlight.7.3.pack.js
-    jensoleg-dist/lib/jquery-1.8.0.min.js
-    jensoleg-dist/lib/jquery.ba-bbq.min.js
-    jensoleg-dist/lib/jquery.slideto.min.js
-    jensoleg-dist/lib/jquery.wiggle.min.js
-    jensoleg-dist/lib/jsoneditor.js
-    jensoleg-dist/lib/marked.js
-    jensoleg-dist/lib/swagger-oauth.js
-    jensoleg-dist/lib/underscore-min.js
-    jensoleg-dist/moncierge.json
-    jensoleg-dist/o2c.html
-    jensoleg-dist/petstore.json
-    jensoleg-dist/swagger-ui.js
-    jensoleg-dist/swagger-ui.min.js
-    jensoleg-dist/swagger.json
+  jensoleg.index.html.tmpl
+  jensoleg-dist/css/api-explorer.css
+  jensoleg-dist/css/index.css
+  jensoleg-dist/css/print.css
+  jensoleg-dist/css/reset.css
+  jensoleg-dist/css/screen.css
+  jensoleg-dist/css/standalone.css
+  jensoleg-dist/css/typography.css
+  jensoleg-dist/fonts/droid-sans-v6-latin-700.eot
+  jensoleg-dist/fonts/droid-sans-v6-latin-700.svg
+  jensoleg-dist/fonts/droid-sans-v6-latin-700.ttf
+  jensoleg-dist/fonts/droid-sans-v6-latin-700.woff
+  jensoleg-dist/fonts/droid-sans-v6-latin-700.woff2
+  jensoleg-dist/fonts/droid-sans-v6-latin-regular.eot
+  jensoleg-dist/fonts/droid-sans-v6-latin-regular.svg
+  jensoleg-dist/fonts/droid-sans-v6-latin-regular.ttf
+  jensoleg-dist/fonts/droid-sans-v6-latin-regular.woff
+  jensoleg-dist/fonts/droid-sans-v6-latin-regular.woff2
+  jensoleg-dist/images/explorer_icons.png
+  jensoleg-dist/images/favicon-16x16.png
+  jensoleg-dist/images/favicon-32x32.png
+  jensoleg-dist/images/favicon.ico
+  jensoleg-dist/images/json_editor_integration.png
+  jensoleg-dist/images/logo_small.png
+  jensoleg-dist/images/pet_store_api.png
+  jensoleg-dist/images/senodio.png
+  jensoleg-dist/images/Swagger_explorer.png
+  jensoleg-dist/images/Swagger_explorer_min.png
+  jensoleg-dist/images/throbber.gif
+  jensoleg-dist/images/wordnik_api.png
+  jensoleg-dist/index.html
+  jensoleg-dist/lib/backbone-min.js
+  jensoleg-dist/lib/bootstrap.min.js
+  jensoleg-dist/lib/handlebars-2.0.0.js
+  jensoleg-dist/lib/highlight.7.3.pack.js
+  jensoleg-dist/lib/jquery-1.8.0.min.js
+  jensoleg-dist/lib/jquery.ba-bbq.min.js
+  jensoleg-dist/lib/jquery.slideto.min.js
+  jensoleg-dist/lib/jquery.wiggle.min.js
+  jensoleg-dist/lib/jsoneditor.js
+  jensoleg-dist/lib/marked.js
+  jensoleg-dist/lib/swagger-oauth.js
+  jensoleg-dist/lib/underscore-min.js
+  jensoleg-dist/moncierge.json
+  jensoleg-dist/o2c.html
+  jensoleg-dist/petstore.json
+  jensoleg-dist/swagger-ui.js
+  jensoleg-dist/swagger-ui.min.js
+  jensoleg-dist/swagger.json
 
 source-repository head
-  type: git
+  type:     git
   location: https://github.com/haskell-servant/servant-swagger-ui
 
 library
-  hs-source-dirs:
-      src
-  ghc-options: -Wall
-
+  hs-source-dirs:   src
+  ghc-options:      -Wall
+  build-depends:    servant-swagger-ui-core >=0.3.3 && <0.4
   build-depends:
-    servant-swagger-ui-core >=0.3.2 && <0.4
+      base             >=4.7      && <4.13
+    , bytestring       >=0.10.4.0 && <0.11
+    , file-embed-lzma  >=0        && <0.1
+    , servant          >=0.14     && <0.17
+    , servant-server   >=0.14     && <0.17
+    , swagger2         >=2.3.0.1  && <2.5
+    , text             >=1.2.3.0  && <1.3
 
-  build-depends:
-      base              >=4.7      && <4.13
-    , bytestring        >=0.10.4.0 && <0.11
-    , file-embed-lzma   >=0        && <0.1
-    , servant           >=0.14     && <0.17
-    , servant-server    >=0.14     && <0.17
-    , swagger2          >=2.3.0.1  && <2.4
-    , text              >=1.2.3.0  && <1.3
-  exposed-modules:
-      Servant.Swagger.UI.JensOleG
+  exposed-modules:  Servant.Swagger.UI.JensOleG
   default-language: Haskell2010

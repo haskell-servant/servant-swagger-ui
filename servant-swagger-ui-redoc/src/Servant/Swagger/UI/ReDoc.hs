@@ -46,6 +46,7 @@ module Servant.Swagger.UI.ReDoc (
     SwaggerSchemaUI,
     SwaggerSchemaUI',
     redocSchemaUIServer,
+    redocSchemaUIServer',
 
     -- ** ReDoc theme
     redocIndexTemplate,
@@ -68,6 +69,13 @@ redocSchemaUIServer
     => Swagger -> Server (SwaggerSchemaUI' dir api)
 redocSchemaUIServer =
     swaggerSchemaUIServerImpl redocIndexTemplate redocFiles
+
+-- | Use a custom server to serve the Swagger spec source.
+redocSchemaUIServer'
+    :: Server api -> Server (SwaggerSchemaUI' dir api)
+redocSchemaUIServer' =
+    swaggerSchemaUIServerImpl' redocIndexTemplate redocFiles
+
 
 redocIndexTemplate :: Text
 redocIndexTemplate = $(embedText "redoc.index.html.tmpl")

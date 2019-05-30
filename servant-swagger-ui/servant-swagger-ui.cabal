@@ -1,55 +1,51 @@
-cabal-version:  1.12
-name:           servant-swagger-ui
-version:        0.3.2.3.19.3
-x-revision:     2
-
-synopsis:       Servant swagger ui
-category:       Web, Servant, Swagger
+cabal-version:      1.12
+name:               servant-swagger-ui
+version:            0.3.3.3.22.2
+synopsis:           Servant swagger ui
+category:           Web, Servant, Swagger
 description:
   Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
   .
   https://github.com/swagger-api/swagger-ui
 
-homepage:       https://github.com/haskell-servant/servant-swagger-ui
-bug-reports:    https://github.com/haskell-servant/servant-swagger-ui/issues
-author:         Oleg Grenrus <oleg.grenrus@iki.fi>
-maintainer:     haskell-servant-maintainers@googlegroups.com
-license:        BSD3
-license-file:   LICENSE
-build-type:     Simple
-tested-with:    GHC ==7.8.4 || ==7.10.3 || ==8.0.2 ||  ==8.2.2 || ==8.4.4 || ==8.6.3
+homepage:           https://github.com/haskell-servant/servant-swagger-ui
+bug-reports:
+  https://github.com/haskell-servant/servant-swagger-ui/issues
+
+author:             Oleg Grenrus <oleg.grenrus@iki.fi>
+maintainer:         haskell-servant-maintainers@googlegroups.com
+license:            BSD3
+license-file:       LICENSE
+build-type:         Simple
+tested-with:
+  GHC ==7.8.4 || ==7.10.3 || ==8.0.2 || ==8.2.2 || ==8.4.4 || ==8.6.5
 
 extra-source-files:
-    CHANGELOG.md
-
-    index.html.tmpl
-    swagger-ui-dist-3.19.3/favicon-16x16.png
-    swagger-ui-dist-3.19.3/favicon-32x32.png
-    swagger-ui-dist-3.19.3/swagger-ui-bundle.js
-    swagger-ui-dist-3.19.3/swagger-ui-standalone-preset.js
-    swagger-ui-dist-3.19.3/swagger-ui.css
-    swagger-ui-dist-3.19.3/swagger-ui.js
+  CHANGELOG.md
+  index.html.tmpl
+  swagger-ui-dist-3.22.2/favicon-16x16.png
+  swagger-ui-dist-3.22.2/favicon-32x32.png
+  swagger-ui-dist-3.22.2/swagger-ui-bundle.js
+  swagger-ui-dist-3.22.2/swagger-ui-standalone-preset.js
+  swagger-ui-dist-3.22.2/swagger-ui.css
+  swagger-ui-dist-3.22.2/swagger-ui.js
 
 source-repository head
-  type: git
+  type:     git
   location: https://github.com/haskell-servant/servant-swagger-ui
 
 library
-  hs-source-dirs:
-      src
-  ghc-options: -Wall
-
+  hs-source-dirs:   src
+  ghc-options:      -Wall
+  build-depends:    servant-swagger-ui-core >=0.3.3 && <0.4
   build-depends:
-    servant-swagger-ui-core >=0.3 && <0.4
+      base             >=4.7      && <4.13
+    , bytestring       >=0.10.4.0 && <0.11
+    , file-embed-lzma  >=0        && <0.1
+    , servant          >=0.14     && <0.17
+    , servant-server   >=0.14     && <0.17
+    , swagger2         >=2.3.0.1  && <2.5
+    , text             >=1.2.3.0  && <1.3
 
-  build-depends:
-      base              >=4.7      && <4.13
-    , bytestring        >=0.10.4.0 && <0.11
-    , file-embed-lzma   >=0        && <0.1
-    , servant           >=0.14     && <0.17
-    , servant-server    >=0.14     && <0.17
-    , swagger2          >=2.3.0.1  && <2.4
-    , text              >=1.2.3.0  && <1.3
-  exposed-modules:
-      Servant.Swagger.UI
+  exposed-modules:  Servant.Swagger.UI
   default-language: Haskell2010
