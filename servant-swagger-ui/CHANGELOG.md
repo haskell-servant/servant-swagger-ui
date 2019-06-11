@@ -1,3 +1,6 @@
+- 0.3.4.3.22.2
+    - Fix #67: We didn't use served `swagger.json`
+
 - 0.3.3.3.22.2
     - Update to `swagger-ui-3.22.2`
     - Add `swaggerSchemaUIServer'`

@@ -1,6 +1,6 @@
 cabal-version:      1.12
 name:               servant-swagger-ui
-version:            0.3.3.3.22.2
+version:            0.3.4.3.22.2
 synopsis:           Servant swagger ui
 category:           Web, Servant, Swagger
 description:
