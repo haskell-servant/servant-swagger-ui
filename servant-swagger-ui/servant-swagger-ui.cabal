@@ -1,6 +1,6 @@
 cabal-version:      1.12
 name:               servant-swagger-ui
-version:            0.3.4.3.22.2
+version:            0.3.4.3.23.8
 synopsis:           Servant swagger ui
 category:           Web, Servant, Swagger
 description:
@@ -23,12 +23,12 @@ tested-with:
 extra-source-files:
   CHANGELOG.md
   index.html.tmpl
-  swagger-ui-dist-3.22.2/favicon-16x16.png
-  swagger-ui-dist-3.22.2/favicon-32x32.png
-  swagger-ui-dist-3.22.2/swagger-ui-bundle.js
-  swagger-ui-dist-3.22.2/swagger-ui-standalone-preset.js
-  swagger-ui-dist-3.22.2/swagger-ui.css
-  swagger-ui-dist-3.22.2/swagger-ui.js
+  swagger-ui-dist-3.23.8/favicon-16x16.png
+  swagger-ui-dist-3.23.8/favicon-32x32.png
+  swagger-ui-dist-3.23.8/swagger-ui-bundle.js
+  swagger-ui-dist-3.23.8/swagger-ui-standalone-preset.js
+  swagger-ui-dist-3.23.8/swagger-ui.css
+  swagger-ui-dist-3.23.8/swagger-ui.js
 
 source-repository head
   type:     git
