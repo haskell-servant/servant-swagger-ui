@@ -1,3 +1,6 @@
+- 0.3.4.3.23.11
+    - Update to `swagger-ui-3.23.11`
+
 - 0.3.4.3.22.2
     - Fix #67: We didn't use served `swagger.json`
 
