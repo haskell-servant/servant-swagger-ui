@@ -1,3 +1,6 @@
+- 0.3.2.1.22.3
+    - Update to ReDoc-1.22.3
+
 - 0.3.3.1.22.2
     - Add `swaggerSchemaUIServer'`
 
