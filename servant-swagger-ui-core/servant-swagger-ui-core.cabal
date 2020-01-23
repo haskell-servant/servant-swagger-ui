@@ -1,7 +1,7 @@
 cabal-version:      1.12
 name:               servant-swagger-ui-core
 version:            0.3.3
-x-revision:         2
+x-revision:         3
 synopsis:           Servant swagger ui core components
 category:           Web, Servant, Swagger
 description:
@@ -42,9 +42,9 @@ library
     , blaze-markup         >=0.7.0.2  && <0.9
     , bytestring           >=0.10.4.0 && <0.11
     , http-media           >=0.7.1.3  && <0.9
-    , servant              >=0.14     && <0.17
+    , servant              >=0.14     && <0.18
     , servant-blaze        >=0.8      && <0.10
-    , servant-server       >=0.14     && <0.17
+    , servant-server       >=0.14     && <0.18
     , swagger2             >=2.3.0.1  && <2.6
     , text                 >=1.2.3.0  && <1.3
     , transformers         >=0.3      && <0.6

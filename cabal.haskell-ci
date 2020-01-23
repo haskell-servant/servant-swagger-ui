@@ -9,5 +9,9 @@ constraint-set servant-0.15
   constraints: servant ==0.15.*
 
 constraint-set servant-0.16
-  ghc: >= 8.0 && <8.8
+  ghc: >= 8.0 && <8.10
   constraints: servant ==0.16.*
+
+constraint-set servant-0.17
+  ghc: >= 8.0 && <8.10
+  constraints: servant ==0.17.*
