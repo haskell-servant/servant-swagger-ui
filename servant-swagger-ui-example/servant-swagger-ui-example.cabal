@@ -1,6 +1,6 @@
 cabal-version: 2.0
 name:          servant-swagger-ui-example
-version:       0
+version:       0.0.1
 synopsis:      servant-swagger-ui example
 category:      Web, Servant, Swagger
 description:   A kind of test-suite of servant-swagger-ui
@@ -34,8 +34,8 @@ executable servant-swagger-ui-example
     , base                         >=4.7      && <4.14
     , base-compat                  >=0.9.3    && <0.12
     , lens                         >=4.7.0.1  && <4.19
-    , servant
-    , servant-server
+    , servant                      >=0.16     && <0.19
+    , servant-server               >=0.16     && <0.19
     , servant-swagger
     , servant-swagger-ui
     , servant-swagger-ui-core
