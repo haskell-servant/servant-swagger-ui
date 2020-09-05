@@ -45,11 +45,11 @@ library
   build-depends:    servant-swagger-ui-core >=0.3.3 && <0.4
   build-depends:
       base             >=4.7      && <4.15
+    , aeson            >=0.8.0.2  && <1.6
     , bytestring       >=0.10.4.0 && <0.11
     , file-embed-lzma  >=0        && <0.1
     , servant          >=0.14     && <0.19
     , servant-server   >=0.14     && <0.19
-    , swagger2         >=2.3.0.1  && <2.7
     , text             >=1.2.3.0  && <1.3
 
   exposed-modules:  Servant.Swagger.UI
