@@ -1,3 +1,6 @@
+- 0.3.4.3.36.1
+    - Update to `swagger-ui-3.36.1`
+
 - 0.3.4.3.23.11
     - Update to `swagger-ui-3.23.11`
 
