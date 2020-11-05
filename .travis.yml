@@ -54,12 +54,6 @@ jobs:
     - compiler: ghc-8.0.2
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-8.0.2","cabal-install-3.2"]}}
       os: linux
-    - compiler: ghc-7.10.3
-      addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-7.10.3","cabal-install-3.2"]}}
-      os: linux
-    - compiler: ghc-7.8.4
-      addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-7.8.4","cabal-install-3.2"]}}
-      os: linux
 before_install:
   - HC=$(echo "/opt/$CC/bin/ghc" | sed 's/-/\//')
   - WITHCOMPILER="-w $HC"
@@ -195,11 +189,11 @@ script:
   # Constraint set servant-0.14
   - if [ $HCNUMVER -lt 80800 ] ; then ${CABAL} v2-build $WITHCOMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.14.*' all ; fi
   # Constraint set servant-0.15
-  - if [ $HCNUMVER -ge 80000 ] && [ $HCNUMVER -lt 80800 ] ; then ${CABAL} v2-build $WITHCOMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.15.*' all ; fi
+  - if [ $HCNUMVER -lt 80800 ] ; then ${CABAL} v2-build $WITHCOMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.15.*' all ; fi
   # Constraint set servant-0.16
-  - if [ $HCNUMVER -ge 80000 ] && [ $HCNUMVER -lt 81000 ] ; then ${CABAL} v2-build $WITHCOMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.16.*' all ; fi
+  - if [ $HCNUMVER -lt 81000 ] ; then ${CABAL} v2-build $WITHCOMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.16.*' all ; fi
   # Constraint set servant-0.17
-  - if [ $HCNUMVER -ge 80000 ] && [ $HCNUMVER -lt 81000 ] ; then ${CABAL} v2-build $WITHCOMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.17.*' all ; fi
+  - if [ $HCNUMVER -lt 81000 ] ; then ${CABAL} v2-build $WITHCOMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.17.*' all ; fi
 
 # REGENDATA ("0.10.3",["--output",".travis.yml","--config=cabal.haskell-ci","cabal.project"])
 # EOF
