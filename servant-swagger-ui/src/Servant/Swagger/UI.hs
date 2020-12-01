@@ -46,7 +46,9 @@ module Servant.Swagger.UI (
     SwaggerSchemaUI,
     SwaggerSchemaUI',
     swaggerSchemaUIServer,
+    swaggerSchemaUIServerT,
     swaggerSchemaUIServer',
+    swaggerSchemaUIServerT',
 
     -- ** Official swagger ui
     swaggerUiIndexTemplate,
@@ -72,6 +74,19 @@ swaggerSchemaUIServer
 swaggerSchemaUIServer =
     swaggerSchemaUIServerImpl swaggerUiIndexTemplate swaggerUiFiles
 
+-- | Serve Swagger UI on @/dir@ using @api@ as a Swagger spec source.
+--
+-- Generalized to 'ServerT'
+--
+-- @
+-- swaggerSchemaUIServerT :: Swagger -> ServerT (SwaggerSchemaUI schema dir) m
+-- @
+swaggerSchemaUIServerT
+    :: (Monad m, ServerT api m ~ m Swagger)
+    => Swagger -> ServerT (SwaggerSchemaUI' dir api) m
+swaggerSchemaUIServerT =
+    swaggerSchemaUIServerImpl swaggerUiIndexTemplate swaggerUiFiles
+
 -- | Use a custom server to serve the Swagger spec source.
 --
 -- This allows even more control over how the spec source is served.
@@ -81,6 +96,20 @@ swaggerSchemaUIServer =
 swaggerSchemaUIServer'
     :: Server api -> Server (SwaggerSchemaUI' dir api)
 swaggerSchemaUIServer' =
+    swaggerSchemaUIServerImpl' swaggerUiIndexTemplate swaggerUiFiles
+
+-- | Use a custom server to serve the Swagger spec source.
+--
+-- This allows even more control over how the spec source is served.
+-- It allows, for instance, serving the spec source with authentication,
+-- customizing the response based on the client or serving a swagger.yaml
+-- instead.
+--
+-- Generalized to 'ServerT'
+--
+swaggerSchemaUIServerT'
+    :: Monad m => ServerT api m -> ServerT (SwaggerSchemaUI' dir api) m
+swaggerSchemaUIServerT' =
     swaggerSchemaUIServerImpl' swaggerUiIndexTemplate swaggerUiFiles
 
 swaggerUiIndexTemplate :: Text

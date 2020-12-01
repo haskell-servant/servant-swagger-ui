@@ -101,16 +101,19 @@ instance (KnownSymbol dir, HasLink api, Link ~ MkLink api Link, IsElem api api)
         proxyApi = Proxy :: Proxy api
 
 swaggerSchemaUIServerImpl
-    :: (Server api ~ Handler Swagger)
+    :: (Monad m, ServerT api m ~ m Swagger)
     => T.Text -> [(FilePath, ByteString)]
-    -> Swagger -> Server (SwaggerSchemaUI' dir api)
+    -> Swagger -> ServerT (SwaggerSchemaUI' dir api) m
 swaggerSchemaUIServerImpl indexTemplate files swagger
   = swaggerSchemaUIServerImpl' indexTemplate files $ return swagger
 
 -- | Use a custom server to serve the Swagger spec source.
 swaggerSchemaUIServerImpl'
-    :: T.Text -> [(FilePath, ByteString)]
-    -> Server api -> Server (SwaggerSchemaUI' dir api)
+    :: Monad m
+    => T.Text
+    -> [(FilePath, ByteString)]
+    -> ServerT api m
+    -> ServerT (SwaggerSchemaUI' dir api) m
 swaggerSchemaUIServerImpl' indexTemplate files server
        = server
     :<|> return (SwaggerUiHtml indexTemplate)
