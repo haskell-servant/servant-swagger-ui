@@ -1,3 +1,7 @@
+- 0.3.4.3.37.2
+    - Update to `swagger-ui-3.37.2`
+	- Add `swaggerSchemaUIServerT` and `swaggerSchemaUIServerT'`
+
 - 0.3.4.3.36.1
     - Update to `swagger-ui-3.36.1`
 
