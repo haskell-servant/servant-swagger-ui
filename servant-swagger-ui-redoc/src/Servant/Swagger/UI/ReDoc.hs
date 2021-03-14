@@ -46,7 +46,9 @@ module Servant.Swagger.UI.ReDoc (
     SwaggerSchemaUI,
     SwaggerSchemaUI',
     redocSchemaUIServer,
+    redocSchemaUIServerT,
     redocSchemaUIServer',
+    redocSchemaUIServerT',
 
     -- ** ReDoc theme
     redocIndexTemplate,
@@ -70,12 +72,38 @@ redocSchemaUIServer
 redocSchemaUIServer =
     swaggerSchemaUIServerImpl redocIndexTemplate redocFiles
 
+-- | Serve Redoc Swagger UI on @/dir@ using @api@ as a Swagger spec source.
+--
+-- Generalized to 'ServerT'
+--
+-- @
+-- redocSchemaUIServerT :: Swagger -> ServerT (SwaggerSchemaUI schema dir) m
+-- @
+redocSchemaUIServerT
+    :: (Monad m, ServerT api m ~ m Swagger)
+    => Swagger -> ServerT (SwaggerSchemaUI' dir api) m
+redocSchemaUIServerT =
+    swaggerSchemaUIServerImpl redocIndexTemplate redocFiles
+
 -- | Use a custom server to serve the Swagger spec source.
 redocSchemaUIServer'
     :: Server api -> Server (SwaggerSchemaUI' dir api)
 redocSchemaUIServer' =
     swaggerSchemaUIServerImpl' redocIndexTemplate redocFiles
 
+-- | Use a custom server to serve the Redoc Swagger spec source.
+--
+-- This allows even more control over how the spec source is served.
+-- It allows, for instance, serving the spec source with authentication,
+-- customizing the response based on the client or serving a swagger.yaml
+-- instead.
+--
+-- Generalized to 'ServerT'
+--
+redocSchemaUIServerT'
+    :: Monad m => ServerT api m -> ServerT (SwaggerSchemaUI' dir api) m
+redocSchemaUIServerT' =
+    swaggerSchemaUIServerImpl' redocIndexTemplate redocFiles
 
 redocIndexTemplate :: Text
 redocIndexTemplate = $(embedText "redoc.index.html.tmpl")
