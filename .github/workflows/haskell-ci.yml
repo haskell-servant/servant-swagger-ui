@@ -210,15 +210,12 @@ jobs:
       - name: prepare for constraint sets
         run: |
           rm -f cabal.project.local
+      - name: constraint set servant-0.18
+        run: |
+          if [ $((HCNUMVER >= 80600)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' all ; fi
       - name: constraint set servant-0.17
         run: |
           if [ $((HCNUMVER < 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.17.*' all ; fi
       - name: constraint set servant-0.16
         run: |
           if [ $((HCNUMVER < 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.16.*' all ; fi
-      - name: constraint set servant-0.15
-        run: |
-          if [ $((HCNUMVER < 80800)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.15.*' all ; fi
-      - name: constraint set servant-0.14
-        run: |
-          if [ $((HCNUMVER < 80800)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.14.*' all ; fi
