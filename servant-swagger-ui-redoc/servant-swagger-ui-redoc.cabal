@@ -1,7 +1,6 @@
 cabal-version:      1.12
 name:               servant-swagger-ui-redoc
 version:            0.3.4.1.22.3
-x-revision:         3
 synopsis:           Servant swagger ui: ReDoc theme
 category:           Web, Servant, Swagger
 description:
