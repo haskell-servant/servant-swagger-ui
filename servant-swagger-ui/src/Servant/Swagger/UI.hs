@@ -22,6 +22,11 @@
 --
 -- All of the UI files are embedded into the binary.
 --
+-- Note that you need to depend on particular @swagger-ui@ compatible provider:
+--
+-- - <https://hackage.haskell.org/package/swagger2>
+-- - <https://hackage.haskell.org/package/openapi3>
+--
 -- /An example:/
 --
 -- @
@@ -57,8 +62,8 @@ module Servant.Swagger.UI (
 
 import Servant.Swagger.UI.Core
 
+import Data.Aeson      (ToJSON, Value)
 import Data.ByteString (ByteString)
-import Data.Swagger    (Swagger)
 import Data.Text       (Text)
 import FileEmbedLzma
 import Servant
@@ -67,10 +72,11 @@ import Servant
 --
 -- @
 -- swaggerSchemaUIServer :: Swagger -> Server (SwaggerSchemaUI schema dir)
+-- swaggerSchemaUIServer :: OpenApi -> Server (SwaggerSchemaUI schema dir)
 -- @
 swaggerSchemaUIServer
-    :: (Server api ~ Handler Swagger)
-    => Swagger -> Server (SwaggerSchemaUI' dir api)
+    :: (Server api ~ Handler Value, ToJSON a)
+    => a -> Server (SwaggerSchemaUI' dir api)
 swaggerSchemaUIServer =
     swaggerSchemaUIServerImpl swaggerUiIndexTemplate swaggerUiFiles
 
@@ -80,10 +86,11 @@ swaggerSchemaUIServer =
 --
 -- @
 -- swaggerSchemaUIServerT :: Swagger -> ServerT (SwaggerSchemaUI schema dir) m
+-- swaggerSchemaUIServerT :: OpenApi -> ServerT (SwaggerSchemaUI schema dir) m
 -- @
 swaggerSchemaUIServerT
-    :: (Monad m, ServerT api m ~ m Swagger)
-    => Swagger -> ServerT (SwaggerSchemaUI' dir api) m
+    :: (Monad m, ServerT api m ~ m Value, ToJSON a)
+    => a -> ServerT (SwaggerSchemaUI' dir api) m
 swaggerSchemaUIServerT =
     swaggerSchemaUIServerImpl swaggerUiIndexTemplate swaggerUiFiles
 

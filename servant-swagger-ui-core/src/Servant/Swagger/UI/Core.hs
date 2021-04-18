@@ -46,8 +46,8 @@ module Servant.Swagger.UI.Core (
     Handler,
     ) where
 
+import Data.Aeson                     (ToJSON (..), Value)
 import Data.ByteString                (ByteString)
-import Data.Swagger                   (Swagger)
 import GHC.TypeLits                   (KnownSymbol, Symbol, symbolVal)
 import Network.Wai.Application.Static (embeddedSettings, staticApp)
 import Servant
@@ -67,8 +67,10 @@ import qualified Data.Text as T
 -- \/swagger-ui\/...
 -- @
 --
+-- This type does not actually force served type to be @Swagger@ from @swagger2@ package,
+-- it could be arbitrary @aeson@ 'Value'.
 type SwaggerSchemaUI (dir :: Symbol) (schema :: Symbol) =
-    SwaggerSchemaUI' dir (schema :> Get '[JSON] Swagger)
+    SwaggerSchemaUI' dir (schema :> Get '[JSON] Value)
 
 -- | Use 'SwaggerSchemaUI'' when you need even more control over
 -- where @swagger.json@ is served (e.g. subdirectory).
@@ -101,11 +103,11 @@ instance (KnownSymbol dir, HasLink api, Link ~ MkLink api Link, IsElem api api)
         proxyApi = Proxy :: Proxy api
 
 swaggerSchemaUIServerImpl
-    :: (Monad m, ServerT api m ~ m Swagger)
+    :: (Monad m, ServerT api m ~ m Value, ToJSON a)
     => T.Text -> [(FilePath, ByteString)]
-    -> Swagger -> ServerT (SwaggerSchemaUI' dir api) m
+    -> a -> ServerT (SwaggerSchemaUI' dir api) m
 swaggerSchemaUIServerImpl indexTemplate files swagger
-  = swaggerSchemaUIServerImpl' indexTemplate files $ return swagger
+  = swaggerSchemaUIServerImpl' indexTemplate files $ return $ toJSON swagger
 
 -- | Use a custom server to serve the Swagger spec source.
 swaggerSchemaUIServerImpl'
