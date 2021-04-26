@@ -4,10 +4,10 @@
 
 "[Swagger UI](http://swagger.io/swagger-ui/) allows anyone — be it your development team or your end consumers — to visualize and interact with the API’s resources without having any of the implementation logic in place."
 
-[![Build Status](https://travis-ci.org/phadej/servant-swagger-ui.svg?branch=master)](https://travis-ci.org/phadej/servant-swagger-ui)
-[![Hackage](https://img.shields.io/hackage/v/servant-swagger-ui.svg)](http://hackage.haskell.org/package/servant-swagger-ui)
-[![Stackage LTS 5](http://stackage.org/package/servant-swagger-ui/badge/lts-5)](http://stackage.org/lts-5/package/servant-swagger-ui)
-[![Stackage Nightly](http://stackage.org/package/servant-swagger-ui/badge/nightly)](http://stackage.org/nightly/package/servant-swagger-ui)
+[![Build Status](https://github.com/haskell-servant/servant-swagger-ui/actions/workflows/haskell-ci.yml/badge.svg?branch=master)](https://github.com/haskell-servant/servant-swagger-ui/actions)
+[![Hackage](https://img.shields.io/hackage/v/servant-swagger-ui.svg)](https://hackage.haskell.org/package/servant-swagger-ui)
+[![Stackage LTS](https://stackage.org/package/servant-swagger-ui/badge/lts)](https://stackage.org/lts/package/servant-swagger-ui)
+[![Stackage Nightly](https://stackage.org/package/servant-swagger-ui/badge/nightly)](https://stackage.org/nightly/package/servant-swagger-ui)
 
 ## Example
 
@@ -22,5 +22,5 @@ Check [`servant-swagger-ui-example/src/Main.hs`](https://github.com/haskell-serv
 - Extract `dist` directory of `swagger-ui` into `swagger-dist-&lt;version&gt;`. Remove the `*.map` files.
 - update `extra-source-files` in the `.cabal`
 - move `index.html` into `index.html.tmpl`, do the diff, port the changes
-- search replace the embbeded directory (in `Servant/Swagger/UI.hs`)
+- search replace the embedded directory (in `Servant/Swagger/UI.hs`)
 - test it works
