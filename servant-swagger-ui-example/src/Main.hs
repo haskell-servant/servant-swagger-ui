@@ -16,7 +16,7 @@ import Prelude ()
 import Prelude.Compat
 
 import Control.Lens       hiding ((.=))
-import Data.Aeson         (FromJSON, ToJSON, Value)
+import Data.Aeson         (FromJSON, ToJSON)
 import Data.Maybe         (fromMaybe)
 import Data.String        (IsString (..))
 import Data.Text          (Text)
@@ -136,13 +136,13 @@ type BasicAPI = Get '[PlainText, JSON] Text
 
 type API =
     -- this serves both: swagger.json and swagger-ui
-    SwaggerSchemaUI "swagger-ui" "swagger.json"
+    SwaggerSchemaUI "swagger-ui" "swagger.json" Swagger
     :<|> BasicAPI
 
 -- To test nested case
 type API' = API
     :<|> "nested" :> API
-    :<|> SwaggerSchemaUI' "foo-ui" ("foo" :> "swagger.json" :> Get '[JSON] Value)
+    :<|> SwaggerSchemaUI' "foo-ui" ("foo" :> "swagger.json" :> Get '[JSON] Swagger)
 
 -- Implementation
 
@@ -174,7 +174,7 @@ server' uiFlavour = server Normal
         -- Unfortunately we have to specify the basePath manually atm.
 
     schemaUiServer
-        :: (Server api ~ Handler Value)
+        :: (Server api ~ Handler Swagger)
         => Swagger -> Server (SwaggerSchemaUI' dir api)
     schemaUiServer = case uiFlavour of
         Original -> swaggerSchemaUIServer

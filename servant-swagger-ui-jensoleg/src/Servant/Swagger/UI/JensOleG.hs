@@ -55,7 +55,6 @@ module Servant.Swagger.UI.JensOleG (
 
 import Servant.Swagger.UI.Core
 
-import Data.Aeson      (ToJSON, Value)
 import Data.ByteString (ByteString)
 import Data.Text       (Text)
 import FileEmbedLzma
@@ -67,7 +66,7 @@ import Servant
 --
 -- See <https://github.com/jensoleg/swagger-ui>
 jensolegSwaggerSchemaUIServer
-    :: (Server api ~ Handler Value, ToJSON a)
+    :: (Server api ~ Handler a)
     => a -> Server (SwaggerSchemaUI' dir api)
 jensolegSwaggerSchemaUIServer =
     swaggerSchemaUIServerImpl jensolegIndexTemplate jensolegFiles
