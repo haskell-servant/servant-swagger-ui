@@ -57,7 +57,6 @@ module Servant.Swagger.UI.ReDoc (
 
 import Servant.Swagger.UI.Core
 
-import Data.Aeson      (ToJSON, Value)
 import Data.ByteString (ByteString)
 import Data.Text       (Text)
 #if MIN_VERSION_file_embed_lzma(0,1,0)
@@ -71,7 +70,7 @@ import Servant
 --
 -- See <https://github.com/Rebilly/ReDoc/tree/v1.x>
 redocSchemaUIServer
-    :: (Server api ~ Handler Value, ToJSON a)
+    :: (Server api ~ Handler a)
     => a -> Server (SwaggerSchemaUI' dir api)
 redocSchemaUIServer =
     swaggerSchemaUIServerImpl redocIndexTemplate redocFiles
@@ -84,7 +83,7 @@ redocSchemaUIServer =
 -- redocSchemaUIServerT :: Swagger -> ServerT (SwaggerSchemaUI schema dir) m
 -- @
 redocSchemaUIServerT
-    :: (Monad m, ServerT api m ~ m Value, ToJSON a)
+    :: (Monad m, ServerT api m ~ m a)
     => a -> ServerT (SwaggerSchemaUI' dir api) m
 redocSchemaUIServerT =
     swaggerSchemaUIServerImpl redocIndexTemplate redocFiles

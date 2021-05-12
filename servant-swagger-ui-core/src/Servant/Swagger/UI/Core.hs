@@ -46,19 +46,19 @@ module Servant.Swagger.UI.Core (
     Handler,
     ) where
 
-import Data.Aeson                     (ToJSON (..), Value)
 import Data.ByteString                (ByteString)
 import GHC.TypeLits                   (KnownSymbol, Symbol, symbolVal)
 import Network.Wai.Application.Static (embeddedSettings, staticApp)
 import Servant
 import Servant.HTML.Blaze             (HTML)
 import Text.Blaze                     (ToMarkup (..))
+import Data.Kind (Type)
 
 import qualified Data.Text as T
 
 -- | Swagger schema + ui api.
 --
--- @SwaggerSchemaUI "swagger-ui" "swagger.json"@ will result into following hierarchy:
+-- @SwaggerSchemaUI "swagger-ui" "swagger.json" Swagger@ will result into following hierarchy:
 --
 -- @
 -- \/swagger.json
@@ -67,10 +67,11 @@ import qualified Data.Text as T
 -- \/swagger-ui\/...
 -- @
 --
--- This type does not actually force served type to be @Swagger@ from @swagger2@ package,
--- it could be arbitrary @aeson@ 'Value'.
-type SwaggerSchemaUI (dir :: Symbol) (schema :: Symbol) =
-    SwaggerSchemaUI' dir (schema :> Get '[JSON] Value)
+-- The third type parameter specifies which Haskell datatype contains the Swagger
+-- description. Typical instantiations are @Swagger@ from the @swagger2@ package,
+-- and @OpenApi@ from the @openapi3@ package.
+type SwaggerSchemaUI (dir :: Symbol) (schema :: Symbol) (ctype :: Type) =
+    SwaggerSchemaUI' dir (schema :> Get '[JSON] ctype)
 
 -- | Use 'SwaggerSchemaUI'' when you need even more control over
 -- where @swagger.json@ is served (e.g. subdirectory).
@@ -103,11 +104,11 @@ instance (KnownSymbol dir, HasLink api, Link ~ MkLink api Link, IsElem api api)
         proxyApi = Proxy :: Proxy api
 
 swaggerSchemaUIServerImpl
-    :: (Monad m, ServerT api m ~ m Value, ToJSON a)
+    :: (Monad m, ServerT api m ~ m a)
     => T.Text -> [(FilePath, ByteString)]
     -> a -> ServerT (SwaggerSchemaUI' dir api) m
 swaggerSchemaUIServerImpl indexTemplate files swagger
-  = swaggerSchemaUIServerImpl' indexTemplate files $ return $ toJSON swagger
+  = swaggerSchemaUIServerImpl' indexTemplate files $ return swagger
 
 -- | Use a custom server to serve the Swagger spec source.
 swaggerSchemaUIServerImpl'
