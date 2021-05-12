@@ -62,7 +62,6 @@ module Servant.Swagger.UI (
 
 import Servant.Swagger.UI.Core
 
-import Data.Aeson      (ToJSON, Value)
 import Data.ByteString (ByteString)
 import Data.Text       (Text)
 import FileEmbedLzma
@@ -75,7 +74,7 @@ import Servant
 -- swaggerSchemaUIServer :: OpenApi -> Server (SwaggerSchemaUI schema dir)
 -- @
 swaggerSchemaUIServer
-    :: (Server api ~ Handler Value, ToJSON a)
+    :: (Server api ~ Handler a)
     => a -> Server (SwaggerSchemaUI' dir api)
 swaggerSchemaUIServer =
     swaggerSchemaUIServerImpl swaggerUiIndexTemplate swaggerUiFiles
@@ -89,7 +88,7 @@ swaggerSchemaUIServer =
 -- swaggerSchemaUIServerT :: OpenApi -> ServerT (SwaggerSchemaUI schema dir) m
 -- @
 swaggerSchemaUIServerT
-    :: (Monad m, ServerT api m ~ m Value, ToJSON a)
+    :: (Monad m, ServerT api m ~ m a)
     => a -> ServerT (SwaggerSchemaUI' dir api) m
 swaggerSchemaUIServerT =
     swaggerSchemaUIServerImpl swaggerUiIndexTemplate swaggerUiFiles

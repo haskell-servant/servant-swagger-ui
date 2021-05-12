@@ -1,6 +1,6 @@
 cabal-version:      1.12
 name:               servant-swagger-ui
-version:            0.3.5.5.0.0
+version:            0.3.6.4.14.0
 synopsis:           Servant swagger ui
 category:           Web, Servant, Swagger
 description:
@@ -53,7 +53,7 @@ source-repository head
 library
   hs-source-dirs:   src
   ghc-options:      -Wall
-  build-depends:    servant-swagger-ui-core >=0.3.5 && <0.4
+  build-depends:    servant-swagger-ui-core >=0.3.6 && <0.4
   build-depends:
       base             >=4.7      && <4.19
     , aeson            >=0.8.0.2  && <2.3
