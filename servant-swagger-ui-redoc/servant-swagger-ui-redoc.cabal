@@ -18,7 +18,7 @@ license:            BSD3
 license-file:       LICENSE
 build-type:         Simple
 tested-with:
-  GHC ==8.2.2 || ==8.4.4 || ==8.6.5 || ==8.8.4 || ==8.10.4
+  GHC ==8.2.2 || ==8.4.4 || ==8.6.5 || ==8.8.4 || ==8.10.4 || ==9.0.1
 
 extra-source-files:
   redoc-dist-1.22.3/redoc.min.js
@@ -34,7 +34,7 @@ library
   ghc-options:      -Wall
   build-depends:    servant-swagger-ui-core >=0.3.5 && <0.4
   build-depends:
-      base             >=4.7      && <4.15
+      base             >=4.7      && <4.16
     , aeson            >=0.8.0.2  && <1.6
     , bytestring       >=0.10.4.0 && <0.11
     , file-embed-lzma  >=0        && <0.1
