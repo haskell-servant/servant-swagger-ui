@@ -41,9 +41,9 @@ library
     , blaze-markup         >=0.7.0.2  && <0.9
     , bytestring           >=0.10.4.0 && <0.11
     , http-media           >=0.7.1.3  && <0.9
-    , servant              >=0.14     && <0.19
+    , servant              >=0.14     && <0.20
     , servant-blaze        >=0.8      && <0.10
-    , servant-server       >=0.14     && <0.19
+    , servant-server       >=0.14     && <0.20
     , text                 >=1.2.3.0  && <1.3
     , transformers         >=0.3      && <0.6
     , transformers-compat  >=0.3      && <0.7
