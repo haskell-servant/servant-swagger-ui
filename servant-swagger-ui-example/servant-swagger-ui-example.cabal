@@ -30,7 +30,7 @@ executable servant-swagger-ui-example
       aeson                        >=0.8.0.2  && <1.6
     , base                         >=4.7      && <4.16
     , base-compat                  >=0.9.3    && <0.12
-    , lens                         >=4.7.0.1  && <5.1
+    , lens                         >=4.7.0.1  && <5.2
     , servant
     , servant-server
     , servant-swagger
