@@ -18,12 +18,9 @@ license:            BSD3
 license-file:       LICENSE
 build-type:         Simple
 tested-with:
-  GHC ==8.2.2
-   || ==8.4.4
-   || ==8.6.5
+  GHC ==8.6.5
    || ==8.8.4
-   || ==8.10.4
-   || ==9.0.1
+   || ==8.10.7
 
 extra-source-files:
   jensoleg.index.html.tmpl
@@ -89,8 +86,8 @@ library
     , aeson            >=0.8.0.2  && <1.6
     , bytestring       >=0.10.4.0 && <0.11
     , file-embed-lzma  >=0        && <0.1
-    , servant          >=0.14     && <0.19
-    , servant-server   >=0.14     && <0.19
+    , servant          >=0.14     && <0.20
+    , servant-server   >=0.14     && <0.20
     , text             >=1.2.3.0  && <1.3
 
   exposed-modules:  Servant.Swagger.UI.JensOleG
