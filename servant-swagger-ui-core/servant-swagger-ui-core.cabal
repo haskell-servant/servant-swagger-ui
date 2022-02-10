@@ -22,6 +22,7 @@ tested-with:
   GHC ==8.6.5
    || ==8.8.4
    || ==8.10.7
+   || ==9.0.2
 
 extra-source-files: Changelog.md
 
@@ -34,14 +35,14 @@ library
   ghc-options:      -Wall
   build-depends:
       base                 >=4.7      && <4.16
-    , aeson                >=0.8.0.2  && <1.6
+    , aeson                >=0.8.0.2  && <2.1.0
     , blaze-markup         >=0.7.0.2  && <0.9
-    , bytestring           >=0.10.4.0 && <0.11
+    , bytestring           >=0.10.4.0 && <0.12
     , http-media           >=0.7.1.3  && <0.9
     , servant              >=0.14     && <0.20
     , servant-blaze        >=0.8      && <0.10
     , servant-server       >=0.14     && <0.20
-    , text                 >=1.2.3.0  && <1.3
+    , text                 >=1.2.3.0  && <2.1
     , transformers         >=0.3      && <0.6
     , transformers-compat  >=0.3      && <0.7
     , wai-app-static       >=3.0.1.1  && <3.2
