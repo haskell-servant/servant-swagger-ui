@@ -210,17 +210,15 @@ jobs:
           echo "package servant-swagger-ui-redoc" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods" >> cabal.project
           cat >> cabal.project <<EOF
-          allow-newer: swagger2:base
-          allow-newer: swagger2:lens
-          allow-newer: swagger2:optics-core
-          allow-newer: swagger2:optics-th
-          allow-newer: swagger2:template-haskell
-          allow-newer: servant-swagger:base
-          allow-newer: servant-swagger:lens
+          allow-newer: servant-swagger:bytestring
+          allow-newer: servant-swagger:base-compat
           allow-newer: servant-swagger:Cabal
           allow-newer: servant:base
+          allow-newer: servant:base-compat
           allow-newer: servant-server:base
+          allow-newer: servant-server:base-compat
           allow-newer: memory:base
+          allow-newer: basement:base
           EOF
           $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: $_ installed\n" unless /^(servant-swagger-ui|servant-swagger-ui-core|servant-swagger-ui-example|servant-swagger-ui-jensoleg|servant-swagger-ui-redoc)$/; }' >> cabal.project.local
           cat cabal.project
