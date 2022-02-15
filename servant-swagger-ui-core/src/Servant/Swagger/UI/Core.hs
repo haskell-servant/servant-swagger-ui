@@ -47,8 +47,10 @@ module Servant.Swagger.UI.Core (
     ) where
 
 import Data.Aeson                     (ToJSON (..), Value)
+import Data.Aeson.Encode.Pretty       (encodePretty', defConfig, confCompare)
 import Data.ByteString                (ByteString)
 import GHC.TypeLits                   (KnownSymbol, Symbol, symbolVal)
+import Network.HTTP.Media             ((//))
 import Network.Wai.Application.Static (embeddedSettings, staticApp)
 import Servant
 import Servant.HTML.Blaze             (HTML)
@@ -70,7 +72,17 @@ import qualified Data.Text as T
 -- This type does not actually force served type to be @Swagger@ from @swagger2@ package,
 -- it could be arbitrary @aeson@ 'Value'.
 type SwaggerSchemaUI (dir :: Symbol) (schema :: Symbol) =
-    SwaggerSchemaUI' dir (schema :> Get '[JSON] Value)
+    SwaggerSchemaUI' dir (schema :> Get '[PrettyJSON] Value)
+
+-- Private servant content type to force pretty-printing and thus lexicographic order of json
+-- fields.  The order is honored by the UI.
+data PrettyJSON
+
+instance MimeRender PrettyJSON Value where
+  mimeRender _ = encodePretty' (defConfig {confCompare = compare})
+
+instance Accept PrettyJSON where
+  contentType _ = "application" // "json"
 
 -- | Use 'SwaggerSchemaUI'' when you need even more control over
 -- where @swagger.json@ is served (e.g. subdirectory).
