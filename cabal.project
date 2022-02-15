@@ -7,3 +7,4 @@ packages:
 
 allow-newer: swagger2:base, swagger2:lens, swagger2:optics-core, swagger2:optics-th, swagger2:template-haskell
 allow-newer: servant-swagger:base, servant-swagger:lens, servant-swagger:Cabal
+allow-newer: servant:base, servant-server:base

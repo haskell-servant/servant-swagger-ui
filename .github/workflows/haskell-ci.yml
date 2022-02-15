@@ -218,6 +218,8 @@ jobs:
           allow-newer: servant-swagger:base
           allow-newer: servant-swagger:lens
           allow-newer: servant-swagger:Cabal
+          allow-newer: servant:base
+          allow-newer: servant-server:base
           EOF
           $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: $_ installed\n" unless /^(servant-swagger-ui|servant-swagger-ui-core|servant-swagger-ui-example|servant-swagger-ui-jensoleg|servant-swagger-ui-redoc)$/; }' >> cabal.project.local
           cat cabal.project
@@ -270,8 +272,8 @@ jobs:
           $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.19.*' all
       - name: constraint set servant-0.18
         run: |
-          $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' --dependencies-only -j2 all
-          $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' all
+          if [ $((HCNUMVER < 90000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' --dependencies-only -j2 all ; fi
+          if [ $((HCNUMVER < 90000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' all ; fi
       - name: constraint set servant-0.17
         run: |
           if [ $((HCNUMVER < 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.17.*' --dependencies-only -j2 all ; fi
