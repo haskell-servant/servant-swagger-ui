@@ -220,6 +220,7 @@ jobs:
           allow-newer: servant-swagger:Cabal
           allow-newer: servant:base
           allow-newer: servant-server:base
+          allow-newer: memory:base
           EOF
           $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: $_ installed\n" unless /^(servant-swagger-ui|servant-swagger-ui-core|servant-swagger-ui-example|servant-swagger-ui-jensoleg|servant-swagger-ui-redoc)$/; }' >> cabal.project.local
           cat cabal.project
