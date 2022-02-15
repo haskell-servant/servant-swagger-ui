@@ -1,5 +1,7 @@
 branches: master
 
+allow-failures: >=9.2
+
 constraint-set servant-0.16
   ghc: >= 8.0 && <8.10
   constraints: servant ==0.16.*
