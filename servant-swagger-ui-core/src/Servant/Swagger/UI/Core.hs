@@ -38,6 +38,7 @@ module Servant.Swagger.UI.Core (
     -- * Swagger UI API
     SwaggerSchemaUI,
     SwaggerSchemaUI',
+    PrettyJSON, 
 
     -- * Implementation details
     SwaggerUiHtml(..),
@@ -74,8 +75,8 @@ import qualified Data.Text as T
 type SwaggerSchemaUI (dir :: Symbol) (schema :: Symbol) =
     SwaggerSchemaUI' dir (schema :> Get '[PrettyJSON] Value)
 
--- Private servant content type to force pretty-printing and thus lexicographic order of json
--- fields.  The order is honored by the UI.
+-- Servant content type to force pretty-printing and lexicographic order of json
+-- fields.  (The order in the serialized JSON object is honored by the UI.)
 data PrettyJSON
 
 instance MimeRender PrettyJSON Value where
