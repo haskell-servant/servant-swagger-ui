@@ -6,7 +6,7 @@ category:           Web, Servant, Swagger
 description:
   Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
   .
-  Jsn-Ole Graulund theme https://github.com/jensoleg/swagger-org
+  Jens-Ole Graulund theme https://github.com/jensoleg/swagger-org
 
 homepage:           https://github.com/haskell-servant/servant-swagger-ui
 bug-reports:
@@ -21,6 +21,7 @@ tested-with:
   GHC ==8.6.5
    || ==8.8.4
    || ==8.10.7
+   || ==9.0.2
 
 extra-source-files:
   jensoleg.index.html.tmpl
@@ -83,12 +84,12 @@ library
   build-depends:    servant-swagger-ui-core >=0.3.5 && <0.4
   build-depends:
       base             >=4.7      && <4.16
-    , aeson            >=0.8.0.2  && <1.6
-    , bytestring       >=0.10.4.0 && <0.11
+    , aeson            >=0.8.0.2  && <2.1.0
+    , bytestring       >=0.10.4.0 && <0.12
     , file-embed-lzma  >=0        && <0.1
     , servant          >=0.14     && <0.20
     , servant-server   >=0.14     && <0.20
-    , text             >=1.2.3.0  && <1.3
+    , text             >=1.2.3.0  && <2.1
 
   exposed-modules:  Servant.Swagger.UI.JensOleG
   default-language: Haskell2010
