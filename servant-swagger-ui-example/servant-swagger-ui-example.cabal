@@ -18,6 +18,7 @@ tested-with:
    || ==8.8.4
    || ==8.10.7
    || ==9.0.2
+   || ==9.2.2
 
 source-repository head
   type:     git
@@ -28,7 +29,7 @@ executable servant-swagger-ui-example
   ghc-options:      -threaded
   build-depends:
       aeson                        >=0.8.0.2  && <2.1.0
-    , base                         >=4.7      && <4.16
+    , base                         >=4.7      && <4.17
     , base-compat                  >=0.9.3    && <0.13
     , lens                         >=4.7.0.1  && <5.2
     , servant
