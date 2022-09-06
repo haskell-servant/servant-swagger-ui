@@ -1,3 +1,7 @@
+- 0.3.5.2.0.0.76
+    - Update to ReDoc-2.0.0-rc.76
+    - Use Redocly's CDN
+
 - 0.3.2.1.22.3
     - Update to ReDoc-1.22.3
 
