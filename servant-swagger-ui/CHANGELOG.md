@@ -1,3 +1,6 @@
+- 0.3.5.4.14.0
+    - Update to `swagger-ui-4.14.0`
+
 - 0.3.5.3.47.1
     - Update to `swagger-ui-3.47.1`
     - Generalize `swaggerSchemaUIServer` to support arbitrary `Value` instead of hardcoded `Swagger`

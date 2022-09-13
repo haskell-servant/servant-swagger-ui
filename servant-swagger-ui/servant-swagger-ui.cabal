@@ -1,6 +1,6 @@
 cabal-version:      1.12
 name:               servant-swagger-ui
-version:            0.3.5.4.5.0
+version:            0.3.5.4.14.0
 synopsis:           Servant swagger ui
 category:           Web, Servant, Swagger
 description:
@@ -27,17 +27,23 @@ tested-with:
 extra-source-files:
   CHANGELOG.md
   index.html.tmpl
-  swagger-ui-dist-4.5.0/favicon-16x16.png
-  swagger-ui-dist-4.5.0/favicon-32x32.png
-  swagger-ui-dist-4.5.0/oauth2-redirect.html
-  swagger-ui-dist-4.5.0/swagger-ui-bundle.js
-  swagger-ui-dist-4.5.0/swagger-ui-bundle.js.map
-  swagger-ui-dist-4.5.0/swagger-ui-standalone-preset.js
-  swagger-ui-dist-4.5.0/swagger-ui-standalone-preset.js.map
-  swagger-ui-dist-4.5.0/swagger-ui.css
-  swagger-ui-dist-4.5.0/swagger-ui.css.map
-  swagger-ui-dist-4.5.0/swagger-ui.js
-  swagger-ui-dist-4.5.0/swagger-ui.js.map
+  swagger-ui-dist-4.14.0/favicon-16x16.png
+  swagger-ui-dist-4.14.0/favicon-32x32.png
+  swagger-ui-dist-4.14.0/oauth2-redirect.html
+  swagger-ui-dist-4.14.0/swagger-initializer.js
+  swagger-ui-dist-4.14.0/swagger-ui-bundle.js
+  swagger-ui-dist-4.14.0/swagger-ui-bundle.js.map
+  swagger-ui-dist-4.14.0/swagger-ui-es-bundle-core.js
+  swagger-ui-dist-4.14.0/swagger-ui-es-bundle-core.js.map
+  swagger-ui-dist-4.14.0/swagger-ui-es-bundle.js
+  swagger-ui-dist-4.14.0/swagger-ui-es-bundle.js.map
+  swagger-ui-dist-4.14.0/swagger-ui-standalone-preset.js
+  swagger-ui-dist-4.14.0/swagger-ui-standalone-preset.js.map
+  swagger-ui-dist-4.14.0/swagger-ui.css
+  swagger-ui-dist-4.14.0/swagger-ui.css.map
+  swagger-ui-dist-4.14.0/swagger-ui.js
+  swagger-ui-dist-4.14.0/swagger-ui.js.map
+  swagger-ui-dist-4.14.0/favicon-16x16.png
 
 source-repository head
   type:     git
