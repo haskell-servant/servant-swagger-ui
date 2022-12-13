@@ -22,7 +22,8 @@ tested-with:
    || ==8.8.4
    || ==8.10.7
    || ==9.0.2
-   || ==9.2.2
+   || ==9.2.5
+   || ==9.4.3
 
 extra-source-files:
   jensoleg.index.html.tmpl
@@ -84,8 +85,8 @@ library
   ghc-options:      -Wall
   build-depends:    servant-swagger-ui-core >=0.3.5 && <0.4
   build-depends:
-      base             >=4.7      && <4.17
-    , aeson            >=0.8.0.2  && <2.1.0
+      base             >=4.7      && <4.18
+    , aeson            >=0.8.0.2  && <2.2
     , bytestring       >=0.10.4.0 && <0.12
     , file-embed-lzma  >=0        && <0.1
     , servant          >=0.14     && <0.20

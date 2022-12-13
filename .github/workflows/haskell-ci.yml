@@ -32,9 +32,14 @@ jobs:
     strategy:
       matrix:
         include:
-          - compiler: ghc-9.2.2
+          - compiler: ghc-9.4.3
             compilerKind: ghc
-            compilerVersion: 9.2.2
+            compilerVersion: 9.4.3
+            setup-method: ghcup
+            allow-failure: false
+          - compiler: ghc-9.2.5
+            compilerKind: ghc
+            compilerVersion: 9.2.5
             setup-method: ghcup
             allow-failure: false
           - compiler: ghc-9.0.2
@@ -262,8 +267,8 @@ jobs:
           $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.19.*' all
       - name: constraint set servant-0.18
         run: |
-          if [ $((HCNUMVER < 90200)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' --dependencies-only -j2 all ; fi
-          if [ $((HCNUMVER < 90200)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' all ; fi
+          if [ $((HCNUMVER < 90002)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' --dependencies-only -j2 all ; fi
+          if [ $((HCNUMVER < 90002)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' all ; fi
       - name: constraint set servant-0.17
         run: |
           if [ $((HCNUMVER < 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.17.*' --dependencies-only -j2 all ; fi
