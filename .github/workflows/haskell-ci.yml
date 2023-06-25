@@ -32,6 +32,11 @@ jobs:
     strategy:
       matrix:
         include:
+          - compiler: ghc-9.6.2
+            compilerKind: ghc
+            compilerVersion: 9.6.2
+            setup-method: ghcup
+            allow-failure: false
           - compiler: ghc-9.4.5
             compilerKind: ghc
             compilerVersion: 9.4.5
@@ -256,10 +261,14 @@ jobs:
       - name: prepare for constraint sets
         run: |
           rm -f cabal.project.local
+      - name: constraint set servant-0.20
+        run: |
+          if [ $((HCNUMVER >= 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.20.*' --dependencies-only -j2 all ; fi
+          if [ $((HCNUMVER >= 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.20.*' all ; fi
       - name: constraint set servant-0.19
         run: |
-          $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.19.*' --dependencies-only -j2 all
-          $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.19.*' all
+          if [ $((HCNUMVER < 90600)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.19.*' --dependencies-only -j2 all ; fi
+          if [ $((HCNUMVER < 90600)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.19.*' all ; fi
       - name: constraint set servant-0.18
         run: |
           if [ $((HCNUMVER < 90000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' --dependencies-only -j2 all ; fi
