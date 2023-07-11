@@ -20,8 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: cache cabal store
-        uses: actions/cache@v3
+      - name: Cache cabal store
+        id: cache
+        uses: actions/cache/restore@v3
         with:
           key: bump-action-cabal-store-${{ runner.os }}-${{ github.sha }}
           path: ~/.cabal/store
@@ -97,6 +98,13 @@ jobs:
         continue-on-error: true
         run: |
           cabal build --only-dependencies --enable-tests --write-ghc-environment-files=always ${{ env.CABAL_FLAGS }}
+
+      - name: Save cache
+        uses: actions/cache/save@v3
+        if: always()
+        with:
+          key: ${{ steps.cache.outputs.cache-primary-key }}
+          path: ~/.cabal/store
 
       - name: Build local package
         if: env.CABAL_COUNT > 0 && steps.dependency-build.outcome == 'success'
