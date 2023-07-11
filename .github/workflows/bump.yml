@@ -90,8 +90,13 @@ jobs:
           cabal outdated >> $GITHUB_ENV
           echo "$DELIMITER" >> $GITHUB_ENV
 
+      - name: Build dependencies
+        if: env.CABAL_COUNT > 0
+        shell: bash
+        run: |
+          cabal build --dependencies only --enable-tests --write-ghc-environment-files=always ${{ env.CABAL_FLAGS }}
 
-      - name: Build
+      - name: Build local package
         if: env.CABAL_COUNT > 0
         shell: bash
         run: |
