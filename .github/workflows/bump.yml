@@ -91,27 +91,29 @@ jobs:
           echo "$DELIMITER" >> $GITHUB_ENV
 
       - name: Build dependencies
+        id: dependency-build
         if: env.CABAL_COUNT > 0
         shell: bash
+        continue-on-error: true
         run: |
           cabal build --only-dependencies --enable-tests --write-ghc-environment-files=always ${{ env.CABAL_FLAGS }}
 
       - name: Build local package
-        if: env.CABAL_COUNT > 0
+        if: env.CABAL_COUNT > 0 && steps.dependency-build.outcome == 'success'
         shell: bash
         run: |
           cabal build --enable-tests --write-ghc-environment-files=always ${{ env.CABAL_FLAGS }}
           cabal test ${{ env.CABAL_FLAGS }}
 
       - name: Fetch cabal-plan-bounds
-        if: env.CABAL_COUNT > 0
+        if: env.CABAL_COUNT > 0 && steps.dependency-build.outcome == 'success'
         shell: bash
         run: |
           curl -L https://github.com/nomeata/cabal-plan-bounds/releases/latest/download/cabal-plan-bounds.linux.gz | gunzip  > /usr/local/bin/cabal-plan-bounds
           chmod +x /usr/local/bin/cabal-plan-bounds
 
       - name: Update .cabal file
-        if: env.CABAL_COUNT > 0
+        if: env.CABAL_COUNT > 0 && steps.dependency-build.outcome == 'success'
         shell: bash
         run: |
           # This line was added just for servant-swagger-ui, and counter-acts the default
@@ -122,7 +124,7 @@ jobs:
 
       - name: Create Pull Request
         id: cpr
-        if: env.CABAL_COUNT > 0
+        if: env.CABAL_COUNT > 0 && steps.dependency-build.outcome == 'success'
         uses: peter-evans/create-pull-request@v5
         with:
           branch: "cabal-updates"
