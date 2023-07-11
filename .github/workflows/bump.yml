@@ -94,7 +94,7 @@ jobs:
         if: env.CABAL_COUNT > 0
         shell: bash
         run: |
-          cabal build --dependencies only --enable-tests --write-ghc-environment-files=always ${{ env.CABAL_FLAGS }}
+          cabal build --only-dependencies --enable-tests --write-ghc-environment-files=always ${{ env.CABAL_FLAGS }}
 
       - name: Build local package
         if: env.CABAL_COUNT > 0
