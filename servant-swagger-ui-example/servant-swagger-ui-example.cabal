@@ -29,7 +29,7 @@ executable servant-swagger-ui-example
   main-is:          Main.hs
   ghc-options:      -threaded
   build-depends:
-      aeson                        >=0.8.0.2  && <2.2
+      aeson                        >=0.8.0.2  && <2.3
     , base                         >=4.7      && <4.19
     , base-compat                  >=0.9.3    && <0.14
     , lens                         >=4.7.0.1  && <5.3
