@@ -9,8 +9,9 @@
     </style>
     <script>
         // Force Strict-URL Routing for assets relative paths
+        // if the path contains no fragment (otherwise fragment links don't work)
         (function onload() {
-            if (!window.location.href.endsWith("/")) {
+            if (!window.location.href.endsWith("/") && window.location.href.indexOf("#") === -1) {
                 window.location.href += "/";
             }
         }());
@@ -18,6 +19,6 @@
   </head>
   <body>
     <redoc spec-url='../SERVANT_SWAGGER_UI_SCHEMA'></redoc>
-    <script src="redoc.min.js"> </script>
+    <script src="https://cdn.redoc.ly/redoc/v2.0.0-rc.76/bundles/redoc.standalone.js"> </script>
   </body>
 </html>
