@@ -19,10 +19,8 @@ license:            BSD3
 license-file:       LICENSE
 build-type:         Simple
 tested-with:
-  GHC ==8.8.4
-   || ==8.10.7
-   || ==9.0.2
-   || ==9.2.7
+  GHC ==9.0.2
+   || ==9.2.8
    || ==9.4.5
    || ==9.6.6
    || ==9.8.2
@@ -37,7 +35,7 @@ library
   hs-source-dirs:   src
   ghc-options:      -Wall
   build-depends:
-      base                 >=4.7      && <4.21
+      base                 >=4.15.1.0 && <4.21
     , aeson                >=0.8.0.2  && <2.3
     , blaze-markup         >=0.7.0.2  && <0.9
     , bytestring           >=0.10.4.0 && <0.13
