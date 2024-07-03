@@ -1,21 +1,9 @@
 branches: master
 
-constraint-set servant-0.16
-  ghc: >= 8.0 && <8.10
-  constraints: servant ==0.16.*
-
-constraint-set servant-0.17
-  ghc: >= 8.0 && <8.10
-  constraints: servant ==0.17.*
-
-constraint-set servant-0.18
-  ghc: >= 8.6 && <9.0
-  constraints: servant ==0.18.*
-
 constraint-set servant-0.19
   ghc: >= 8.6 && <9.6
   constraints: servant ==0.19.*
 
 constraint-set servant-0.20
-  ghc: >= 8.10 && <9.8
+  ghc: >= 8.10 && <9.10
   constraints: servant ==0.20.*
