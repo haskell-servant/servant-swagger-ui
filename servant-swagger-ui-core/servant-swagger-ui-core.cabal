@@ -36,15 +36,15 @@ library
   hs-source-dirs:   src
   ghc-options:      -Wall
   build-depends:
-      base                 >=4.7      && <4.19
+      base                 >=4.7      && <4.21
     , aeson                >=0.8.0.2  && <2.3
     , blaze-markup         >=0.7.0.2  && <0.9
-    , bytestring           >=0.10.4.0 && <0.12
+    , bytestring           >=0.10.4.0 && <0.13
     , http-media           >=0.7.1.3  && <0.9
     , servant              >=0.14     && <0.21
     , servant-blaze        >=0.8      && <0.10
     , servant-server       >=0.14     && <0.21
-    , text                 >=1.2.3.0  && <2.1
+    , text                 >=1.2.3.0  && <2.2
     , transformers         >=0.3      && <0.7
     , transformers-compat  >=0.3      && <0.8
     , wai-app-static       >=3.0.1.1  && <3.2

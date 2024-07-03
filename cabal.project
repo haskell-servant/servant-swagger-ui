@@ -4,3 +4,10 @@ packages:
   servant-swagger-ui-example/
   servant-swagger-ui-jensoleg/
   servant-swagger-ui-redoc/
+
+if impl(ghc >= 9.8) && impl(ghc < 9.10)
+  -- https://github.com/GetShopTV/swagger2/pull/255
+  allow-newer: swagger2:Cabal
+  allow-newer: swagger2:base-compat-batteries
+  allow-newer: swagger2:lens
+  allow-newer: swagger2:network
