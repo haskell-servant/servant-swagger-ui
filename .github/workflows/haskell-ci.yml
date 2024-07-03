@@ -47,24 +47,14 @@ jobs:
             compilerVersion: 9.4.5
             setup-method: ghcup
             allow-failure: false
-          - compiler: ghc-9.2.7
+          - compiler: ghc-9.2.8
             compilerKind: ghc
-            compilerVersion: 9.2.7
+            compilerVersion: 9.2.8
             setup-method: ghcup
             allow-failure: false
           - compiler: ghc-9.0.2
             compilerKind: ghc
             compilerVersion: 9.0.2
-            setup-method: ghcup
-            allow-failure: false
-          - compiler: ghc-8.10.7
-            compilerKind: ghc
-            compilerVersion: 8.10.7
-            setup-method: ghcup
-            allow-failure: false
-          - compiler: ghc-8.8.4
-            compilerKind: ghc
-            compilerVersion: 8.8.4
             setup-method: ghcup
             allow-failure: false
       fail-fast: false
@@ -251,34 +241,16 @@ jobs:
           rm -f cabal.project.local
       - name: constraint set servant-0.20
         run: |
-          if [ $((HCNUMVER >= 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.20.*' all --dry-run ; fi
-          if [ $((HCNUMVER >= 81000)) -ne 0 ] ; then cabal-plan topo | sort ; fi
-          if [ $((HCNUMVER >= 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.20.*' --dependencies-only -j2 all ; fi
-          if [ $((HCNUMVER >= 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.20.*' all ; fi
+          $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.20.*' all --dry-run
+          cabal-plan topo | sort
+          $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.20.*' --dependencies-only -j2 all
+          $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.20.*' all
       - name: constraint set servant-0.19
         run: |
           if [ $((HCNUMVER < 90600)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.19.*' all --dry-run ; fi
           if [ $((HCNUMVER < 90600)) -ne 0 ] ; then cabal-plan topo | sort ; fi
           if [ $((HCNUMVER < 90600)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.19.*' --dependencies-only -j2 all ; fi
           if [ $((HCNUMVER < 90600)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.19.*' all ; fi
-      - name: constraint set servant-0.18
-        run: |
-          if [ $((HCNUMVER < 90000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' all --dry-run ; fi
-          if [ $((HCNUMVER < 90000)) -ne 0 ] ; then cabal-plan topo | sort ; fi
-          if [ $((HCNUMVER < 90000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' --dependencies-only -j2 all ; fi
-          if [ $((HCNUMVER < 90000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.18.*' all ; fi
-      - name: constraint set servant-0.17
-        run: |
-          if [ $((HCNUMVER < 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.17.*' all --dry-run ; fi
-          if [ $((HCNUMVER < 81000)) -ne 0 ] ; then cabal-plan topo | sort ; fi
-          if [ $((HCNUMVER < 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.17.*' --dependencies-only -j2 all ; fi
-          if [ $((HCNUMVER < 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.17.*' all ; fi
-      - name: constraint set servant-0.16
-        run: |
-          if [ $((HCNUMVER < 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.16.*' all --dry-run ; fi
-          if [ $((HCNUMVER < 81000)) -ne 0 ] ; then cabal-plan topo | sort ; fi
-          if [ $((HCNUMVER < 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.16.*' --dependencies-only -j2 all ; fi
-          if [ $((HCNUMVER < 81000)) -ne 0 ] ; then $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --constraint='servant ==0.16.*' all ; fi
       - name: save cache
         uses: actions/cache/save@v4
         if: always()
