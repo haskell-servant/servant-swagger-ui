@@ -60,7 +60,11 @@ import Servant.Swagger.UI.Core
 import Data.Aeson      (ToJSON, Value)
 import Data.ByteString (ByteString)
 import Data.Text       (Text)
+#if MIN_VERSION_file_embed_lzma(0,1,0)
+import FileEmbedLzma.Untyped
+#else
 import FileEmbedLzma
+#endif
 import Servant
 
 -- | Serve alternative Swagger UI.
