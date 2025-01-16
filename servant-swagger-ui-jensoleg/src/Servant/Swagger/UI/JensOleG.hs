@@ -58,7 +58,7 @@ import Servant.Swagger.UI.Core
 import Data.Aeson      (ToJSON, Value)
 import Data.ByteString (ByteString)
 import Data.Text       (Text)
-import FileEmbedLzma
+import FileEmbedLzma.Untyped
 import Servant
 
 -- | Serve alternative Swagger UI.
