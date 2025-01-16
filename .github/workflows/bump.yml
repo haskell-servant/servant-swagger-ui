@@ -22,7 +22,7 @@ jobs:
 
       - name: Cache cabal store
         id: cache
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           key: bump-action-cabal-store-${{ runner.os }}-${{ github.sha }}
           path: ~/.cabal/store
@@ -100,7 +100,7 @@ jobs:
           cabal build --only-dependencies --enable-tests --write-ghc-environment-files=always ${{ env.CABAL_FLAGS }}
 
       - name: Save cache
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v4
         if: always()
         with:
           key: ${{ steps.cache.outputs.cache-primary-key }}
