@@ -51,14 +51,12 @@ module Servant.Swagger.UI.ReDoc (
     redocSchemaUIServerT',
 
     -- ** ReDoc theme
-    redocIndexTemplate,
-    redocFiles
+    redocIndexTemplate
     ) where
 
 import Servant.Swagger.UI.Core
 
 import Data.Aeson      (ToJSON, Value)
-import Data.ByteString (ByteString)
 import Data.Text       (Text)
 #if MIN_VERSION_file_embed_lzma(0,1,0)
 import FileEmbedLzma.Untyped
@@ -74,7 +72,7 @@ redocSchemaUIServer
     :: (Server api ~ Handler Value, ToJSON a)
     => a -> Server (SwaggerSchemaUI' dir api)
 redocSchemaUIServer =
-    swaggerSchemaUIServerImpl redocIndexTemplate redocFiles
+    swaggerSchemaUIServerImpl redocIndexTemplate []
 
 -- | Serve Redoc Swagger UI on @/dir@ using @api@ as a Swagger spec source.
 --
@@ -87,13 +85,13 @@ redocSchemaUIServerT
     :: (Monad m, ServerT api m ~ m Value, ToJSON a)
     => a -> ServerT (SwaggerSchemaUI' dir api) m
 redocSchemaUIServerT =
-    swaggerSchemaUIServerImpl redocIndexTemplate redocFiles
+    swaggerSchemaUIServerImpl redocIndexTemplate []
 
 -- | Use a custom server to serve the Swagger spec source.
 redocSchemaUIServer'
     :: Server api -> Server (SwaggerSchemaUI' dir api)
 redocSchemaUIServer' =
-    swaggerSchemaUIServerImpl' redocIndexTemplate redocFiles
+    swaggerSchemaUIServerImpl' redocIndexTemplate []
 
 -- | Use a custom server to serve the Redoc Swagger spec source.
 --
@@ -107,10 +105,7 @@ redocSchemaUIServer' =
 redocSchemaUIServerT'
     :: Monad m => ServerT api m -> ServerT (SwaggerSchemaUI' dir api) m
 redocSchemaUIServerT' =
-    swaggerSchemaUIServerImpl' redocIndexTemplate redocFiles
+    swaggerSchemaUIServerImpl' redocIndexTemplate []
 
 redocIndexTemplate :: Text
 redocIndexTemplate = $(embedText "redoc.index.html.tmpl")
-
-redocFiles :: [(FilePath, ByteString)]
-redocFiles = $(embedRecursiveDir "redoc-dist-1.22.3")
