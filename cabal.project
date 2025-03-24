@@ -4,12 +4,3 @@ packages:
   servant-swagger-ui-example/
   servant-swagger-ui-jensoleg/
   servant-swagger-ui-redoc/
-
-if impl(ghc >= 9.12)
-  allow-newer: http-api-data:base
-  allow-newer: insert-ordered-containers:base
-  allow-newer: insert-ordered-containers:hashable
-  allow-newer: servant-server:base
-  allow-newer: servant:base
-  allow-newer: swagger2:base
-  allow-newer: swagger2:template-haskell
