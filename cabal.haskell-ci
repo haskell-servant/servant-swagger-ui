@@ -19,11 +19,3 @@ constraint-set servant-0.19
 constraint-set servant-0.20
   ghc: >= 8.10 && <9.14
   constraints: servant ==0.20.*
-
-  allow-newer: http-api-data:base
-  allow-newer: insert-ordered-containers:base
-  allow-newer: insert-ordered-containers:hashable
-  allow-newer: servant-server:base
-  allow-newer: servant:base
-  allow-newer: swagger2:base
-  allow-newer: swagger2:template-haskell
