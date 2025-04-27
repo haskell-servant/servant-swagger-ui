@@ -41,7 +41,7 @@ library
   ghc-options:      -Wall
   build-depends:    servant-swagger-ui-core >=0.3.5 && <0.4
   build-depends:
-      base             >=4.7      && <4.21
+      base >=4.7 && <4.22
     , aeson            >=0.8.0.2  && <2.3
     , bytestring       >=0.10.4.0 && <0.13
     , file-embed-lzma  >=0        && <0.2
