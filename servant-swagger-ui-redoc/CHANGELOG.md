@@ -1,3 +1,6 @@
+- 0.3.5.2.5.0
+    - Update to ReDoc-2.5.0
+
 - 0.3.2.1.22.3
     - Update to ReDoc-1.22.3
 
