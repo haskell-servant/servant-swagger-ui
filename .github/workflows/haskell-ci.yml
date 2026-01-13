@@ -221,7 +221,7 @@ jobs:
           EOF
           $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(servant-swagger-ui|servant-swagger-ui-core|servant-swagger-ui-example|servant-swagger-ui-jensoleg|servant-swagger-ui-redoc)$/; }' >> cabal.project.local
       - name: Extract New-Versions git trailer from Renovate
-        if: ${{ github.event_name == "pull_request" }}
+        if: github.event_name == 'pull_request'
         run: |
           for constraint in $(git log "--format=%(trailers:key=New-Versions,valueonly=true)" ${{ github.event.pull_request.head.sha }} -1)
             do echo "constraints: $constraint" >> cabal.project
