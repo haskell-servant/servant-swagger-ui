@@ -133,7 +133,7 @@ jobs:
       - name: Create Pull Request
         id: cpr
         if: env.CABAL_COUNT > 0 && steps.dependency-build.outcome == 'success'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: "cabal-updates"
           title: ${{ env.GIT_PR_TITLE }}
