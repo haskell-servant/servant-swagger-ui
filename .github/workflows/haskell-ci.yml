@@ -37,9 +37,9 @@ jobs:
             compilerVersion: 9.12.2
             setup-method: ghcup
             allow-failure: false
-          - compiler: ghc-9.10.1
+          - compiler: ghc-9.10.3
             compilerKind: ghc
-            compilerVersion: 9.10.1
+            compilerVersion: 9.10.3
             setup-method: ghcup
             allow-failure: false
           - compiler: ghc-9.8.4
@@ -86,7 +86,7 @@ jobs:
       - name: Install GHCup
         run: |
           mkdir -p "$HOME/.ghcup/bin"
-          curl -sL https://downloads.haskell.org/ghcup/0.1.50.1/x86_64-linux-ghcup-0.1.50.1 > "$HOME/.ghcup/bin/ghcup"
+          curl -sL https://downloads.haskell.org/ghcup/0.1.50.2/x86_64-linux-ghcup-0.1.50.2 > "$HOME/.ghcup/bin/ghcup"
           chmod a+x "$HOME/.ghcup/bin/ghcup"
       - name: Install cabal-install
         run: |
@@ -220,6 +220,12 @@ jobs:
           cat >> cabal.project <<EOF
           EOF
           $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(servant-swagger-ui|servant-swagger-ui-core|servant-swagger-ui-example|servant-swagger-ui-jensoleg|servant-swagger-ui-redoc)$/; }' >> cabal.project.local
+      - name: Extract New-Versions git trailer from Renovate
+        if: ${{ github.event_name == "pull_request" }}
+        run: |
+          for constraint in $(git log "--format=%(trailers:key=New-Versions,valueonly=true)" ${{ github.event.pull_request.head.sha }} -1)
+            do echo "constraints: $constraint" >> cabal.project
+          done
           cat cabal.project
           cat cabal.project.local
       - name: dump install plan
