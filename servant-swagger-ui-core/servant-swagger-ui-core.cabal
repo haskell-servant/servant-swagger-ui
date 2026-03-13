@@ -50,7 +50,7 @@ library
     , text                 >=1.2.3.0  && <2.2
     , transformers         >=0.3      && <0.7
     , transformers-compat  >=0.3      && <0.8
-    , wai-app-static       >=3.0.1.1  && <3.2
+    , wai-app-static >=3.0.1.1 && <3.3
 
   exposed-modules:  Servant.Swagger.UI.Core
   default-language: Haskell2010
