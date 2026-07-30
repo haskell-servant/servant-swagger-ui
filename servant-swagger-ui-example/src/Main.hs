@@ -35,13 +35,13 @@ import Servant.Swagger.UI.ReDoc
 
 import qualified Network.Wai.Handler.Warp as Warp
 
-#if MIN_VERSION_servant(0,12,0)
+#if MIN_VERSION_servant_server(0,12,0)
 #define SUMMARY(d) Summary d :>
 #else
 #define SUMMARY(d)
 #endif
 
-#if MIN_VERSION_servant(0,13,0)
+#if MIN_VERSION_servant_server(0,13,0)
 #if __GLASGOW_HASKELL__ >= 802 && MIN_VERSION_base(4,10,0)
 import GHC.Generics (D1, Meta (..), Rep)
 import GHC.TypeLits (AppendSymbol, Symbol)
@@ -54,7 +54,7 @@ data Cat = Cat { catName :: CatName, catIsMale :: Bool }
 
 newtype CatName = CatName Text
     deriving ( Eq, Show, Generic
-#if MIN_VERSION_servant(0,5,0)
+#if MIN_VERSION_servant_server(0,5,0)
              , FromHttpApiData
 #else
              , FromText
@@ -75,7 +75,7 @@ instance ToSchema CatName
 
 -- api
 
-#if MIN_VERSION_servant(0,13,0)
+#if MIN_VERSION_servant_server(0,13,0)
 #if __GLASGOW_HASKELL__ >= 802 && MIN_VERSION_base(4,10,0)
 -- | Get a typename as type-level 'Symbol'.
 --
@@ -116,7 +116,7 @@ type Desc t n = Description n
 #endif
 
 type FirstCatEndpoint =
-#if MIN_VERSION_servant(0,13,0)
+#if MIN_VERSION_servant_server(0,13,0)
     "cat"
         :> Summary "First cat endpoint"
         :> Capture' '[Desc CatName "Cat's name"] ":name" CatName
