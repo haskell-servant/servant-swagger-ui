@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP                        #-}
 {-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE DeriveGeneric              #-}
 {-# LANGUAGE FlexibleInstances          #-}
@@ -35,18 +34,8 @@ import Servant.Swagger.UI.ReDoc
 
 import qualified Network.Wai.Handler.Warp as Warp
 
-#if MIN_VERSION_servant_server(0,12,0)
-#define SUMMARY(d) Summary d :>
-#else
-#define SUMMARY(d)
-#endif
-
-#if MIN_VERSION_servant_server(0,13,0)
-#if __GLASGOW_HASKELL__ >= 802 && MIN_VERSION_base(4,10,0)
 import GHC.Generics (D1, Meta (..), Rep)
 import GHC.TypeLits (AppendSymbol, Symbol)
-#endif
-#endif
 
 -- data types
 data Cat = Cat { catName :: CatName, catIsMale :: Bool }
@@ -54,11 +43,7 @@ data Cat = Cat { catName :: CatName, catIsMale :: Bool }
 
 newtype CatName = CatName Text
     deriving ( Eq, Show, Generic
-#if MIN_VERSION_servant_server(0,5,0)
              , FromHttpApiData
-#else
-             , FromText
-#endif
              )
 
 instance IsString CatName where
@@ -75,8 +60,6 @@ instance ToSchema CatName
 
 -- api
 
-#if MIN_VERSION_servant_server(0,13,0)
-#if __GLASGOW_HASKELL__ >= 802 && MIN_VERSION_base(4,10,0)
 -- | Get a typename as type-level 'Symbol'.
 --
 -- Few non-Generic things are hard-coded, for else we fallback to 'Generic'
@@ -110,29 +93,20 @@ type family GenericTypeName t (r :: *) :: Symbol where
     GenericTypeName t (D1 ('MetaData name mod pkg nt) f x) = name
 
 type Desc t n = Description (AppendSymbol (TypeName t) (AppendSymbol " | " n))
-#else
-type Desc t n = Description n
-#endif
-#endif
 
 type FirstCatEndpoint =
-#if MIN_VERSION_servant_server(0,13,0)
     "cat"
         :> Summary "First cat endpoint"
         :> Capture' '[Desc CatName "Cat's name"] ":name" CatName
         :> QueryParam' '[Required, Desc Int "Random number"] "num" Int
         :> QueryParam' '[Optional, Desc Text "Random text"] "text" Text
         :> Get '[JSON] Cat
-#else
-    "cat" :> Capture ":name" CatName
-        :> QueryParam "num" Int :> QueryParam "text" Text :> Get '[JSON] Cat
-#endif
 
 type BasicAPI = Get '[PlainText, JSON] Text
     :<|> FirstCatEndpoint
-    :<|> SUMMARY("Second cat") "cat2" :> Capture ":name" CatName :> Get '[JSON] Cat
-    :<|> SUMMARY("Third cat") "cat3" :> Capture ":name" CatName :> Get '[JSON] Cat
-    :<|> SUMMARY("Post endpoint") "post-cat" :> ReqBody '[JSON] Cat :> Post '[JSON] Cat
+    :<|> Summary "Second cat" :> "cat2" :> Capture ":name" CatName :> Get '[JSON] Cat
+    :<|> Summary "Third cat" :> "cat3" :> Capture ":name" CatName :> Get '[JSON] Cat
+    :<|> Summary "Post endpoint" :> "post-cat" :> ReqBody '[JSON] Cat :> Post '[JSON] Cat
 
 type API =
     -- this serves both: swagger.json and swagger-ui

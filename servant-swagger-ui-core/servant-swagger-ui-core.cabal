@@ -40,14 +40,14 @@ library
   hs-source-dirs:   src
   ghc-options:      -Wall
   build-depends:
-      base                 >=4.7      && <4.23
-    , aeson                >=0.8.0.2  && <2.4
-    , blaze-markup         >=0.7.0.2  && <0.9
-    , bytestring           >=0.10.4.0 && <0.13
-    , servant-blaze        >=0.8      && <0.10
-    , servant-server       >=0.14     && <0.21
-    , text                 >=1.2.3.0  && <2.2
-    , wai-app-static       >=3.0.1.1  && <3.3
+      base                 >=4.13      && <4.23
+    , aeson                >=1.4.7.1   && <2.4
+    , blaze-markup         >=0.8.2.7   && <0.9
+    , bytestring           >=0.10.10.1 && <0.13
+    , servant-blaze        >=0.9.1     && <0.10
+    , servant-server       >=0.16      && <0.21
+    , text                 >=1.2.4.0   && <2.2
+    , wai-app-static       >=3.1.7.2   && <3.3
 
   exposed-modules:  Servant.Swagger.UI.Core
   default-language: Haskell2010

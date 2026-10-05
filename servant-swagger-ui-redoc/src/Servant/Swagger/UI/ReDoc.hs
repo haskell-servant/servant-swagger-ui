@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP                        #-}
 {-# LANGUAGE ConstraintKinds            #-}
 {-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE DeriveGeneric              #-}
@@ -59,12 +58,13 @@ import Servant.Swagger.UI.Core
 
 import Data.Aeson      (ToJSON, Value)
 import Data.ByteString (ByteString)
+import qualified Data.Bifunctor as Bifunctor
+import qualified Data.ByteString as BS
+import Data.FileEmbed (embedDir, embedFile)
+import qualified Data.List as List
 import Data.Text       (Text)
-#if MIN_VERSION_file_embed_lzma(0,1,0)
-import FileEmbedLzma.Untyped
-#else
-import FileEmbedLzma
-#endif
+import Data.Text.Encoding (decodeUtf8, decodeUtf8')
+import Language.Haskell.TH (runIO)
 import Servant
 
 -- | Serve alternative Swagger UI.
@@ -110,7 +110,11 @@ redocSchemaUIServerT' =
     swaggerSchemaUIServerImpl' redocIndexTemplate redocFiles
 
 redocIndexTemplate :: Text
-redocIndexTemplate = $(embedText "redoc.index.html.tmpl")
+redocIndexTemplate = $(do
+    let path = "redoc.index.html.tmpl"
+    contents <- runIO (BS.readFile path)
+    either (fail . show) (const [| decodeUtf8 $(embedFile path) |]) (decodeUtf8' contents))
 
 redocFiles :: [(FilePath, ByteString)]
-redocFiles = $(embedRecursiveDir "redoc-dist-1.22.3")
+redocFiles =
+    List.sortOn fst . fmap (Bifunctor.first ('/' :)) $ $(embedDir "redoc-dist-1.22.3")
