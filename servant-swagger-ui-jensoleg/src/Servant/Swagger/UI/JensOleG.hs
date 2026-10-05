@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP                        #-}
 {-# LANGUAGE ConstraintKinds            #-}
 {-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE DeriveGeneric              #-}
@@ -57,12 +56,13 @@ import Servant.Swagger.UI.Core
 
 import Data.Aeson      (ToJSON, Value)
 import Data.ByteString (ByteString)
+import qualified Data.Bifunctor as Bifunctor
+import qualified Data.ByteString as BS
+import Data.FileEmbed (embedDir, embedFile)
+import qualified Data.List as List
 import Data.Text       (Text)
-#if MIN_VERSION_file_embed_lzma(0,1,0)
-import FileEmbedLzma.Untyped
-#else
-import FileEmbedLzma
-#endif
+import Data.Text.Encoding (decodeUtf8, decodeUtf8')
+import Language.Haskell.TH (runIO)
 import Servant
 
 -- | Serve alternative Swagger UI.
@@ -83,7 +83,11 @@ jensolegSwaggerSchemaUIServer' =
     swaggerSchemaUIServerImpl' jensolegIndexTemplate jensolegFiles
 
 jensolegIndexTemplate :: Text
-jensolegIndexTemplate = $(embedText "jensoleg.index.html.tmpl")
+jensolegIndexTemplate = $(do
+    let path = "jensoleg.index.html.tmpl"
+    contents <- runIO (BS.readFile path)
+    either (fail . show) (const [| decodeUtf8 $(embedFile path) |]) (decodeUtf8' contents))
 
 jensolegFiles :: [(FilePath, ByteString)]
-jensolegFiles = $(embedRecursiveDir "jensoleg-dist")
+jensolegFiles =
+    List.sortOn fst . fmap (Bifunctor.first ('/' :)) $ $(embedDir "jensoleg-dist")

@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP                        #-}
 {-# LANGUAGE ConstraintKinds            #-}
 {-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE DeriveGeneric              #-}
@@ -64,12 +63,13 @@ import Servant.Swagger.UI.Core
 
 import Data.Aeson      (ToJSON, Value)
 import Data.ByteString (ByteString)
+import qualified Data.Bifunctor as Bifunctor
+import qualified Data.ByteString as BS
+import Data.FileEmbed (embedDir, embedFile)
+import qualified Data.List as List
 import Data.Text       (Text)
-#if MIN_VERSION_file_embed_lzma(0,1,0)
-import FileEmbedLzma.Untyped
-#else
-import FileEmbedLzma
-#endif
+import Data.Text.Encoding (decodeUtf8, decodeUtf8')
+import Language.Haskell.TH (runIO)
 import Servant
 
 -- | Serve Swagger UI on @/dir@ using @api@ as a Swagger spec source.
@@ -124,7 +124,11 @@ swaggerSchemaUIServerT' =
     swaggerSchemaUIServerImpl' swaggerUiIndexTemplate swaggerUiFiles
 
 swaggerUiIndexTemplate :: Text
-swaggerUiIndexTemplate = $(embedText "index.html.tmpl")
+swaggerUiIndexTemplate = $(do
+    let path = "index.html.tmpl"
+    contents <- runIO (BS.readFile path)
+    either (fail . show) (const [| decodeUtf8 $(embedFile path) |]) (decodeUtf8' contents))
 
 swaggerUiFiles :: [(FilePath, ByteString)]
-swaggerUiFiles = $(embedRecursiveDir "swagger-ui-dist-5.31.0")
+swaggerUiFiles =
+    List.sortOn fst . fmap (Bifunctor.first ('/' :)) $ $(embedDir "swagger-ui-dist-5.31.0")

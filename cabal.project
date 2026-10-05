@@ -14,12 +14,5 @@ if(impl(ghc >= 9.14.1))
   allow-newer: servant-swagger:base-compat
   allow-newer: servant:base
 
-  -- https://github.com/phadej/file-embed-lzma/issues/19
-  allow-newer: file-embed-lzma:base
-  allow-newer: file-embed-lzma:template-haskell
-
-  -- https://github.com/haskell-hvr/lzma/issues/44
-  allow-newer: lzma:base
-
   -- https://github.com/erikd/insert-ordered-containers/issues/10
   allow-newer: insert-ordered-containers:aeson
