@@ -6,7 +6,7 @@ category:           Web, Servant, Swagger
 description:
   Provide embedded swagger UI for servant and swagger (i.e. servant-swagger)
   .
-  ReDoc theme: https://github.com/Rebilly/ReDoc
+  ReDoc theme: https://github.com/Redocly/redoc
 
 homepage:           https://github.com/haskell-servant/servant-swagger-ui
 bug-reports:
@@ -29,7 +29,9 @@ tested-with:
    || ==9.12.2
 
 extra-source-files:
+  redoc-dist-2.5.0/LICENSE
   redoc-dist-2.5.0/redoc.standalone.js
+  redoc-dist-2.5.0/redoc.standalone.js.LICENSE.txt
   redoc.index.html.tmpl
   CHANGELOG.md
 

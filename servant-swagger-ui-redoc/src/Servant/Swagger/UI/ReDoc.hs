@@ -18,7 +18,7 @@
 -- Maintainer  :  Oleg Grenrus <oleg.grenrus@iki.fi>
 --
 -- Provides 'SwaggerUI' and corresponding 'redocSchemaUIServer' to embed
--- <https://github.com/Rebilly/ReDoc ReDoc swagger ui> into the application.
+-- <https://github.com/Redocly/redoc ReDoc swagger ui> into the application.
 --
 -- All of the UI files are embedded into the binary.
 --
@@ -69,7 +69,7 @@ import Servant
 
 -- | Serve alternative Swagger UI.
 --
--- See <https://github.com/Rebilly/ReDoc/tree/v1.x>
+-- See <https://github.com/Redocly/redoc/tree/v2.5.0>
 redocSchemaUIServer
     :: (Server api ~ Handler Value, ToJSON a)
     => a -> Server (SwaggerSchemaUI' dir api)
@@ -112,5 +112,13 @@ redocSchemaUIServerT' =
 redocIndexTemplate :: Text
 redocIndexTemplate = $(embedText "redoc.index.html.tmpl")
 
+-- | ReDoc distribution files.
+--
+-- The bundle is also served as @redoc.min.js@, its name before ReDoc 2.x,
+-- so that custom index templates referencing that name keep working.
 redocFiles :: [(FilePath, ByteString)]
-redocFiles = $(embedRecursiveDir "redoc-dist-2.5.0")
+redocFiles =
+    let files = $(embedRecursiveDir "redoc-dist-2.5.0")
+    in  case lookup "redoc.standalone.js" files of
+            Just bundle -> ("redoc.min.js", bundle) : files
+            Nothing     -> files
